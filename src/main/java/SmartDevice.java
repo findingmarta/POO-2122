@@ -15,8 +15,8 @@ public class SmartDevice {
         this.on = false;
     }
 
-    public SmartDevice(String s) {
-        this.id = "";
+    public SmartDevice(String id) {
+        this.id = id;
         this.on = false;
     }
 

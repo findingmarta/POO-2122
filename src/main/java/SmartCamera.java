@@ -1,2 +1,3 @@
-public class SmartCamera {
+public class SmartCamera extends SmartDevice {
+    //METODO CLONE
 }
