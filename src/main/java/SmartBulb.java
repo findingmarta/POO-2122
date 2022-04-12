@@ -75,6 +75,7 @@ public class SmartBulb extends SmartDevice {
     public double consumoEnergia(){
         return 5 + this.tone;
     }
+
     //METODO CLONE
     //METODO EQUALS
     //METODO TO STRING
