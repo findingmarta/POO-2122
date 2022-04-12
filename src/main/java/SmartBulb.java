@@ -29,18 +29,16 @@ public class SmartBulb extends SmartDevice {
     }
 
     public SmartBulb (SmartBulb sb)  {
-        //super(id);
+        super(sb);
         this.tone = sb.getTone();
         this.dimensao = sb.getDimensao();
         this.consumoDiario = sb.getConsumoDiario();
     }
 
-    /*
     public SmartBulb(String id) {
-        // initialise instance variables
         super(id);
         this.tone = NEUTRAL;
-    }*/
+    }
 
     /**
      * Metodos setter e getters
@@ -78,5 +76,7 @@ public class SmartBulb extends SmartDevice {
         return 5 + this.tone;
     }
     //METODO CLONE
+    //METODO EQUALS
+    //METODO TO STRING
 }
 
