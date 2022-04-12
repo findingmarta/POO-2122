@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * A classe SmartDevice é um contactor simples.
  * Permite ligar ou desligar circuitos.
@@ -48,6 +50,18 @@ public class SmartDevice {
 
     public String getID() {
         return this.id;
+    }
+
+    public void turnAllOn(List<SmartDevice> devices) {
+        for(SmartDevice sd : devices) {
+            sd.turnOn();
+        }
+    }
+
+    public void turnAllOff(List<SmartDevice> devices) {
+        for(SmartDevice sd : devices) {
+            sd.turnOff();
+        }
     }
 
     public SmartDevice clone() {

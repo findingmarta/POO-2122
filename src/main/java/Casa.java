@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
  * divisoes que existem na casa.
  */
 public class Casa {
-    private  List<String> divisoes;
-    private Map<String, SmartDevice> devices;
+    private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
 
@@ -16,22 +15,19 @@ public class Casa {
      * Constructor for objects of class CasaInteligente
      */
     public Casa() {
-        this.divisoes = new ArrayList<>(); //ou null??
-        this.devices = new HashMap<>();
+        this.divisoes = new HashMap<>();
         this.proprietario = "";
         this.NIF = "";
     }
 
-    public Casa(List<String> divisoes, Map<String, SmartDevice> devices, String proprietario, String NIF) {
+    public Casa(Map<String, List<SmartDevice>> divisoes, String proprietario, String NIF) {
         this.setDivisoes(divisoes);
-        this.setDevices(devices);
         this.setProprietario(proprietario);
         this.setNIF(NIF);
     }
 
     public Casa(Casa umaCasa) {
         this.divisoes = umaCasa.getDivisoes();
-        this.devices = umaCasa.getDevices();
         this.proprietario = umaCasa.getProprietario();
         this.NIF = umaCasa.getNIF();
     }
@@ -39,20 +35,12 @@ public class Casa {
     /**
      * Setters e Getters
      */
-    public List<String> getDivisoes (){
-        return new ArrayList<>(this.divisoes);
+    public Map<String, List<SmartDevice>> getDivisoes (){
+        return this.divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));     //FALTA CLONE
     }
 
-    public void setDivisoes (List<String> divisoes){
-        this.divisoes = new ArrayList<>(divisoes);
-    }
-
-    public Map<String, SmartDevice> getDevices (){
-        return this.devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().clone()));
-    }
-
-    public void setDevices (Map<String, SmartDevice> devices){
-        this.devices = devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().clone()));
+    public void setDivisoes (Map<String, List<SmartDevice>> divisoes){
+        this.divisoes = divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)); //FALTA CLONE
     }
 
     public String getProprietario (){
@@ -74,8 +62,8 @@ public class Casa {
     /**
      * Metodos
      */
-    public boolean existsDevice(String id) {
-        return this.devices.keySet().stream().anyMatch(c -> c.equals(id));  //implementar o equals na classe smartDevice
+   /* public boolean existsDevice(List<SmartDevice> devices, String id) {
+        return divisoes..stream().anyMatch(c -> c.equals(id));  //implementar o equals na classe smartDevice
     }
 
     public void addDevice(SmartDevice s) {
@@ -85,26 +73,22 @@ public class Casa {
     public SmartDevice getDevice(String s) {
         return null;
     }
-
-    public void setDeviceOn(String devCode) {
-        this.devices.get(devCode).turnOn();
+*/
+    public void setDeviceOn(String divisao, String id) {
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(id)).turnOn();
     }
 
-    public void setDeviceOff(String devCode) {
-        this.devices.get(devCode).turnOff();
+    public void setDeviceOff(String divisao, String id) {
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(id)).turnOff();
     }
 
-    public boolean belongs2Division(String division){
-        return true;
-    }
-/*
-    public void setDivisonOn(String s) {
-        this.devices.entrySet().stream().reduce(a -> a.belongs2Division(s)).setDeviceOn();
+    public void setDivisonOn(String divisao) {
+        this.divisoes.get(divisao).get(0).turnAllOn(this.divisoes.get(divisao));
     }
 
-    public void setDivisonOff(String s) {
-        this.devices.entrySet().stream().reduce(a -> a.belongs2Division());
-    }*/
+    public void setDivisonOff(String divisao) {
+        this.divisoes.get(divisao).get(0).turnAllOff(this.divisoes.get(divisao));
+    }
 
     public void addRoom(String s) {
 
@@ -121,22 +105,29 @@ public class Casa {
     public boolean roomHasDevice (String s1, String s2) {
         return false;
     }
+    /*
+    @Override
+    public int hashCode() {
+        return Objects.hash(divisoes, devices, proprietario, NIF);
+    }*/
 
     // falta ter em conta as outras variaveis
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Casa Casa = (Casa) o;
-        return Objects.equals(devices, Casa.devices);
+        return Objects.equals(divisoes, Casa.divisoes);
     }
 
     public String toString() {
         final StringBuffer sb = new StringBuffer("Casa {\n");
-        sb.append("Dispositivos: ").append(devices).append('\n');
+        //sb.append("Dispositivos: ").append(devices).append('\n');
+        sb.append("Divisoes: ").append(divisoes).append('\n');
+        sb.append("Proprietario: ").append(proprietario).append('\n');
+        sb.append("NIF: ").append(NIF).append('\n');
         sb.append("\n}");
         return sb.toString();
     }
-
 
     public Casa clone() {
         return new Casa(this);
