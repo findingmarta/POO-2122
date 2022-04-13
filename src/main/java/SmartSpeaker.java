@@ -32,8 +32,8 @@ public class SmartSpeaker extends SmartDevice {
     public SmartSpeaker(SmartSpeaker ss) {
         this.volume = ss.getVolume();
         this.channel = ss.getChannel();
-        //this.marca = ss.getMarca();
-        //this.consumoDiario = ss.getConsumoDiario();
+        this.marca = ss.getMarca();
+        this.consumoDiario = ss.getConsumoDiario();
     }
 
     /*
@@ -59,14 +59,56 @@ public class SmartSpeaker extends SmartDevice {
         return this.volume;
     }
 
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
     public String getChannel() {
         return "";
     }
 
     public void setChannel(String c) {
-
+        this.channel = c;
     }
 
-    //METODO CLONE
+    public String getMarca() {
+        return this.marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public double getConsumoDiario() {
+        return this.consumoDiario;
+    }
+
+    public void setConsumoDiario(double consumo) {
+        this.consumoDiario = consumo;
+    }
+
+    public String toString (){
+        final StringBuffer ss = new StringBuffer("SmartSpeaker{\n");
+        ss.append("Marca: ").append(marca).append("\n");
+        ss.append("Channel: ").append(channel).append("\n");
+        ss.append("Volume: ").append(volume).append("\n");
+        ss.append("Consumo Diário: ").append(consumoDiario).append("\n");
+        ss.append("\n}");
+        return ss.toString();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SmartSpeaker ss = (SmartSpeaker) o;
+        return (this.volume == ss.getVolume() &&
+                this.channel == ss.getChannel() &&
+                this.marca == ss.getMarca() &&
+                this.consumoDiario == ss.getConsumoDiario());
+    }
+
+    public SmartSpeaker clone (){
+        return new SmartSpeaker(this);
+    }
 
 }

@@ -64,7 +64,25 @@ public class SmartDevice {
         }
     }
 
+    public String toString (){
+        final StringBuffer sd = new StringBuffer("SmartDevice{\n");
+        sd.append("Id: ").append(id).append("\n");
+        sd.append("Ligado? ").append(on).append("\n");
+        sd.append("\n}");
+        return sd.toString();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SmartDevice sd = (SmartDevice) o;
+        return (this.id == sd.getID() &&
+                this.on == sd.getOn();
+    }
+
     public SmartDevice clone() {
         return new SmartDevice(this);
     }
+
+
 }
