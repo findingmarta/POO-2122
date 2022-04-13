@@ -62,24 +62,12 @@ public class Casa {
     /**
      * Metodos
      */
-   /* public boolean existsDevice(List<SmartDevice> devices, String id) {
-        return divisoes..stream().anyMatch(c -> c.equals(id));  //implementar o equals na classe smartDevice
+    public void setDeviceOn(String divisao, SmartDevice sd) {
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).turnOn();
     }
 
-    public void addDevice(SmartDevice s) {
-
-    }
-
-    public SmartDevice getDevice(String s) {
-        return null;
-    }
-*/
-    public void setDeviceOn(String divisao, String id) {
-        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(id)).turnOn();
-    }
-
-    public void setDeviceOff(String divisao, String id) {
-        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(id)).turnOff();
+    public void setDeviceOff(String divisao, SmartDevice sd) {
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).turnOff();
     }
 
     public void setDivisonOn(String divisao) {
@@ -90,21 +78,26 @@ public class Casa {
         this.divisoes.get(divisao).get(0).turnAllOff(this.divisoes.get(divisao));
     }
 
-    public void addRoom(String s) {
-
+    public boolean hasRoom(String divisao) {
+        return this.divisoes.keySet().stream().anyMatch(d -> d.equals(divisao));
     }
 
-    public boolean hasRoom(String s) {
-        return false;
+    public void addRoom(String divisao, List<SmartDevice> devices) {
+       if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
     }
 
-    public void addToRoom (String s1, String s2) {
-
+    public boolean roomHasDevice (String divisao, SmartDevice sd) {
+        return this.divisoes.get(divisao).stream().anyMatch(d -> d.equals(sd));
     }
 
-    public boolean roomHasDevice (String s1, String s2) {
-        return false;
+    public void addToRoom (String divisao, SmartDevice sd) {
+        if(!roomHasDevice(divisao, sd)) this.divisoes.get(divisao).add(sd);
     }
+
+    public SmartDevice getDevice(String divisao, SmartDevice sd) {
+        return this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd));   //não estamos a verificar se o id existe, retorna -1 se não encontrar
+    }
+
     /*
     @Override
     public int hashCode() {

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A classe SmartDevice é um contactor simples.
@@ -76,8 +77,8 @@ public class SmartDevice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SmartDevice sd = (SmartDevice) o;
-        return (this.id == sd.getID() &&
-                this.on == sd.getOn();
+        return (Objects.equals(this.id, sd.getID()) &&
+                this.on == sd.getOn());
     }
 
     public SmartDevice clone() {

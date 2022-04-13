@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Um SmartSpeaker é um SmartDevice que além de ligar e desligar permite também
  * reproduzir som.
@@ -102,8 +104,8 @@ public class SmartSpeaker extends SmartDevice {
         if (o == null || getClass() != o.getClass()) return false;
         SmartSpeaker ss = (SmartSpeaker) o;
         return (this.volume == ss.getVolume() &&
-                this.channel == ss.getChannel() &&
-                this.marca == ss.getMarca() &&
+                Objects.equals(this.channel, ss.getChannel()) &&
+                Objects.equals(this.marca, ss.getMarca()) &&
                 this.consumoDiario == ss.getConsumoDiario());
     }
 
