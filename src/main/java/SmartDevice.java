@@ -33,14 +33,9 @@ public class SmartDevice {
         this.on = false;
     }
 
-    public void turnOn() {
-        this.on = true;
-    }
-
-    public void turnOff() {
-        this.on = false;
-    }
-
+    /**
+     * Getters e Setters
+     */
     public boolean getOn() {
         return this.on;
     }
@@ -51,6 +46,20 @@ public class SmartDevice {
 
     public String getID() {
         return this.id;
+    }
+
+    /**
+     * Metodos
+     */
+    // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
+    //public abstract double consumoEnergia();
+
+    public void turnOn() {
+        this.on = true;
+    }
+
+    public void turnOff() {
+        this.on = false;
     }
 
     public void turnAllOn(List<SmartDevice> devices) {
@@ -84,6 +93,4 @@ public class SmartDevice {
     public SmartDevice clone() {
         return new SmartDevice(this);
     }
-
-
 }

@@ -11,7 +11,6 @@ public class SmartBulb extends SmartDevice {
     public static final int COLD = 0;
     private int tone;
     private double dimensao;
-    private double consumoDiario;
 
     /**
      * Constructor for objects of class SmartBulb
@@ -20,21 +19,18 @@ public class SmartBulb extends SmartDevice {
         super();
         this.tone = NEUTRAL;
         this.dimensao = 0.0;
-        this.consumoDiario = 0.0;
     }
 
     public SmartBulb(String id, int tone, double dimensao, double consumoDiario) {
         super(id);
         this.tone = tone;
         this.dimensao = dimensao;
-        this.consumoDiario = consumoDiario;
     }
 
     public SmartBulb (SmartBulb sb)  {
         super(sb);
         this.tone = sb.getTone();
         this.dimensao = sb.getDimensao();
-        this.consumoDiario = sb.getConsumoDiario();
     }
 
     public SmartBulb(String id) {
@@ -63,19 +59,11 @@ public class SmartBulb extends SmartDevice {
         return this.dimensao;
     }
 
-    public void setConsumoDiario(int consumo) {
-        this.consumoDiario = consumo;
-    }
-
-    public double getConsumoDiario() {
-        return this.consumoDiario;
-    }
-
     /**
      * Metodos
      */
     public double consumoEnergia(){
-        return 5 + this.tone;
+        return 1 + this.tone + this.dimensao;
     }
 
     // falta ter em conta as outras variaveis
@@ -83,13 +71,13 @@ public class SmartBulb extends SmartDevice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SmartBulb sb = (SmartBulb) o;
-        return (this.tone == sb.tone && this.consumoDiario == sb.consumoDiario && this.dimensao == sb.dimensao);
+        return (this.tone == sb.tone && this.dimensao == sb.dimensao);
     }
 
     public String toString() {
         final StringBuffer sb = new StringBuffer("SmartBulb {\n");
         sb.append("Tone: ").append(tone).append('\n');
-        sb.append("Consumo Diário: ").append(consumoDiario).append('\n');
+        sb.append("Consumo Diário: ").append(consumoEnergia()).append('\n');
         sb.append("Dimensao: ").append(dimensao).append('\n');
         sb.append("\n}");
         return sb.toString();

@@ -10,6 +10,7 @@ public class Casa {
     private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
+    private Fornecedores fornecedor;
 
     /**
      * Constructor for objects of class CasaInteligente

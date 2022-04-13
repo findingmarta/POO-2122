@@ -12,7 +12,6 @@ public class SmartSpeaker extends SmartDevice {
     private int volume;
     private String channel; //rádio que estão a tocar
     private String marca;
-    private double consumoDiario;
 
     /**
      * Constructor for objects of class SmartSpeaker
@@ -21,21 +20,18 @@ public class SmartSpeaker extends SmartDevice {
         this.volume = 0;
         this.channel = "";
         this.marca = "";
-        this.consumoDiario = 0.0;
     }
 
     public SmartSpeaker(int volume, String channel, String marca, double consumoDiario) {
         this.volume = volume;
         this.channel = channel;
         this.marca = marca;
-        this.consumoDiario = consumoDiario;
     }
 
     public SmartSpeaker(SmartSpeaker ss) {
         this.volume = ss.getVolume();
         this.channel = ss.getChannel();
         this.marca = ss.getMarca();
-        this.consumoDiario = ss.getConsumoDiario();
     }
 
     /*
@@ -48,6 +44,13 @@ public class SmartSpeaker extends SmartDevice {
         // initialise instance variables
         this.volume = 10;
     }*/
+
+    /**
+     * Metodos
+     */
+    public double consumoEnergia(){
+        return  2 + (this.volume+ this.marca.length());
+    }
 
     public void volumeUp() {
         if (this.volume<MAX) this.volume++;
@@ -81,20 +84,12 @@ public class SmartSpeaker extends SmartDevice {
         this.marca = marca;
     }
 
-    public double getConsumoDiario() {
-        return this.consumoDiario;
-    }
-
-    public void setConsumoDiario(double consumo) {
-        this.consumoDiario = consumo;
-    }
-
     public String toString (){
         final StringBuffer ss = new StringBuffer("SmartSpeaker{\n");
         ss.append("Marca: ").append(marca).append("\n");
         ss.append("Channel: ").append(channel).append("\n");
         ss.append("Volume: ").append(volume).append("\n");
-        ss.append("Consumo Diário: ").append(consumoDiario).append("\n");
+        ss.append("Consumo Diário: ").append(consumoEnergia()).append("\n");
         ss.append("\n}");
         return ss.toString();
     }
@@ -105,12 +100,10 @@ public class SmartSpeaker extends SmartDevice {
         SmartSpeaker ss = (SmartSpeaker) o;
         return (this.volume == ss.getVolume() &&
                 Objects.equals(this.channel, ss.getChannel()) &&
-                Objects.equals(this.marca, ss.getMarca()) &&
-                this.consumoDiario == ss.getConsumoDiario());
+                Objects.equals(this.marca, ss.getMarca()));
     }
 
     public SmartSpeaker clone (){
         return new SmartSpeaker(this);
     }
-
 }
