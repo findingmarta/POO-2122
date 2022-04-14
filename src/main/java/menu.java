@@ -27,6 +27,7 @@ public class menu {
         sb.append("2) Ligar/Desligar todos os dispositivos de uma divisão.\n");
         sb.append("3) Consumo total de uma casa.\n");
         sb.append("4) Casa que mais gastou num determinado período.\n");
+        sb.append("5) Criar casa.\n");
         sb.append("0) Sair.\n\n");
         sb.append("Selecione a opção pretendida: ");
         System.out.println(sb.toString());

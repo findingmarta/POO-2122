@@ -21,8 +21,8 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = 0.0;
     }
 
-    public SmartBulb(String id, int tone, double dimensao, double consumoDiario) {
-        super(id);
+    public SmartBulb(String id, boolean turn, int tone, double dimensao) {
+        super(id,turn);
         this.tone = tone;
         this.dimensao = dimensao;
     }

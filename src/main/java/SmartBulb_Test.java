@@ -33,17 +33,17 @@ public class SmartBulb_Test {
         assertTrue(smartBul1!=null);
         smartBul1 = new SmartBulb("b1");
         assertTrue(smartBul1!=null);
-        smartBul1 = new SmartBulb("b1", SmartBulb.NEUTRAL, 5.23, 3.12);
+        smartBul1 = new SmartBulb("b1", true,SmartBulb.NEUTRAL, 5.23);
         assertTrue(smartBul1!=null);
     }
 
     @Test
     public void testGetTone() {
-        SmartBulb smartBul1 = new SmartBulb("b1", SmartBulb.COLD, 32.0, 0.0);
+        SmartBulb smartBul1 = new SmartBulb("b1", true, SmartBulb.COLD, 32.0);
         assertEquals(0, smartBul1.getTone());
-        smartBul1 = new SmartBulb("b1", SmartBulb.NEUTRAL, 32.0, 0.0);
+        smartBul1 = new SmartBulb("b1", true,SmartBulb.NEUTRAL, 32.0);
         assertEquals(1, smartBul1.getTone());
-        smartBul1 = new SmartBulb("b1", SmartBulb.WARM, 32.0, 0.0);
+        smartBul1 = new SmartBulb("b1", true,SmartBulb.WARM, 32.0);
         assertEquals(2, smartBul1.getTone());
         smartBul1 = new SmartBulb("b1");
         assertEquals(SmartBulb.NEUTRAL, smartBul1.getTone());

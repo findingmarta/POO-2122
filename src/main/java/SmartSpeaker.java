@@ -17,12 +17,14 @@ public class SmartSpeaker extends SmartDevice {
      * Constructor for objects of class SmartSpeaker
      */
     public SmartSpeaker() {
+        super();
         this.volume = 0;
         this.channel = "";
         this.marca = "";
     }
 
-    public SmartSpeaker(int volume, String channel, String marca, double consumoDiario) {
+    public SmartSpeaker(String id, boolean turn, int volume, String channel, String marca) {
+        super(id, turn);
         this.volume = volume;
         this.channel = channel;
         this.marca = marca;
@@ -49,7 +51,7 @@ public class SmartSpeaker extends SmartDevice {
      * Metodos
      */
     public double consumoEnergia(){
-        return  2 + (this.volume+ this.marca.length());
+        return  2 + (getVolume() + this.marca.length());
     }
 
     public void volumeUp() {
@@ -61,6 +63,8 @@ public class SmartSpeaker extends SmartDevice {
     }
 
     public int getVolume() {
+        if (this.volume<0) this.setVolume(0);
+        if (this.volume>20) this.setVolume(20);
         return this.volume;
     }
 
@@ -69,7 +73,7 @@ public class SmartSpeaker extends SmartDevice {
     }
 
     public String getChannel() {
-        return "";
+        return this.channel;
     }
 
     public void setChannel(String c) {

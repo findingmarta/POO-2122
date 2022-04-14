@@ -1,64 +1,32 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * The test class SmartSpeakerTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
- */
 public class SmartSpeaker_Test {
-    /**
-     * Default constructor for test class SmartSpeakerTest
-     */
-    public SmartSpeaker_Test() {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @BeforeEach
-    public void setUp() {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @AfterEach
-    public void tearDown() {
-    }
-
     @Test
     public void testConstructor() {
         SmartSpeaker smartSpe1 = new SmartSpeaker();
-        assertTrue(smartSpe1!=null);
-        //smartSpe1 = new SmartSpeaker("b1");
-        assertTrue(smartSpe1!=null);
-        smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
-        assertTrue(smartSpe1!=null);
+        assertTrue(true);
+        smartSpe1 = new SmartSpeaker("65478", true,5,"RUM", "JBL");
+        assertTrue(true);
     }
 
     @Test
     public void testGetVolume() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("5431",true,5,"RUM", "JBL");
         assertEquals(5, smartSpe1.getVolume());
-        smartSpe1 = new SmartSpeaker(smartSpe1.MAX,"RUM", "JBL", 7.23);
+        smartSpe1 = new SmartSpeaker("321", true,SmartSpeaker.MAX,"RUM", "JBL");
         assertEquals(20, smartSpe1.getVolume());
-        smartSpe1 = new SmartSpeaker(-10,"RUM", "JBL", 7.23);
+        smartSpe1 = new SmartSpeaker("6666", false, -10,"RUM", "JBL");
         assertEquals(0, smartSpe1.getVolume());
+        smartSpe1 = new SmartSpeaker("2222", true,32,"RUM", "JBL");
+        assertEquals(20, smartSpe1.getVolume());
         smartSpe1 = new SmartSpeaker();
         assertEquals(0, smartSpe1.getVolume());
     }
 
     @Test
     public void testSetVolume() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("7777", true, 5,"RUM", "JBL");
         smartSpe1.volumeUp();
         smartSpe1.volumeUp();
         assertEquals(7, smartSpe1.getVolume());
@@ -70,10 +38,10 @@ public class SmartSpeaker_Test {
 
     @Test
     public void testGetChannel() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("9879", true,5,"RUM", "JBL");
         assertEquals("RUM", smartSpe1.getChannel());
-        smartSpe1 = new SmartSpeaker(5,"s2", "XPTO", 7.23);
-        assertEquals("XPTO", smartSpe1.getChannel());
+        smartSpe1 = new SmartSpeaker("98700",false,5,"s2", "XPTO");
+        assertEquals("s2", smartSpe1.getChannel());
         smartSpe1 = new SmartSpeaker();
         assertEquals("", smartSpe1.getChannel());
     }
@@ -81,18 +49,18 @@ public class SmartSpeaker_Test {
     @Test
     public void testSetChannel() {
         //SmartSpeaker smartSpe1 = new SmartSpeaker("s1");
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"", "JBL", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("77777", true,5,"", "JBL");
         smartSpe1.setChannel("RUM");
         assertEquals("RUM", smartSpe1.getChannel());
         smartSpe1.setChannel("XPTO");
         assertEquals("XPTO", smartSpe1.getChannel());
     }
-/*
+
     @Test
     public void testGetMarca() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("98799", true,5,"RUM", "JBL");
         assertEquals("JBL", smartSpe1.getMarca());
-        smartSpe1 = new SmartSpeaker(5,"s2", "Branca", 7.23);
+        smartSpe1 = new SmartSpeaker("7658",true,5,"s2", "Branca");
         assertEquals("Branca", smartSpe1.getMarca());
         smartSpe1 = new SmartSpeaker();
         assertEquals("", smartSpe1.getMarca());
@@ -101,7 +69,7 @@ public class SmartSpeaker_Test {
     @Test
     public void testSetMarca() {
         //SmartSpeaker smartSpe1 = new SmartSpeaker("s1");
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "", 7.23);
+        SmartSpeaker smartSpe1 = new SmartSpeaker("98756",true,5,"RUM", "");
         smartSpe1.setMarca("JBL");
         assertEquals("JBL", smartSpe1.getMarca());
         smartSpe1.setMarca("Branca");
@@ -109,22 +77,12 @@ public class SmartSpeaker_Test {
     }
 
     @Test
-    public void testGetConsumoDiario() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 7.23);
-        assertEquals(7.23, smartSpe1.getConsumoDiario());
-        smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 10.0);
-        assertEquals(10.0, smartSpe1.getConsumoDiario());
-        smartSpe1 = new SmartSpeaker();
-        assertEquals(0.0, smartSpe1.getConsumoDiario());
+    public void testConsumoEnergia() {
+        SmartSpeaker smartSpe1 = new SmartSpeaker("90000",true,5,"RUM", "JBL");
+        assertEquals(10,  smartSpe1.consumoEnergia());
+        smartSpe1 = new SmartSpeaker("78888",false,10,"s2", "XPTO");
+        assertEquals(6, smartSpe1.consumoEnergia());
+        smartSpe1 = new SmartSpeaker("6544", true,25,"s2", "XPTO");
+        assertEquals(26, smartSpe1.consumoEnergia());
     }
-
-    @Test
-    public void testSetConsumoDiario() {
-        SmartSpeaker smartSpe1 = new SmartSpeaker(5,"RUM", "JBL", 0.0);
-        smartSpe1.setConsumoDiario(32.12);
-        assertEquals(32.12, smartSpe1.getConsumoDiario());
-        smartSpe1.setConsumoDiario(1.11);
-        assertEquals(1.11, smartSpe1.getConsumoDiario());
-    }*/
-
 }

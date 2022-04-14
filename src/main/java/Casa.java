@@ -64,11 +64,11 @@ public class Casa {
      * Metodos
      */
     public void setDeviceOn(String divisao, SmartDevice sd) {
-        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).turnOn();
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).setOn(true);
     }
 
     public void setDeviceOff(String divisao, SmartDevice sd) {
-        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).turnOff();
+        this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).setOn(false);
     }
 
     public void setDivisonOn(String divisao) {

@@ -1,41 +1,19 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The test class SmartDeviceTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
- */
 public class SmartDevice_Test {
-    /**
-     * Default constructor for test class SmartDeviceTest
-     */
-    public SmartDevice_Test()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @BeforeEach
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @AfterEach
-    public void tearDown()
-    {
+    private List<SmartDevice> makeDevices() {
+        List<SmartDevice> devices = new ArrayList<SmartDevice>();
+        devices.add(new SmartSpeaker());
+        devices.add(new SmartBulb());
+        devices.add(new SmartCamera());
+        devices.add(new SmartDevice("1234", true));
+        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
+        devices.add(new SmartBulb("12345", true, SmartBulb.WARM, 2.0));
+        return devices;
     }
 
     @Test
@@ -65,7 +43,6 @@ public class SmartDevice_Test {
         //smartDev1 = new SmartDevice("b1", true);
         //assertTrue(smartDev1.getOn());
     }
-
     @Test
     public void testSetOn() {
         SmartDevice smartDev1 = new SmartDevice("b1", false);
@@ -73,5 +50,20 @@ public class SmartDevice_Test {
         assertTrue(smartDev1.getOn());
         smartDev1.setOn(false);
         assertFalse(smartDev1.getOn());
+    }
+
+    @Test
+    public void testTurnAllOn() {
+        List<SmartDevice> devices = makeDevices();
+        //turnAllOn(devices);
+    }
+
+    @Test
+    public void testTurnAllOff() {
+        List<SmartDevice> devices = makeDevices();
+        for(SmartDevice sd : devices) {
+            sd.setOn(false);
+            assertFalse(sd.getOn());
+        }
     }
 }

@@ -54,23 +54,16 @@ public class SmartDevice {
     // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
     //public abstract double consumoEnergia();
 
-    public void turnOn() {
-        this.on = true;
-    }
-
-    public void turnOff() {
-        this.on = false;
-    }
 
     public void turnAllOn(List<SmartDevice> devices) {
         for(SmartDevice sd : devices) {
-            sd.turnOn();
+            sd.setOn(true);
         }
     }
 
     public void turnAllOff(List<SmartDevice> devices) {
         for(SmartDevice sd : devices) {
-            sd.turnOff();
+            sd.setOn(false);
         }
     }
 
