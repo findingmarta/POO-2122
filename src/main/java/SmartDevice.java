@@ -33,6 +33,8 @@ public class SmartDevice {
         this.on = false;
     }
 
+
+
     /**
      * Getters e Setters
      */

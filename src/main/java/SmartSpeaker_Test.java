@@ -80,7 +80,7 @@ public class SmartSpeaker_Test {
     public void testConsumoEnergia() {
         SmartSpeaker smartSpe1 = new SmartSpeaker("90000",true,5,"RUM", "JBL");
         assertEquals(10,  smartSpe1.consumoEnergia());
-        smartSpe1 = new SmartSpeaker("78888",false,10,"s2", "XPTO");
+        smartSpe1 = new SmartSpeaker("78888",false,-10,"s2", "XPTO");
         assertEquals(6, smartSpe1.consumoEnergia());
         smartSpe1 = new SmartSpeaker("6544", true,25,"s2", "XPTO");
         assertEquals(26, smartSpe1.consumoEnergia());
