@@ -64,9 +64,9 @@ public class Casa {
      * Metodo toString, equals e clone
      */
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Casa {\n");
+        final StringBuffer sb = new StringBuffer("\n\u001B[1m Casa { \u001B[0m \n");
         //sb.append("Dispositivos: ").append(devices).append('\n');
-        sb.append("Divisoes: ").append(divisoes).append('\n');
+        sb.append("Divisoes: \n").append(divisoes).append('\n');
         sb.append("Proprietario: ").append(proprietario).append('\n');
         sb.append("NIF: ").append(NIF).append('\n');
         sb.append("\n}");

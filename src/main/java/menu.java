@@ -87,8 +87,8 @@ public class menu {
             sb.append("\u001B[1m 0) \u001B[0m " + ln +"\n");
         }
         */
-        sb.append("\u001B[1m" +  ListCasa.get(i) + "\n");
-        sb.append("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
+        sb.append( ListCasa.get(i) );
+        sb.append("\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
         sb.append("Selecione 0 para voltar atrás: ");
 
         System.out.println(sb.toString());
