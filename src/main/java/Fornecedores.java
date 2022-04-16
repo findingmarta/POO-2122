@@ -40,6 +40,27 @@ public class Fornecedores {
     }
 
     /**
+     * Metodo toString, equals e clone
+     */
+    public String toString() {
+        return "Fornecedores{" +
+                "valor_base=" + valor_base +
+                ", imposto=" + imposto +
+                '}';
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fornecedores that = (Fornecedores) o;
+        return Double.compare(that.valor_base, valor_base) == 0 && Double.compare(that.imposto, imposto) == 0;
+    }
+
+    public Fornecedores clone (){
+        return new Fornecedores(this);
+    }
+
+    /**
      * Metodos
      */
     /*public double PrecoDiarioPorDispositivo (SmartDevice sd){
@@ -66,21 +87,5 @@ public class Fornecedores {
         return (this.getValor_base()*consumo*(this.getImposto()+1)*0.9)*24;
     }
 
-     public String toString() {
-        return "Fornecedores{" +
-                "valor_base=" + valor_base +
-                ", imposto=" + imposto +
-                '}';
-    }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fornecedores that = (Fornecedores) o;
-        return Double.compare(that.valor_base, valor_base) == 0 && Double.compare(that.imposto, imposto) == 0;
-    }
-
-    public Fornecedores clone (){
-        return new Fornecedores(this);
-    }
 }

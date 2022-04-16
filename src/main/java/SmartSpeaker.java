@@ -48,20 +48,8 @@ public class SmartSpeaker extends SmartDevice {
     }*/
 
     /**
-     * Metodos
+     * Getters e Setters
      */
-    public double consumoEnergia(){
-        return  2 + (getVolume() + this.marca.length());
-    }
-
-    public void volumeUp() {
-        if (this.volume<MAX) this.volume++;
-    }
-
-    public void volumeDown() {
-        if (this.volume>0) this.volume--;
-    }
-
     public int getVolume() {
         if (this.volume<0) this.setVolume(0);
         if (this.volume>20) this.setVolume(20);
@@ -88,6 +76,9 @@ public class SmartSpeaker extends SmartDevice {
         this.marca = marca;
     }
 
+    /**
+     * Metodo toString, equals e clone
+     */
     public String toString (){
         final StringBuffer ss = new StringBuffer("SmartSpeaker{\n");
         ss.append("Marca: ").append(marca).append("\n");
@@ -110,4 +101,23 @@ public class SmartSpeaker extends SmartDevice {
     public SmartSpeaker clone (){
         return new SmartSpeaker(this);
     }
+
+    /**
+     * Metodos
+     */
+    public double consumoEnergia(){
+        return  2 + (getVolume() + this.marca.length());
+    }
+
+
+    public void volumeUp() {
+        if (this.volume<MAX) this.volume++;
+    }
+
+    public void volumeDown() {
+        if (this.volume>0) this.volume--;
+    }
+
+
+
 }

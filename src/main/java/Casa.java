@@ -34,7 +34,7 @@ public class Casa {
     }
 
     /**
-     * Setters e Getters
+     * Getters e Setters
      */
     public Map<String, List<SmartDevice>> getDivisoes (){
         return this.divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));     //FALTA CLONE
@@ -58,6 +58,31 @@ public class Casa {
 
     public void setNIF (String NIF){
         this.NIF = NIF;
+    }
+
+    /**
+     * Metodo toString, equals e clone
+     */
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Casa {\n");
+        //sb.append("Dispositivos: ").append(devices).append('\n');
+        sb.append("Divisoes: ").append(divisoes).append('\n');
+        sb.append("Proprietario: ").append(proprietario).append('\n');
+        sb.append("NIF: ").append(NIF).append('\n');
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    // falta ter em conta as outras variaveis
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Casa Casa = (Casa) o;
+        return Objects.equals(divisoes, Casa.divisoes);
+    }
+
+    public Casa clone() {
+        return new Casa(this);
     }
 
     /**
@@ -105,25 +130,6 @@ public class Casa {
         return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
 
-    // falta ter em conta as outras variaveis
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Casa Casa = (Casa) o;
-        return Objects.equals(divisoes, Casa.divisoes);
-    }
 
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Casa {\n");
-        //sb.append("Dispositivos: ").append(devices).append('\n');
-        sb.append("Divisoes: ").append(divisoes).append('\n');
-        sb.append("Proprietario: ").append(proprietario).append('\n');
-        sb.append("NIF: ").append(NIF).append('\n');
-        sb.append("\n}");
-        return sb.toString();
-    }
 
-    public Casa clone() {
-        return new Casa(this);
-    }
 }

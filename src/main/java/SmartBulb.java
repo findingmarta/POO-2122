@@ -39,7 +39,7 @@ public class SmartBulb extends SmartDevice {
     }
 
     /**
-     * Metodos setter e getters
+     * Getters e Setters
      */
     public void setTone(int t) {
         if (t>WARM) this.tone = WARM;
@@ -51,7 +51,7 @@ public class SmartBulb extends SmartDevice {
         return this.tone;
     }
 
-    public void setDimensao(int dimensao) {
+    public void setDimensao(double dimensao) {
         this.dimensao = dimensao;
     }
 
@@ -60,10 +60,15 @@ public class SmartBulb extends SmartDevice {
     }
 
     /**
-     * Metodos
+     * Metodo toString, equals e clone
      */
-    public double consumoEnergia(){
-        return 1 + this.tone + this.dimensao;
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SmartBulb {\n");
+        sb.append("Tone: ").append(tone).append('\n');
+        sb.append("Consumo Diário: ").append(consumoEnergia()).append('\n');
+        sb.append("Dimensao: ").append(dimensao).append('\n');
+        sb.append("\n}");
+        return sb.toString();
     }
 
     // falta ter em conta as outras variaveis
@@ -74,17 +79,17 @@ public class SmartBulb extends SmartDevice {
         return (this.tone == sb.tone && this.dimensao == sb.dimensao);
     }
 
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("SmartBulb {\n");
-        sb.append("Tone: ").append(tone).append('\n');
-        sb.append("Consumo Diário: ").append(consumoEnergia()).append('\n');
-        sb.append("Dimensao: ").append(dimensao).append('\n');
-        sb.append("\n}");
-        return sb.toString();
-    }
-
     public SmartBulb clone() {
         return new SmartBulb(this);
     }
+
+    /**
+     * Metodos
+     */
+    public double consumoEnergia(){
+        return 1 + this.tone + this.dimensao;
+    }
+
+
 }
 

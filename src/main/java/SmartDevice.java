@@ -49,24 +49,8 @@ public class SmartDevice {
     }
 
     /**
-     * Metodos
+     * Metodo toString, equals e clone
      */
-    // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
-    //public abstract double consumoEnergia();
-
-
-    public void turnAllOn(List<SmartDevice> devices) {
-        for(SmartDevice sd : devices) {
-            sd.setOn(true);
-        }
-    }
-
-    public void turnAllOff(List<SmartDevice> devices) {
-        for(SmartDevice sd : devices) {
-            sd.setOn(false);
-        }
-    }
-
     public String toString (){
         final StringBuffer sd = new StringBuffer("SmartDevice{\n");
         sd.append("Id: ").append(id).append("\n");
@@ -86,4 +70,25 @@ public class SmartDevice {
     public SmartDevice clone() {
         return new SmartDevice(this);
     }
+
+    /**
+     * Metodos
+     */
+    // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
+    //public abstract double consumoEnergia();
+
+
+    public void turnAllOn(List<SmartDevice> devices) {
+        for(SmartDevice sd : devices) {
+            sd.setOn(true);
+        }
+    }
+
+    public void turnAllOff(List<SmartDevice> devices) {
+        for(SmartDevice sd : devices) {
+            sd.setOn(false);
+        }
+    }
+
+
 }

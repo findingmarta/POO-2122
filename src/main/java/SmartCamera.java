@@ -28,7 +28,7 @@ public class SmartCamera extends SmartDevice {
     }
 
     /**
-     * Metodos setter e getters
+     * Getters e Setters
      */
     public double getSize() {
         return size;
@@ -48,7 +48,7 @@ public class SmartCamera extends SmartDevice {
     }
 
     /**
-     * Metodo toString
+     * Metodo toString, equals e clone
      */
     public String toString() {
         return "SmartCamera{" +
@@ -57,9 +57,6 @@ public class SmartCamera extends SmartDevice {
                 '}';
     }
 
-    /**
-     * Metodo equals
-     */
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SmartCamera)) return false;
@@ -67,15 +64,12 @@ public class SmartCamera extends SmartDevice {
         return Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
     }
 
-    /**
-     * Metodo clone
-     */
     public SmartCamera clone() {
         return new SmartCamera(this);
     }
 
     /**
-     * Metodo Consumo de Energia
+     * Metodos
      */
     public double consumoEnergia(){
         return 3 + (this.resolution * this.size);
