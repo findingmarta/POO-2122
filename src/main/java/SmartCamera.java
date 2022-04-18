@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Uma SmartCamera é uma câmara de vigilância com uma certa resolução e tamanho de imagem
  */
@@ -15,8 +17,8 @@ public class SmartCamera extends SmartDevice {
         this.size = 0.0;
     }
 
-    public SmartCamera (String id, double re, double size){
-        super(id);
+    public SmartCamera (String id, boolean b, double re, double size){
+        super(id,b);
         this.resolution = re;
         this.size = size;
     }
@@ -61,7 +63,8 @@ public class SmartCamera extends SmartDevice {
         if (this == o) return true;
         if (!(o instanceof SmartCamera)) return false;
         SmartCamera that = (SmartCamera) o;
-        return Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
+        return Objects.equals(this.getID(), that.getID()) && Objects.equals(this.getOn(), that.getOn()) &&
+                Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
     }
 
     public SmartCamera clone() {

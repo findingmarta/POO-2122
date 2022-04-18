@@ -1,21 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class SmartDevice_Test {
-    private List<SmartDevice> makeDevices() {
-        List<SmartDevice> devices = new ArrayList<SmartDevice>();
-        devices.add(new SmartSpeaker());
-        devices.add(new SmartBulb());
-        devices.add(new SmartCamera());
-        devices.add(new SmartDevice("1234", true));
-        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
-        devices.add(new SmartBulb("12345", true, SmartBulb.WARM, 2.0));
-        return devices;
-    }
-
     @Test
     public void testContructor() {
         SmartDevice smartDev1 = new SmartDevice();
@@ -40,8 +27,8 @@ public class SmartDevice_Test {
         assertFalse(smartDev1.getOn());
         smartDev1 = new SmartDevice("b1", false);
         assertFalse(smartDev1.getOn());
-        //smartDev1 = new SmartDevice("b1", true);
-        //assertTrue(smartDev1.getOn());
+        smartDev1.setOn(true);
+        assertTrue(smartDev1.getOn());
     }
     @Test
     public void testSetOn() {
@@ -54,16 +41,30 @@ public class SmartDevice_Test {
 
     @Test
     public void testTurnAllOn() {
-        List<SmartDevice> devices = makeDevices();
+        List<SmartDevice> devices = SmartDevice.makeDevices();
         //turnAllOn(devices);
     }
 
     @Test
     public void testTurnAllOff() {
-        List<SmartDevice> devices = makeDevices();
+        List<SmartDevice> devices = SmartDevice.makeDevices();
         for(SmartDevice sd : devices) {
             sd.setOn(false);
             assertFalse(sd.getOn());
         }
     }
+
+   /* @Test
+    public void testEquals() {
+        SmartDevice smartDev1 = new SmartDevice("b1", false);
+        SmartDevice smartDev2 = new SmartDevice("b1", false);
+        assertTrue(smartDev1.equals(smartDev2));
+
+        smartDev1.setOn(true);
+        assertFalse(smartDev1.equals(smartDev2));
+
+        smartDev1.setOn(false);
+        smartDev2.setID("b2");
+        assertFalse(smartDev1.equals(smartDev2));
+    }*/
 }

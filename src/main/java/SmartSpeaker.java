@@ -92,9 +92,10 @@ public class SmartSpeaker extends SmartDevice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SmartSpeaker ss = (SmartSpeaker) o;
-        return (this.volume == ss.getVolume() &&
+        return Objects.equals(this.getID(), ss.getID()) && Objects.equals(this.getOn(), ss.getOn()) &&
+                this.volume == ss.getVolume() &&
                 Objects.equals(this.channel, ss.getChannel()) &&
-                Objects.equals(this.marca, ss.getMarca()));
+                Objects.equals(this.marca, ss.getMarca());
     }
 
     public SmartSpeaker clone (){

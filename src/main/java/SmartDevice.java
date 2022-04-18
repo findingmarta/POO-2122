@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,17 +24,15 @@ public class SmartDevice {
         this.on = false;
     }
 
-    public SmartDevice( SmartDevice umDevice) {
+    public SmartDevice(String id, boolean b) {
+        this.id = id;
+        this.on = b;
+    }
+
+    public SmartDevice(SmartDevice umDevice) {
         this.id = umDevice.id;
         this.on = umDevice.on;
     }
-
-    public SmartDevice(String s, boolean b) {
-        this.id = "";
-        this.on = false;
-    }
-
-
 
     /**
      * Getters e Setters
@@ -90,6 +89,27 @@ public class SmartDevice {
         for(SmartDevice sd : devices) {
             sd.setOn(false);
         }
+    }
+    public static List<SmartDevice> makeDevices() {
+        List<SmartDevice> devices = new ArrayList<>();
+        devices.add(new SmartSpeaker());
+        devices.add(new SmartCamera());
+        devices.add(new SmartDevice("1234", true));
+        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
+        devices.add(new SmartCamera("2222", false, 155.0, 33.0));
+        devices.add(new SmartBulb("123456789", false, SmartBulb.WARM, 2.0));
+        return devices;
+    }
+
+    public static List<SmartDevice> makeDevices2() {
+        List<SmartDevice> devices = new ArrayList<>();
+        devices.add(new SmartSpeaker());
+        devices.add(new SmartCamera());
+        devices.add(new SmartDevice("1234", true));
+        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
+        devices.add(new SmartCamera("2222", false, 155.0, 33.0));
+        devices.add(new SmartBulb("12345", false, SmartBulb.WARM, 2.0));
+        return devices;
     }
 
 

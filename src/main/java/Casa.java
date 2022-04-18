@@ -1,7 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 /**
  * A CasaInteligente faz a gestao dos SmartDevices que existem e das
  * divisoes que existem na casa.
@@ -10,7 +9,8 @@ public class Casa {
     private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
-    private Fornecedores fornecedor;
+
+    //private Fornecedores fornecedor;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -73,12 +73,12 @@ public class Casa {
         return sb.toString();
     }
 
-    // falta ter em conta as outras variaveis
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Casa Casa = (Casa) o;
-        return Objects.equals(divisoes, Casa.divisoes);
+        return Objects.equals(this.divisoes, Casa.divisoes) && Objects.equals(this.proprietario, Casa.getProprietario()) &&
+                Objects.equals(this.NIF, Casa.getNIF());
     }
 
     public Casa clone() {
@@ -112,18 +112,18 @@ public class Casa {
        if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
     }
 
-    public boolean roomHasDevice (String divisao, SmartDevice sd) {
-        return this.divisoes.get(divisao).stream().anyMatch(d -> d.equals(sd));
+    public boolean roomHasDevice (String divisao, String id) {
+       return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.getID().equals(id));
     }
 
     public void addToRoom (String divisao, SmartDevice sd) {
-        if(!roomHasDevice(divisao, sd)) this.divisoes.get(divisao).add(sd);
+        if(!roomHasDevice(divisao, sd.getID())) this.divisoes.get(divisao).add(sd);
     }
 
-    public SmartDevice getDevice(String divisao, SmartDevice sd) {
-        return this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd));   //não estamos a verificar se o id existe, retorna -1 se não encontrar
+    public SmartDevice getDevice(String divisao, String id) {
+        if(roomHasDevice(divisao, id)) return this.divisoes.get(divisao).stream().filter(sd -> id.equals(sd.getID())).findAny().orElse(null);
+        return null;
     }
-
     /*
     @Override
     public int hashCode() {

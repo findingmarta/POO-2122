@@ -59,6 +59,20 @@ public class SmartBulb_Test {
         smartBul1.setTone(-10);
         assertEquals(SmartBulb.COLD, smartBul1.getTone());
     }
+/*
+    @Test
+    public void testEquals() {
+        SmartDevice smartDev1 = new SmartBulb("b1", false, 2, 23.0);
+        SmartDevice smartDev2 = new SmartBulb("b1", false, 2, 23.0);
+        assertTrue(smartDev1.equals(smartDev2));
+
+        smartDev1.setOn(true);
+        assertFalse(smartDev1.equals(smartDev2));
+
+        smartDev1.setOn(false);
+        smartDev2.setID("b2");
+        assertFalse(smartDev1.equals(smartDev2));
+    }*/
 
     @Test
     public void testGetDimensao() {

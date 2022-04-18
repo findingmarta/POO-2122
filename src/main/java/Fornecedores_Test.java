@@ -1,9 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 public class Fornecedores_Test {
         @Test
         public void testContructor() {
@@ -68,10 +65,10 @@ public class Fornecedores_Test {
     @Test
     public void testPrecoDiarioPorDispositivo_SC(){
         Fornecedores fornec1 = new Fornecedores(300.0, 29.1);
-        SmartCamera smartCam1 = new SmartCamera("cam1",134.0,150.1);
+        SmartCamera smartCam1 = new SmartCamera("cam1",true, 134.0,150.1);
         assertEquals(Math.round(300*20116.4*27.09*24), Math.round(fornec1.PrecoDiarioPorDispositivo_SC(smartCam1)));
         fornec1 = new Fornecedores(510.2, 27.4);
-        smartCam1 = new SmartCamera("cam1",142.2,40.0);
+        smartCam1 = new SmartCamera("cam1",true, 142.2,40.0);
         assertEquals(Math.round(510.2*5691*25.56*24), Math.round(fornec1.PrecoDiarioPorDispositivo_SC(smartCam1)));
     }
 
