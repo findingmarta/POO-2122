@@ -2,16 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static javax.swing.UIManager.get;
+//import static javax.swing.UIManager.get;
 
-public class main {
+public class Main {
 
 
 
     public static void main(String[] args) {
-        List<Casa> l = new ArrayList<Casa>();
+        List<Casa> l = new ArrayList<>();
         menu.listCasas(l);
-        main.menuinicial(l);
+        Main.menuinicial(l);
     }
 
     public static void menuinicial(List<Casa> l){
@@ -21,14 +21,9 @@ public class main {
             opcao = menu.menuInicial();
         }
 
-        switch(opcao) {
-            case 1:
-                main.menucasa1(l);
-                break;
-
-            case 0:
-                System.exit(0);
-                break;
+        switch (opcao) {
+            case 1 -> Main.menucasa1(l);
+            case 0 -> System.exit(0);
         }
     }
 
@@ -39,11 +34,8 @@ public class main {
             opcao = menu.menuCasa();
         }
         switch (opcao) {
-            case 1:
-                main.menulistacasa(l);
-                break;
-
-            case 3:
+            case 1 -> Main.menulistacasa(l);
+            case 3 -> {
                 System.out.println("Insira o índice da casa: ");
                 Scanner scanner = new Scanner(System.in);
                 int i = scanner.nextInt();
@@ -52,42 +44,34 @@ public class main {
                 String d = divisao.nextLine();
                 System.out.println("Insira o dispositivo: ");
                 Scanner dispositivo = new Scanner(System.in);
-                int di  = dispositivo.nextInt();
-                Casa c =l.get(i-1);
-                SmartDevice s = c.getDivisoes().get(d).get(di-1);
+                int di = dispositivo.nextInt();
+                Casa c = l.get(i - 1);
+                SmartDevice s = c.getDivisoes().get(d).get(di - 1);
                 System.out.println(s);
-                c.setDeviceOn(d,s);
+                c.setDeviceOn(d, s);
                 Boolean b = s.getOn();
-                c.setDeviceOff(d,s);
+                c.setDeviceOff(d, s);
                 Boolean b1 = s.getOn();
                 System.out.println(b);
                 System.out.println(b1);
-                break;
-
-
-
-            case 6:
+            }
+            case 6 -> {
                 System.out.println("Insira o NIF: ");
                 Scanner nif = new Scanner(System.in);
                 String n = nif.next();
                 System.out.println("Insira o nome do proprietário: ");
                 Scanner proprietario = new Scanner(System.in);
                 String prop = proprietario.next();
-                Casa c1 = new Casa (prop,n);
+                Casa c1 = new Casa(prop, n);
                 l.add(c1);
-                main.menucasa1(l);
+                Main.menucasa1(l);
+            }
 
-                //List<Casa> ListCasa = menu.listCasas();
-                //ListCasa.add(scanner, nome, nif);
+            //List<Casa> ListCasa = menu.listCasas();
+            //ListCasa.add(scanner, nome, nif);
 
-                break;
-
-            case 0:
-                main.menuinicial(l);
-                break;
-            default:
-                main.menuinicial(l);
-                break;
+            case 0 -> Main.menuinicial(l);
+            default -> Main.menuinicial(l);
         }
     }
         public static void menulistacasa (List<Casa> l) {
@@ -95,8 +79,8 @@ public class main {
             while (opcao < 0 || opcao > l.size()) {
                 opcao = menu.menuListaCasas(l);
             }
-                if (opcao ==0) main.menucasa1(l);
+                if (opcao ==0) Main.menucasa1(l);
                 int a = menu.menuCasaInfo(opcao-1, l);
-                if (a==0) main.menulistacasa(l);
+                if (a==0) Main.menulistacasa(l);
         }
     }

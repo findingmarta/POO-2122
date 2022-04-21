@@ -1,9 +1,9 @@
 import java.util.*;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 
 public class menu {
     public static List<SmartDevice> makeDevices() {
-        List<SmartDevice> devices = new ArrayList<SmartDevice>();
+        List<SmartDevice> devices = new ArrayList<>();
         devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
         devices.add(new SmartBulb("12345", true, SmartBulb.WARM, 2.0));
         return devices;
@@ -16,25 +16,28 @@ public class menu {
         return divisoes;
     }
 
-    static List<Casa> listCasas(List<Casa> l) {
+    static void listCasas(List<Casa> l) {
         Map <String, List<SmartDevice>> divisoes = makeDivisoes();
         l.add( new Casa());
         l.add( new Casa(divisoes, "Joana", "123456789"));
-        return l;
 
     }
     public static int menuInicial(){
         clearWindow();
-        StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m____________________________________\u001B[0m \n\n");
-        sb.append(" \u001B[1m           MENU INICIAL \u001B[0m\n\n");
-        sb.append(" \u001B[1m 1) \u001B[0m Menu Casa.\n");
-        sb.append(" \u001B[1m 2) \u001B[0m Ver fornecedores.\n");
-        sb.append(" \u001B[1m 3) \u001B[0m Salvar Estado.\n");
-        sb.append(" \u001B[1m 4) \u001B[0m Carregar Estado.\n");
-        sb.append(" \u001B[1m 0) \u001B[0m Sair.\n");
-        sb.append("\u001B[1m \u001B[36m____________________________________\u001B[0m \n\n");
-        sb.append(" Selecione a opção pretendida: ");
-        System.out.println(sb.toString());
+        String sb = """
+                \u001B[1m \u001B[36m____________________________________\u001B[0m\s
+
+                 \u001B[1m           MENU INICIAL \u001B[0m
+
+                 \u001B[1m 1) \u001B[0m Menu Casa.
+                 \u001B[1m 2) \u001B[0m Ver fornecedores.
+                 \u001B[1m 3) \u001B[0m Salvar Estado.
+                 \u001B[1m 4) \u001B[0m Carregar Estado.
+                 \u001B[1m 0) \u001B[0m Sair.
+                \u001B[1m \u001B[36m____________________________________\u001B[0m\s
+
+                 Selecione a opção pretendida:\s""";
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
 
@@ -43,19 +46,24 @@ public class menu {
 
     public static int menuCasa() {
         clearWindow();
-        StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
-        sb.append(" \u001B[1m                   MENU CASA \u001B[0m\n\n");
-        sb.append("\u001B[1m 1) \u001B[0m Lista de Casas.\n");
-        sb.append("\u001B[1m 2) \u001B[0m Ligar/Desligar dispositivo.\n");
-        sb.append("\u001B[1m 3) \u001B[0m Ligar/Desligar todos os dispositivos de uma divisão.\n");
-        sb.append("\u001B[1m 4) \u001B[0m Consumo total de uma casa.\n");
-        sb.append("\u001B[1m 5) \u001B[0m Casa que mais gastou num determinado período.\n");
-        sb.append("\u001B[1m 6) \u001B[0m Criar casa.\n");
-        sb.append("\u001B[1m 0) \u001B[0m Menu Inicial.\n\n");
-        sb.append("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
-        sb.append("Selecione a opção pretendida: ");
+        String sb = """
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
 
-        System.out.println(sb.toString());
+                 \u001B[1m                   MENU CASA \u001B[0m
+
+                \u001B[1m 1) \u001B[0m Lista de Casas.
+                \u001B[1m 2) \u001B[0m Ligar/Desligar dispositivo.
+                \u001B[1m 3) \u001B[0m Ligar/Desligar todos os dispositivos de uma divisão.
+                \u001B[1m 4) \u001B[0m Consumo total de uma casa.
+                \u001B[1m 5) \u001B[0m Casa que mais gastou num determinado período.
+                \u001B[1m 6) \u001B[0m Criar casa.
+                \u001B[1m 0) \u001B[0m Menu Inicial.
+
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                Selecione a opção pretendida:\s""";
+
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
@@ -67,28 +75,23 @@ public class menu {
         for (int i=0; i < l.size(); i++){
             String nif = l.get(i).getNIF();
             String prop = l.get(i).getProprietario();
-            sb.append("  \u001B[1m" + (i+1) + ") \u001B[0m Casa" + (i+1) + " -> NIF: " + nif +"  Proprietário: "+prop+"\n");
+            sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m Casa").append(i + 1).append(" -> NIF: ").append(nif).append("  Proprietário: ").append(prop).append("\n");
         }
         sb.append(" \u001B[1m 0) \u001B[0m Menu Casa\n");
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
     public static int menuCasaInfo(int i, List<Casa> l) {
         clearWindow();
-        StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
-        sb.append(" \u001B[1m                   CASA INFO \u001B[0m\n\n");
-        /*
-        for( Casa ln : ListCasa){
-            sb.append("\u001B[1m 0) \u001B[0m " + ln +"\n");
-        }
-        */
-        sb.append( l.get(i) );
-        sb.append("\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
-        sb.append("Selecione 0 para voltar atrás: ");
+        String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
+                    " \u001B[1m                   CASA INFO \u001B[0m\n\n" +
+                                                        l.get(i) +
+                    "\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
+                    "Selecione 0 para voltar atrás: ";
 
-        System.out.println(sb.toString());
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
@@ -104,13 +107,16 @@ public class menu {
     }
     public static int menuFornecedores() {
         clearWindow();
-        StringBuilder sb = new StringBuilder("-----------MENU FORNECEDORES-----------\n\n");
-        sb.append("1) Comercializador com maior volume de facturação.\n");
-        sb.append("2) Listar as facturas emitidas por um comercializador.\n");
-        sb.append("3) Ordenar consumidores de energia por ordem decrescente.\n");
-        sb.append("0) Sair.\n\n");
-        sb.append("Selecione a opção pretendida: ");
-        System.out.println(sb.toString());
+        String sb = """
+                -----------MENU FORNECEDORES-----------
+
+                1) Comercializador com maior volume de facturação.
+                2) Listar as facturas emitidas por um comercializador.
+                3) Ordenar consumidores de energia por ordem decrescente.
+                0) Sair.
+
+                Selecione a opção pretendida:\s""";
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
