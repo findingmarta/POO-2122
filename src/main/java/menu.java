@@ -2,7 +2,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class menu {
-    private static List<SmartDevice> makeDevices() {
+    public static List<SmartDevice> makeDevices() {
         List<SmartDevice> devices = new ArrayList<SmartDevice>();
         devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
         devices.add(new SmartBulb("12345", true, SmartBulb.WARM, 2.0));
@@ -52,7 +52,7 @@ public class menu {
         sb.append("\u001B[1m 4) \u001B[0m Consumo total de uma casa.\n");
         sb.append("\u001B[1m 5) \u001B[0m Casa que mais gastou num determinado período.\n");
         sb.append("\u001B[1m 6) \u001B[0m Criar casa.\n");
-        sb.append("\u001B[1m 0) \u001B[0m Sair.\n\n");
+        sb.append("\u001B[1m 0) \u001B[0m Menu Inicial.\n\n");
         sb.append("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
         sb.append("Selecione a opção pretendida: ");
 
@@ -71,7 +71,7 @@ public class menu {
             String prop = listCasas().get(i).getProprietario();
             sb.append("  \u001B[1m" + (i+1) + ") \u001B[0m Casa" + (i+1) + " -> NIF: " + nif +"  Proprietário: "+prop+"\n");
         }
-        sb.append(" \u001B[1m 0) \u001B[0m Menu Inicial\n");
+        sb.append(" \u001B[1m 0) \u001B[0m Menu Casa\n");
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         System.out.println(sb.toString());
         Scanner scanner = new Scanner(System.in);
@@ -93,6 +93,16 @@ public class menu {
 
         System.out.println(sb.toString());
         Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static int menuLigar() {
+        clearWindow();
+        System.out.println(" Insira o indice, a divisao e o dispositivo .\n");
+        Scanner scanner = new Scanner(System.in);
+        //Scanner divisao1 = new Scanner(System.in);
+        //Scanner dispositivo = new Scanner(System.in);
+
         return scanner.nextInt();
     }
     public static int menuFornecedores() {

@@ -79,7 +79,7 @@ public class SmartDevice {
     //public abstract double consumoEnergia();
 
 
-    public void turnAllOn(List<SmartDevice> devices) {
+    public static void turnAllOn(List<SmartDevice> devices) {
         for(SmartDevice sd : devices) {
             sd.setOn(true);
         }

@@ -27,6 +27,12 @@ public class Casa {
         this.setNIF(NIF);
     }
 
+    public Casa (String proprietario, String NIF) {
+        this.divisoes = new HashMap<>();
+        this.setProprietario(proprietario);
+        this.setNIF(NIF);
+    }
+
     public Casa(Casa umaCasa) {
         this.divisoes = umaCasa.getDivisoes();
         this.proprietario = umaCasa.getProprietario();
@@ -64,12 +70,20 @@ public class Casa {
      * Metodo toString, equals e clone
      */
     public String toString() {
-        final StringBuffer sb = new StringBuffer("\n\u001B[1m Casa { \u001B[0m \n");
+        final StringBuffer sb = new StringBuffer("\n\u001B[36m Casa { \u001B[0m \n\n");
         //sb.append("Dispositivos: ").append(devices).append('\n');
-        sb.append("Divisoes: \n").append(divisoes).append('\n');
-        sb.append("Proprietario: ").append(proprietario).append('\n');
-        sb.append("NIF: ").append(NIF).append('\n');
-        sb.append("\n}");
+        Set<String> setOfKeys = divisoes.keySet();
+        for (String key : setOfKeys) {
+            sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ").append(divisoes.get(key)).append("\n");
+        }
+
+      //  for (String divisao: divisoes) {
+       //     sb.append(divisao).append(": ").append(divisoes.get(divisao));
+       // }
+        //sb.append("Divisoes: \n").append(divisoes).append('\n');
+        sb.append("\u001B[1m Proprietario: \u001B[0m").append(proprietario).append('\n');
+        sb.append("\u001B[1m NIF: \u001B[0m").append(NIF).append('\n');
+        sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
 
@@ -88,7 +102,7 @@ public class Casa {
     /**
      * Metodos
      */
-    public void setDeviceOn(String divisao, SmartDevice sd) {
+    public void setDeviceOn( String divisao, SmartDevice sd) {
         this.divisoes.get(divisao).get(this.divisoes.get(divisao).indexOf(sd)).setOn(true);
     }
 
