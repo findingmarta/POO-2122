@@ -16,12 +16,11 @@ public class menu {
         return divisoes;
     }
 
-    static List<Casa> listCasas() {
+    static List<Casa> listCasas(List<Casa> l) {
         Map <String, List<SmartDevice>> divisoes = makeDivisoes();
-        List<Casa> Listcasa = new ArrayList<Casa>();
-        Listcasa.add( new Casa());
-        Listcasa.add( new Casa(divisoes, "Joana", "123456789"));
-        return Listcasa;
+        l.add( new Casa());
+        l.add( new Casa(divisoes, "Joana", "123456789"));
+        return l;
 
     }
     public static int menuInicial(){
@@ -61,14 +60,13 @@ public class menu {
         return scanner.nextInt();
     }
 
-    public static int menuListaCasas(){
-        List<Casa> ListCasa = listCasas();
+    public static int menuListaCasas(List<Casa> l){
         menu.clearWindow();
         StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         sb.append(" \u001B[1m             LISTAS DE CASAS \u001B[0m\n\n");
-        for (int i=0; i < ListCasa.size(); i++){
-            String nif = listCasas().get(i).getNIF();
-            String prop = listCasas().get(i).getProprietario();
+        for (int i=0; i < l.size(); i++){
+            String nif = l.get(i).getNIF();
+            String prop = l.get(i).getProprietario();
             sb.append("  \u001B[1m" + (i+1) + ") \u001B[0m Casa" + (i+1) + " -> NIF: " + nif +"  Proprietário: "+prop+"\n");
         }
         sb.append(" \u001B[1m 0) \u001B[0m Menu Casa\n");
@@ -77,9 +75,8 @@ public class menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-    public static int menuCasaInfo(int i) {
+    public static int menuCasaInfo(int i, List<Casa> l) {
         clearWindow();
-        List<Casa> ListCasa = menu.listCasas();
         StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
         sb.append(" \u001B[1m                   CASA INFO \u001B[0m\n\n");
         /*
@@ -87,7 +84,7 @@ public class menu {
             sb.append("\u001B[1m 0) \u001B[0m " + ln +"\n");
         }
         */
-        sb.append( ListCasa.get(i) );
+        sb.append( l.get(i) );
         sb.append("\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n");
         sb.append("Selecione 0 para voltar atrás: ");
 

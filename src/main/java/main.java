@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -5,11 +6,15 @@ import static javax.swing.UIManager.get;
 
 public class main {
 
+
+
     public static void main(String[] args) {
-        main.menuinicial();
+        List<Casa> l = new ArrayList<Casa>();
+        menu.listCasas(l);
+        main.menuinicial(l);
     }
 
-    public static void menuinicial(){
+    public static void menuinicial(List<Casa> l){
         int opcao = -1;
 
         while(opcao < 0 || opcao > 1) {
@@ -18,7 +23,7 @@ public class main {
 
         switch(opcao) {
             case 1:
-                main.menucasa1();
+                main.menucasa1(l);
                 break;
 
             case 0:
@@ -27,15 +32,16 @@ public class main {
         }
     }
 
-    public static void menucasa1() {
+    public static void menucasa1(List<Casa> l) {
+
         int opcao = -1;
-        while (opcao < 0 || opcao > 3) {
+        while (opcao < 0 || opcao > 6) {
             opcao = menu.menuCasa();
         }
         switch (opcao) {
             case 1:
-                 main.menulistacasa();
-                 break;
+                main.menulistacasa(l);
+                break;
 
             case 3:
                 System.out.println("Insira o índice da casa: ");
@@ -47,7 +53,7 @@ public class main {
                 System.out.println("Insira o dispositivo: ");
                 Scanner dispositivo = new Scanner(System.in);
                 int di  = dispositivo.nextInt();
-                Casa c = menu.listCasas().get(i-1);
+                Casa c =l.get(i-1);
                 SmartDevice s = c.getDivisoes().get(d).get(di-1);
                 System.out.println(s);
                 c.setDeviceOn(d,s);
@@ -67,8 +73,9 @@ public class main {
                 System.out.println("Insira o nome do proprietário: ");
                 Scanner proprietario = new Scanner(System.in);
                 String prop = proprietario.next();
-                Casa c1 = new Casa (n,prop);
-                //Listacasa.add(c1);
+                Casa c1 = new Casa (prop,n);
+                l.add(c1);
+                main.menucasa1(l);
 
                 //List<Casa> ListCasa = menu.listCasas();
                 //ListCasa.add(scanner, nome, nif);
@@ -76,21 +83,20 @@ public class main {
                 break;
 
             case 0:
-                main.menuinicial();
+                main.menuinicial(l);
                 break;
             default:
-                main.menuinicial();
+                main.menuinicial(l);
                 break;
         }
     }
-        public static void menulistacasa () {
+        public static void menulistacasa (List<Casa> l) {
             int opcao = -1;
-            List<Casa> ListCasa = menu.listCasas();
-            while (opcao < 0 || opcao > ListCasa.size()) {
-                opcao = menu.menuListaCasas();
+            while (opcao < 0 || opcao > l.size()) {
+                opcao = menu.menuListaCasas(l);
             }
-                if (opcao ==0) main.menucasa1();
-                int a = menu.menuCasaInfo(opcao-1);
-                if (a==0) main.menulistacasa();
+                if (opcao ==0) main.menucasa1(l);
+                int a = menu.menuCasaInfo(opcao-1, l);
+                if (a==0) main.menulistacasa(l);
         }
     }
