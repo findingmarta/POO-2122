@@ -52,12 +52,14 @@ public class SmartCamera extends SmartDevice {
     /**
      * Metodo toString, equals e clone
      */
-    public String toString() {
-        return "SmartCamera{" +
-                "resolution=" + resolution +
-                ", size=" + size +
-                '}';
+    public String toString (){
+        final StringBuffer sc = new StringBuffer("\n SmartCamera (\u001B[36m").append(getID()).append("\u001B[0m): ");
+        sc.append("Resolução-> ").append(resolution).append("  ");
+        sc.append("Tamanho-> ").append(size).append("  ");
+        sc.append("Consumo Diário-> ").append(consumoEnergia());
+        return sc.toString();
     }
+
 
     public boolean equals(Object o) {
         if (this == o) return true;

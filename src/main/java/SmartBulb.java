@@ -63,7 +63,7 @@ public class SmartBulb extends SmartDevice {
      * Metodo toString, equals e clone
      */
     public String toString() {
-        final StringBuffer sb = new StringBuffer("\n SmartBulb: ");
+        final StringBuffer sb = new StringBuffer("\n SmartBulb (\u001B[36m").append(getID()).append("\u001B[0m): ");
         sb.append("Tone-> ").append(tone).append("  ");
         sb.append("Dimensao-> ").append(dimensao).append("  ");
         sb.append("Consumo Diário-> ").append(consumoEnergia());

@@ -96,15 +96,16 @@ public class menu {
         return scanner.nextInt();
     }
 
+    /*
     public static int menuLigar() {
         clearWindow();
         System.out.println(" Insira o indice, a divisao e o dispositivo .\n");
         Scanner scanner = new Scanner(System.in);
-        //Scanner divisao1 = new Scanner(System.in);
-        //Scanner dispositivo = new Scanner(System.in);
 
         return scanner.nextInt();
     }
+
+
     public static int menuFornecedores() {
         clearWindow();
         String sb = """
@@ -133,16 +134,12 @@ public class menu {
         return (hour+":"+ min+" H");
     }
 
+     */
     //Tentar encontrar outra forma mais elegante
     public static void clearWindow() {
         for (int i = 0;i<100;i++){
             System.out.println();
         }
-    }
-
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
 

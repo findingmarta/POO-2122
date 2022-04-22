@@ -35,25 +35,30 @@ public class Main {
         }
         switch (opcao) {
             case 1 -> Main.menulistacasa(l);
-            case 3 -> {
+            case 2 -> {
                 System.out.println("Insira o índice da casa: ");
                 Scanner scanner = new Scanner(System.in);
                 int i = scanner.nextInt();
                 System.out.println("Insira a divisão: ");
                 Scanner divisao = new Scanner(System.in);
-                String d = divisao.nextLine();
-                System.out.println("Insira o dispositivo: ");
+                String d = divisao.next();
+                System.out.println("Insira o id: ");
                 Scanner dispositivo = new Scanner(System.in);
-                int di = dispositivo.nextInt();
+                String id = dispositivo.next();
+                System.out.println("Ligar ou desligar? ");
+                Scanner modo = new Scanner(System.in);
+                String m = modo.next();
                 Casa c = l.get(i - 1);
-                SmartDevice s = c.getDivisoes().get(d).get(di - 1);
-                System.out.println(s);
-                c.setDeviceOn(d, s);
-                Boolean b = s.getOn();
-                c.setDeviceOff(d, s);
-                Boolean b1 = s.getOn();
-                System.out.println(b);
-                System.out.println(b1);
+                SmartDevice s = c.getDevice(d,id);
+                if (m.equals("Ligar")) {
+                    c.setDeviceOn(d, s);
+                    System.out.println("\nLigado : " + s);
+                }
+                else if (m.equals("Desligar")) {
+                    c.setDeviceOff(d, s);
+                    System.out.println("\nDesligado : " + s);
+                }
+                else System.out.println("Insiram algo de jeito, BURROS! ass: Joana Branc");
             }
             case 6 -> {
                 System.out.println("Insira o NIF: ");
