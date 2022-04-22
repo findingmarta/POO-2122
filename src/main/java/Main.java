@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<Casa> l = new ArrayList<>();
-        menu.listCasas(l);
+        Menu.listCasas(l);
         Main.menuinicial(l);
     }
 
@@ -18,7 +18,7 @@ public class Main {
         int opcao = -1;
 
         while(opcao < 0 || opcao > 1) {
-            opcao = menu.menuInicial();
+            opcao = Menu.MenuInicial();
         }
 
         switch (opcao) {
@@ -31,35 +31,11 @@ public class Main {
 
         int opcao = -1;
         while (opcao < 0 || opcao > 6) {
-            opcao = menu.menuCasa();
+            opcao = Menu.MenuCasa();
         }
         switch (opcao) {
-            case 1 -> Main.menulistacasa(l);
-            case 2 -> {
-                System.out.println("Insira o índice da casa: ");
-                Scanner scanner = new Scanner(System.in);
-                int i = scanner.nextInt();
-                System.out.println("Insira a divisão: ");
-                Scanner divisao = new Scanner(System.in);
-                String d = divisao.next();
-                System.out.println("Insira o id: ");
-                Scanner dispositivo = new Scanner(System.in);
-                String id = dispositivo.next();
-                System.out.println("Ligar ou desligar? ");
-                Scanner modo = new Scanner(System.in);
-                String m = modo.next();
-                Casa c = l.get(i - 1);
-                SmartDevice s = c.getDevice(d,id);
-                if (m.equals("Ligar")) {
-                    c.setDeviceOn(d, s);
-                    System.out.println("\nLigado : " + s);
-                }
-                else if (m.equals("Desligar")) {
-                    c.setDeviceOff(d, s);
-                    System.out.println("\nDesligado : " + s);
-                }
-                else System.out.println("Insiram algo de jeito, BURROS! ass: Joana Branc");
-            }
+            case 1 -> Main.Menulistacasa(l);
+            case 2 -> Menu.MenuLigar(l);
             case 6 -> {
                 System.out.println("Insira o NIF: ");
                 Scanner nif = new Scanner(System.in);
@@ -72,20 +48,20 @@ public class Main {
                 Main.menucasa1(l);
             }
 
-            //List<Casa> ListCasa = menu.listCasas();
+            //List<Casa> ListCasa = Menu.listCasas();
             //ListCasa.add(scanner, nome, nif);
 
             case 0 -> Main.menuinicial(l);
             default -> Main.menuinicial(l);
         }
     }
-        public static void menulistacasa (List<Casa> l) {
+        public static void Menulistacasa (List<Casa> l) {
             int opcao = -1;
             while (opcao < 0 || opcao > l.size()) {
-                opcao = menu.menuListaCasas(l);
+                opcao = Menu.MenuListaCasas(l);
             }
                 if (opcao ==0) Main.menucasa1(l);
-                int a = menu.menuCasaInfo(opcao-1, l);
-                if (a==0) Main.menulistacasa(l);
+                int a = Menu.MenuCasaInfo(opcao-1, l);
+                if (a==0) Main.Menulistacasa(l);
         }
     }

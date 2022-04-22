@@ -1,7 +1,7 @@
 import java.util.*;
 //import java.time.LocalDateTime;
 
-public class menu {
+public class Menu {
     public static List<SmartDevice> makeDevices() {
         List<SmartDevice> devices = new ArrayList<>();
         devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
@@ -11,8 +11,8 @@ public class menu {
 
     private static Map<String, List<SmartDevice>> makeDivisoes() {
         Map <String, List<SmartDevice>> divisoes = new HashMap<>();
-        divisoes.put("Sala",menu.makeDevices());
-        divisoes.put("Cozinha",menu.makeDevices());
+        divisoes.put("Sala",Menu.makeDevices());
+        divisoes.put("Cozinha",Menu.makeDevices());
         return divisoes;
     }
 
@@ -22,7 +22,7 @@ public class menu {
         l.add( new Casa(divisoes, "Joana", "123456789"));
 
     }
-    public static int menuInicial(){
+    public static int MenuInicial(){
         clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -44,7 +44,7 @@ public class menu {
     }
 
 
-    public static int menuCasa() {
+    public static int MenuCasa() {
         clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
@@ -68,8 +68,8 @@ public class menu {
         return scanner.nextInt();
     }
 
-    public static int menuListaCasas(List<Casa> l){
-        menu.clearWindow();
+    public static int MenuListaCasas(List<Casa> l){
+        Menu.clearWindow();
         StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         sb.append(" \u001B[1m             LISTAS DE CASAS \u001B[0m\n\n");
         for (int i=0; i < l.size(); i++){
@@ -83,7 +83,7 @@ public class menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-    public static int menuCasaInfo(int i, List<Casa> l) {
+    public static int MenuCasaInfo(int i, List<Casa> l) {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                     " \u001B[1m                   CASA INFO \u001B[0m\n\n" +
@@ -96,17 +96,40 @@ public class menu {
         return scanner.nextInt();
     }
 
-    /*
-    public static int menuLigar() {
-        clearWindow();
-        System.out.println(" Insira o indice, a divisao e o dispositivo .\n");
-        Scanner scanner = new Scanner(System.in);
 
-        return scanner.nextInt();
+    public static void MenuLigar(List<Casa> l) {
+        int i=-1;
+        while(i < 0 || i> l.size()) {
+            System.out.println("Insira o índice da casa: ");
+            Scanner scanner = new Scanner(System.in);
+            i = scanner.nextInt();
+        }
+
+        System.out.println("Insira a divisão: "); //verificar se a divsao existe
+        Scanner divisao = new Scanner(System.in);
+        String d = divisao.next();
+        System.out.println("Insira o id: ");
+        Scanner dispositivo = new Scanner(System.in);
+        String id = dispositivo.next();
+        System.out.println("Ligar ou desligar? ");
+        Scanner modo = new Scanner(System.in);
+        String m = modo.next();
+        Casa c = l.get(i - 1);
+        SmartDevice s = c.getDevice(d,id);
+        if (m.equals("Ligar")) {
+            c.setDeviceOn(d, s);
+            System.out.println("\nLigado : " + s);
+        }
+        else if (m.equals("Desligar")) {
+            c.setDeviceOff(d, s);
+            System.out.println("\nDesligado : " + s);
+        }
+        else System.out.println("Insiram algo de jeito, BURROS! ass: Joana Branc");
     }
 
+    /*
 
-    public static int menuFornecedores() {
+    public static int MenuFornecedores() {
         clearWindow();
         String sb = """
                 -----------MENU FORNECEDORES-----------
