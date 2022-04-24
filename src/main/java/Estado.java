@@ -5,9 +5,9 @@ import java.util.*;
 public class Estado {
 
     public static void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) {
-        List<String> linhas = lerFicheiro("src\\main\\java\\estado.txt");
+        List<String> linhas = lerFicheiro("src/main/java/estado.txt");
         Casa c;
-        Fornecedores f;
+        Fornecedores f = new Fornecedores();
         for (String linha : linhas) {
             String[] linhaPartida = linha.split("-");
             //System.out.println("121213");

@@ -123,12 +123,14 @@ public class Menu {
                 System.out.println("Insira o id: ");
                 Scanner id = new Scanner(System.in);
                 String id1 = id.next();
+
                 while (!(c.roomHasDevice(d, id1))) {
                     System.out.println("Insira o id: ");
                     id = new Scanner(System.in);
                     id1 = id.next();
-
+                }
                     SmartDevice s = c.getDevice(d, id1);
+                    //System.out.println(s);
 
                     System.out.println("Ligar ou Desligar? ");
                     Scanner modo = new Scanner(System.in);
@@ -143,16 +145,15 @@ public class Menu {
                     } else {
                         System.out.println("Ligar ou Desligar? ");
                         modo = new Scanner(System.in);
-                        m = modo.next();
                     }
                     Main.menucasa1(l);
                 }
-            }
             else{
+
                 System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
                 System.out.println("Insira 0 para retornar ao MenuCasa. ");
-                Scanner s = new Scanner(System.in);
-                int si = s.nextInt();
+                Scanner s1 = new Scanner(System.in);
+                int si = s1.nextInt();
                 if (si == 0) Main.menucasa1(l);
             }
 
@@ -160,8 +161,8 @@ public class Menu {
         else {
                 System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
                 System.out.println("Insira 0 para retornar ao MenuCasa. ");
-                Scanner s = new Scanner(System.in);
-                int si = s.nextInt();
+                Scanner s2 = new Scanner(System.in);
+                int si = s2.nextInt();
                 if (si == 0) Main.menucasa1(l);
             }
 

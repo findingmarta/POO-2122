@@ -66,6 +66,7 @@ public class Main {
                  Main.menucasa1(l);
 
             }
+            /*
             case 6 -> {
                 int i=-1;
                 while(i < 0 || i> l.size()) {
@@ -86,7 +87,7 @@ public class Main {
                 Main.menucasa1(l);
 
             }
-
+*/
             //List<Casa> ListCasa = Menu.listCasas();
             //ListCasa.add(scanner, nome, nif);
 

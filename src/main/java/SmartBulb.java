@@ -71,7 +71,6 @@ public class SmartBulb extends SmartDevice {
         sb.append("Tone-> ").append(tone).append("  ");
         sb.append("Dimensao-> ").append(dimensao).append("  ");
         sb.append("Consumo Diário-> ").append(consumoEnergia());
-        sb.append("\n");
         return sb.toString();
     }
 
