@@ -40,6 +40,15 @@ public class SmartDevice_Test {
     }
 
     @Test
+    public void testSetID() {
+        SmartDevice smartDev1 = new SmartDevice("b1", false);
+        smartDev1.setID("b2");
+        assertEquals("b2", smartDev1.getID());
+        smartDev1.setID("b1");
+        assertEquals("b1",smartDev1.getID());
+    }
+
+    @Test
     public void testTurnAllOn() {
         List<SmartDevice> devices = SmartDevice.makeDevices();
         //turnAllOn(devices);

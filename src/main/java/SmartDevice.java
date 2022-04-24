@@ -49,6 +49,10 @@ public class SmartDevice {
         return this.id;
     }
 
+    public void setID(String id){
+        this.id=id;
+    }
+
     /**
      * Metodo toString, equals e clone
      */
@@ -78,8 +82,7 @@ public class SmartDevice {
     // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
     //public abstract double consumoEnergia();
 
-
-    public static void turnAllOn(List<SmartDevice> devices) {
+    public void turnAllOn(List<SmartDevice> devices) {
         for(SmartDevice sd : devices) {
             sd.setOn(true);
         }

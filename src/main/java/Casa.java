@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,8 +13,6 @@ public class Casa {
     private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
-
-    //private Fornecedores fornecedor;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -138,12 +140,10 @@ public class Casa {
         if(roomHasDevice(divisao, id)) return this.divisoes.get(divisao).stream().filter(sd -> id.equals(sd.getID())).findAny().orElse(null);
         return null;
     }
+
     /*
     @Override
     public int hashCode() {
         return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
-
-
-
 }
