@@ -1,0 +1,2 @@
+Casa-Sala/SmartBulb,12345,true,WARM,23.34<SmartSpeaker,3333,false,19,RFM,JBL;Ana Maria;241019999;
+Casa-Cozinha/SmartCamera,666,true,19.00,20.34<SmartSpeaker,3333,false,19,RFM,JBL>Sala/SmartBulb,12345,true,WARM,23.34<SmartSpeaker,3333,false,19,RFM,JBL;Julia;0909909909;
