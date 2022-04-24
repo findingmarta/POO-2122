@@ -7,15 +7,12 @@ public class Estado {
     public static void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) {
         List<String> linhas = lerFicheiro("src\\main\\java\\estado.txt");
         Casa c;
-        Fornecedores f = new Fornecedores();
-        System.out.println("121213");
+        Fornecedores f;
         for (String linha : linhas) {
-            System.out.println("121213");
             String[] linhaPartida = linha.split("-");
             //System.out.println("121213");
             switch (linhaPartida[0]) {
                 case "Casa" -> {
-                    System.out.println("é casa");
                     c = parseC(linhaPartida[1]);
                     casasList.add(c);
                 }

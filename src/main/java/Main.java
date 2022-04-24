@@ -14,7 +14,7 @@ public class Main {
         //Estado estado = new Estado();
         //Menu.listCasas(l);
         Estado.loadEstado(l,fornecedores);
-       // Main.menuinicial(l);
+        Main.menuinicial(l);
     }
 
     public static void menuinicial(List<Casa> l){

@@ -86,6 +86,4 @@ public class Fornecedores {
         double consumo = sc.consumoEnergia();
         return (this.getValor_base()*consumo*(this.getImposto()+1)*0.9)*24;
     }
-
-
 }

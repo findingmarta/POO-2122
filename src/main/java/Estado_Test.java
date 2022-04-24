@@ -17,11 +17,9 @@ public class Estado_Test {
         List<String> lines = estado.lerFicheiro("src\\main\\java\\estado.txt");
         lines.forEach(System.out::println);
     }
+
     @Test
     public void testLoadEstado() {
-        Fornecedores fornec1 = new Fornecedores(200.7, 25.0);
-        assertEquals(200.7, fornec1.getValor_base());
-        fornec1 = new Fornecedores(390.4, 22.5);
-        assertEquals(390.4,fornec1.getValor_base());
+
     }
 }
