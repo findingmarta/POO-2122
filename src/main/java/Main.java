@@ -10,8 +10,11 @@ public class Main {
 
     public static void main(String[] args) {
         List<Casa> l = new ArrayList<>();
-        Menu.listCasas(l);
-        Main.menuinicial(l);
+        List<Fornecedores> fornecedores = new ArrayList<>();
+        //Estado estado = new Estado();
+        //Menu.listCasas(l);
+        Estado.loadEstado(l,fornecedores);
+       // Main.menuinicial(l);
     }
 
     public static void menuinicial(List<Casa> l){
@@ -35,8 +38,9 @@ public class Main {
         }
         switch (opcao) {
             case 1 -> Main.Menulistacasa(l);
-            case 2 -> Menu.MenuLigar(l);
-            case 6 -> {
+            case 2 -> Menu.definirDispositivos(l);
+            case 3 -> Menu.definirDivisoes(l);
+            case 4 -> {
                 System.out.println("Insira o NIF: ");
                 Scanner nif = new Scanner(System.in);
                 String n = nif.next();
@@ -46,6 +50,41 @@ public class Main {
                 Casa c1 = new Casa(prop, n);
                 l.add(c1);
                 Main.menucasa1(l);
+            }
+            case 5 -> {
+                int i=-1;
+                while(i < 0 || i> l.size()) {
+                    System.out.println("Insira o índice da casa: ");
+                    Scanner scanner = new Scanner(System.in);
+                    i = scanner.nextInt();
+                }
+                Casa c = l.get(i - 1);
+                 System.out.println("Insira a divisão: ");
+                 Scanner divisao = new Scanner(System.in);
+                 String d = divisao.next();
+                 c.addRoom(d);
+                 Main.menucasa1(l);
+
+            }
+            case 6 -> {
+                int i=-1;
+                while(i < 0 || i> l.size()) {
+                    System.out.println("Insira o índice da casa: ");
+                    Scanner scanner = new Scanner(System.in);
+                    i = scanner.nextInt();
+                }
+                Casa c = l.get(i - 1);
+                System.out.println("Insira a divisão: ");
+                Scanner divisao = new Scanner(System.in);
+                String d = divisao.next();
+
+                System.out.println("Insira o SmartDevice: ");
+                Scanner device = new Scanner(System.in);
+                String de = device.next();
+                SmartDevice device1 = new SmartBulb();
+                c.addToRoom(d,device1);
+                Main.menucasa1(l);
+
             }
 
             //List<Casa> ListCasa = Menu.listCasas();

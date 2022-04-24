@@ -155,7 +155,7 @@ public class Casa_Test {
         devices.add(new SmartCamera("2222", false, 155.0, 33.0));
         devices.add(new SmartBulb("12345", false, SmartBulb.WARM, 2.0));
 
-        casa1.addRoom(divisao,devices);
+        casa1.addRoomEDevices(divisao,devices);
         assertTrue(casa1.hasRoom(divisao));
     }
 

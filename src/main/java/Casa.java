@@ -1,7 +1,3 @@
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,9 +6,12 @@ import java.util.stream.Collectors;
  * divisoes que existem na casa.
  */
 public class Casa {
+    private List<SmartDevice> devices;
     private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
+
+    private Fornecedores fornecedor;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -124,10 +123,18 @@ public class Casa {
         return this.divisoes.keySet().stream().anyMatch(d -> d.equals(divisao));
     }
 
-    public void addRoom(String divisao, List<SmartDevice> devices) {
+    public void addRoomEDevices(String divisao, List<SmartDevice> devices) {
        if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
     }
 
+    public void addRoom(String divisao) {
+        List<SmartDevice> devices = new ArrayList<>();
+        if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
+    }
+
+    public boolean roomisEmpty (String divisao) {
+        return this.divisoes.get(divisao).isEmpty();
+    }
     public boolean roomHasDevice (String divisao, String id) {
        return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.getID().equals(id));
     }
@@ -140,10 +147,12 @@ public class Casa {
         if(roomHasDevice(divisao, id)) return this.divisoes.get(divisao).stream().filter(sd -> id.equals(sd.getID())).findAny().orElse(null);
         return null;
     }
-
     /*
     @Override
     public int hashCode() {
         return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
+
+
+
 }

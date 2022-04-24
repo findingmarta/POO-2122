@@ -80,7 +80,11 @@ public class SmartSpeaker extends SmartDevice {
      * Metodo toString, equals e clone
      */
     public String toString (){
-        final StringBuffer ss = new StringBuffer("\n SmartSpeaker (\u001B[36m").append(getID()).append("\u001B[0m): ");
+        String estado;
+        if (getOn()) estado = "ON";
+        else estado = "OF";
+        final StringBuffer ss = new StringBuffer("\n SmarCamera (\u001B[36m").append(getID()).append("\u001B[0m");
+        ss.append(",").append(estado).append("): ");
         ss.append("Marca-> ").append(marca).append("  ");
         ss.append("Channel-> ").append(channel).append("  ");
         ss.append("Volume-> ").append(volume).append("  ");

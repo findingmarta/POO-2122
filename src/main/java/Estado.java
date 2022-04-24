@@ -4,14 +4,18 @@ import java.util.*;
 
 public class Estado {
 
-    public void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) {
-        List<String> linhas = lerFicheiro("estado.txt");
+    public static void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) {
+        List<String> linhas = lerFicheiro("src\\main\\java\\estado.txt");
         Casa c;
         Fornecedores f = new Fornecedores();
+        System.out.println("121213");
         for (String linha : linhas) {
+            System.out.println("121213");
             String[] linhaPartida = linha.split("-");
+            //System.out.println("121213");
             switch (linhaPartida[0]) {
                 case "Casa" -> {
+                    System.out.println("é casa");
                     c = parseC(linhaPartida[1]);
                     casasList.add(c);
                 }
@@ -24,7 +28,7 @@ public class Estado {
         }
     }
 
-    public Casa parseC (String linhaPartida){
+    public static Casa parseC(String linhaPartida){
         String[] dados = linhaPartida.split(";");
         Map <String, List<SmartDevice>> divisoes = parseDivisoes(dados[0]);
         String proprietario = dados[1];
@@ -32,7 +36,7 @@ public class Estado {
         return new Casa(divisoes,proprietario,NIF);
     }
 
-    public Map<String, List<SmartDevice>> parseDivisoes(String linhaPartida) {
+    public static Map<String, List<SmartDevice>> parseDivisoes(String linhaPartida) {
         String[] dados = linhaPartida.split(">");
         Map<String, List<SmartDevice>> divisoes = new HashMap<>();
         for (String dado : dados) {
@@ -43,7 +47,7 @@ public class Estado {
         return divisoes;
     }
 
-    public List<SmartDevice> parseDevices(String linhaPartida){
+    public static List<SmartDevice> parseDevices(String linhaPartida){
         List<SmartDevice> devices = new ArrayList<>();
         String[] dados = linhaPartida.split("<");
         for (String dado : dados) {
@@ -53,7 +57,7 @@ public class Estado {
         return devices;
     }
 
-    public SmartDevice parseDevice(String linhaPartida){
+    public static SmartDevice parseDevice(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartDevice sd = null;
         switch (dados[0]) {
@@ -84,17 +88,18 @@ public class Estado {
         return sd;
     }
 
-    public Fornecedores parseF (String linhaPartida){
+    public static Fornecedores parseF(String linhaPartida){
         return null;
     }
 
-    public List<String> lerFicheiro(String file) {
+    public static List<String> lerFicheiro(String file) {
         List<String> lines = new ArrayList<>();
         try {
             lines = Files.readAllLines(Paths.get(file));
         } catch (IOException exc) {
             System.out.println(exc.getMessage());
         }
+        lines.forEach(System.out::println);
         return lines;
     }
 }
