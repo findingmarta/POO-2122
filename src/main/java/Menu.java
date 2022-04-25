@@ -2,26 +2,7 @@ import java.util.*;
 //import java.time.LocalDateTime;
 
 public class Menu {
-    public static List<SmartDevice> makeDevices() {
-        List<SmartDevice> devices = new ArrayList<>();
-        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
-        devices.add(new SmartBulb("12345", true, SmartBulb.WARM, 2.0));
-        return devices;
-    }
 
-    private static Map<String, List<SmartDevice>> makeDivisoes() {
-        Map <String, List<SmartDevice>> divisoes = new HashMap<>();
-        divisoes.put("Sala",Menu.makeDevices());
-        divisoes.put("Cozinha",Menu.makeDevices());
-        return divisoes;
-    }
-
-    static void listCasas(List<Casa> l) {
-        Map <String, List<SmartDevice>> divisoes = makeDivisoes();
-        l.add( new Casa());
-        l.add( new Casa(divisoes, "Joana", "123456789"));
-
-    }
     public static int MenuInicial(){
         clearWindow();
         String sb = """
@@ -98,6 +79,14 @@ public class Menu {
         return scanner.nextInt();
     }
 
+    public static void voltartoMenu (List<Casa> l) {
+        System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
+        System.out.println("Insira 0 para retornar ao MenuCasa. ");
+        Scanner s = new Scanner(System.in);
+        int s1 = s.nextInt();
+        if (s1 == 0) Main.menucasa1(l);
+    }
+
 
     public static void definirDispositivos(List<Casa> l) {
         int i=-1;
@@ -136,37 +125,22 @@ public class Menu {
                     Scanner modo = new Scanner(System.in);
                     String m = modo.next();
 
-                    if (m.equals("Ligar") || m.equals("ligar")) {
-                        c.setDeviceOn(d, s);
-                        //System.out.println("\nLigado : " + s);
-                    } else if (m.equals("Desligar") || m.equals("desligar")) {
-                        c.setDeviceOff(d, s);
-                        //System.out.println("\nDesligado : " + s);
-                    } else {
+                    while(!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")){
                         System.out.println("Ligar ou Desligar? ");
                         modo = new Scanner(System.in);
+                        m = modo.next();
+                    }
+                    if (m.equals("Ligar") || m.equals("ligar") ) {
+                        c.setDeviceOn(d, s);
+                    } else {
+                        c.setDeviceOff(d, s);
                     }
                     Main.menucasa1(l);
                 }
-            else{
-
-                System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
-                System.out.println("Insira 0 para retornar ao MenuCasa. ");
-                Scanner s1 = new Scanner(System.in);
-                int si = s1.nextInt();
-                if (si == 0) Main.menucasa1(l);
-            }
+            else Menu.voltartoMenu(l);
 
         }
-        else {
-                System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
-                System.out.println("Insira 0 para retornar ao MenuCasa. ");
-                Scanner s2 = new Scanner(System.in);
-                int si = s2.nextInt();
-                if (si == 0) Main.menucasa1(l);
-            }
-
-
+        else Menu.voltartoMenu(l);
     }
 
     public static void definirDivisoes(List<Casa> l) {
@@ -189,21 +163,15 @@ public class Menu {
         System.out.println("Ligar ou Desligar? ");
         Scanner modo = new Scanner(System.in);
         String m = modo.next();
-
-        if (m.equals("Ligar")|| m.equals("ligar")) {
-            c.setDivisonOn(d);
-            //SmartDevice s = c.getDevice(d,"1111");
-            //System.out.println(s.getOn());
-        }
-        else if (m.equals("Desligar") || m.equals("desligar")) {
-            c.setDivisonOff(d);
-            //SmartDevice s = c.getDevice(d,"1111");
-            //System.out.println(s.getOn());
-        }
-        else {
+        while(!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")){
             System.out.println("Ligar ou Desligar? ");
             modo = new Scanner(System.in);
             m = modo.next();
+        }
+        if (m.equals("Ligar") || m.equals("ligar") ) {
+            c.setDivisonOn(d);
+        } else {
+            c.setDivisonOff(d);
         }
         Main.menucasa1(l);
         /*
