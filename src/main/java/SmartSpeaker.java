@@ -83,7 +83,7 @@ public class SmartSpeaker extends SmartDevice {
         String estado;
         if (getOn()) estado = "ON";
         else estado = "OF";
-        final StringBuffer ss = new StringBuffer("\n SmarCamera (\u001B[36m").append(getID()).append("\u001B[0m");
+        final StringBuffer ss = new StringBuffer("\n SmarSpeaker (\u001B[36m").append(getID()).append("\u001B[0m");
         ss.append(",").append(estado).append("): ");
         ss.append("Marca-> ").append(marca).append("  ");
         ss.append("Channel-> ").append(channel).append("  ");
@@ -121,7 +121,4 @@ public class SmartSpeaker extends SmartDevice {
     public void volumeDown() {
         if (this.volume>0) this.volume--;
     }
-
-
-
 }

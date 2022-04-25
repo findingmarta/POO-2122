@@ -1,23 +1,51 @@
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
+import java.io.*;
 
 public class Estado {
+    private List<Casa> casas;
+    private List<Fornecedores> fornecedores;
+    public Estado() {
+        this.casas = new ArrayList<>();
+        this.fornecedores = new ArrayList<>();
+    }
 
-    public static void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) {
-        List<String> linhas = lerFicheiro("src/main/java/estado.txt");
-        Casa c;
-        Fornecedores f = new Fornecedores();
+    public Estado(Estado umEstado) {
+        this.casas = umEstado.casas;
+        this.fornecedores = umEstado.fornecedores;
+    }
+
+    public List<Casa> getCasas(){
+        return this.casas;
+    }
+
+    public void setCasas(List<Casa> casas){           //CLONE !!!!
+        this.casas = casas;
+    }
+
+    public List<Fornecedores> getFornecedores(){
+        return this.fornecedores;
+    }
+
+    public void setFornecedores(List<Fornecedores> fornecedores){
+        this.fornecedores = fornecedores;
+    }
+
+    /**
+     * Metodos
+     */
+    public static void loadEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList, String filePath) {
+        List<String> linhas = lerFicheiro(filePath);
         for (String linha : linhas) {
             String[] linhaPartida = linha.split("-");
-            //System.out.println("121213");
             switch (linhaPartida[0]) {
                 case "Casa" -> {
-                    c = parseC(linhaPartida[1]);
+                    Casa c = parseC(linhaPartida[1]);
                     casasList.add(c);
                 }
                 case "Fornecedor" -> {
-                    f = parseF(linhaPartida[1]);
+                    Fornecedores f = parseF(linhaPartida[1]);
                     fornecedoresList.add(f);
                 }
                 default -> System.out.println("Linha invalida.");
@@ -89,6 +117,27 @@ public class Estado {
         return null;
     }
 
+    public static void saveEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) throws IOException {
+        Writer fos =  new FileWriter("src\\main\\java\\EstadoNovo.txt");
+        for (Casa casa : casasList) fos.write(casa.estadoCasa());
+        for (Fornecedores fornecedor : fornecedoresList) fos.write(fornecedor.toString());
+        fos.flush();
+        fos.close();
+    }
+
+    /*public void loadEstadoObj(String file) throws IOException, ClassNotFoundException {
+        Estado e = loadAux(file);
+        this.casas = e.casas;
+        this.fornecedores = e.fornecedores;
+    }
+
+    public Estado loadAux(String file) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+        Estado e = (Estado) ois.readObject();
+        ois.close();
+        return e;
+    }*/
+
     public static List<String> lerFicheiro(String file) {
         List<String> lines = new ArrayList<>();
         try {
@@ -96,7 +145,6 @@ public class Estado {
         } catch (IOException exc) {
             System.out.println(exc.getMessage());
         }
-        lines.forEach(System.out::println);
         return lines;
     }
 }

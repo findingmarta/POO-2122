@@ -114,6 +114,4 @@ public class SmartDevice {
         devices.add(new SmartBulb("12345", false, SmartBulb.WARM, 2.0));
         return devices;
     }
-
-
 }

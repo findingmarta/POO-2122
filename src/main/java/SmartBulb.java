@@ -92,7 +92,5 @@ public class SmartBulb extends SmartDevice {
     public double consumoEnergia(){
         return 1 + this.tone + this.dimensao;
     }
-
-
 }
 

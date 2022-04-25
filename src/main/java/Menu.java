@@ -2,7 +2,6 @@ import java.util.*;
 //import java.time.LocalDateTime;
 
 public class Menu {
-
     public static int MenuInicial(){
         clearWindow();
         String sb = """
@@ -21,9 +20,7 @@ public class Menu {
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
-
     }
-
 
     public static int MenuCasa() {
         clearWindow();
@@ -66,6 +63,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+
     public static int MenuCasaInfo(int i, List<Casa> l) {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
@@ -79,45 +77,44 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static void voltartoMenu (List<Casa> l) {
+    public static void voltartoMenu (List<Casa> l, List<Fornecedores> f) {
         System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
         System.out.println("Insira 0 para retornar ao MenuCasa. ");
         Scanner s = new Scanner(System.in);
         int s1 = s.nextInt();
-        if (s1 == 0) Main.menucasa1(l);
+        if (s1 == 0) Main.menucasa1(l,f);
     }
 
-
-    public static void definirDispositivos(List<Casa> l) {
-        int i=-1;
-        while(i < 0 || i> l.size()) {
-            System.out.println("Insira o índice da casa: ");
-            Scanner scanner = new Scanner(System.in);
-            i = scanner.nextInt();
-        }
-
-        Casa c = l.get(i - 1);
-
-        if(!c.getDivisoes().isEmpty()) {
-            System.out.println("Insira a divisão: ");
-            Scanner divisao = new Scanner(System.in);
-            String d = divisao.next();
-            while (!(c.hasRoom(d))) {
-                System.out.println("Insira a divisão: ");
-                divisao = new Scanner(System.in);
-                d = divisao.next();
+    public static void definirDispositivos(List<Casa> l, List<Fornecedores> f) {
+            int i=-1;
+            while(i < 0 || i> l.size()) {
+                System.out.println("Insira o índice da casa: ");
+                Scanner scanner = new Scanner(System.in);
+                i = scanner.nextInt();
             }
 
-            if (!(c.roomisEmpty(d))){
-                System.out.println("Insira o id: ");
-                Scanner id = new Scanner(System.in);
-                String id1 = id.next();
+            Casa c = l.get(i - 1);
 
-                while (!(c.roomHasDevice(d, id1))) {
-                    System.out.println("Insira o id: ");
-                    id = new Scanner(System.in);
-                    id1 = id.next();
+            if(!c.getDivisoes().isEmpty()) {
+                System.out.println("Insira a divisão: ");
+                Scanner divisao = new Scanner(System.in);
+                String d = divisao.next();
+                while (!(c.hasRoom(d))) {
+                    System.out.println("Insira a divisão: ");
+                    divisao = new Scanner(System.in);
+                    d = divisao.next();
                 }
+
+                if (!(c.roomisEmpty(d))){
+                    System.out.println("Insira o id: ");
+                    Scanner id = new Scanner(System.in);
+                    String id1 = id.next();
+
+                    while (!(c.roomHasDevice(d, id1))) {
+                        System.out.println("Insira o id: ");
+                        id = new Scanner(System.in);
+                        id1 = id.next();
+                    }
                     SmartDevice s = c.getDevice(d, id1);
                     //System.out.println(s);
 
@@ -135,15 +132,15 @@ public class Menu {
                     } else {
                         c.setDeviceOff(d, s);
                     }
-                    Main.menucasa1(l);
+                    Main.menucasa1(l,f);
                 }
-            else Menu.voltartoMenu(l);
+                else Menu.voltartoMenu(l,f);
 
+            }
+            else Menu.voltartoMenu(l,f);
         }
-        else Menu.voltartoMenu(l);
-    }
 
-    public static void definirDivisoes(List<Casa> l) {
+    public static void definirDivisoes(List<Casa> l, List<Fornecedores> f) {
         int i=-1;
 
         while(i < 0 || i> l.size()) {
@@ -168,12 +165,13 @@ public class Menu {
             modo = new Scanner(System.in);
             m = modo.next();
         }
+        Main.menucasa1(l,f);
         if (m.equals("Ligar") || m.equals("ligar") ) {
             c.setDivisonOn(d);
         } else {
             c.setDivisonOff(d);
         }
-        Main.menucasa1(l);
+        Main.menucasa1(l,f);
         /*
         System.out.println("\nInsira 0 para retornar para o Menu Casa");
         Scanner decisao = new Scanner(System.in);

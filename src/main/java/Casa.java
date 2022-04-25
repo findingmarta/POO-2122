@@ -11,7 +11,7 @@ public class Casa {
     private String proprietario;
     private String NIF;
 
-    private Fornecedores fornecedor;
+    private Fornecedores fornecedor;   // CRIAR E MUDAR OS METEDOS QUE ENVOLVAM ISTO
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -71,7 +71,7 @@ public class Casa {
      * Metodo toString, equals e clone
      */
     public String toString() {
-        final StringBuffer sb = new StringBuffer("\n\u001B[36m Casa { \u001B[0m \n\n");
+        final StringBuilder sb = new StringBuilder("\n\u001B[36m Casa { \u001B[0m \n\n");
         //sb.append("Dispositivos: ").append(devices).append('\n');
         Set<String> setOfKeys = divisoes.keySet();
         for (String key : setOfKeys) {
@@ -147,12 +147,57 @@ public class Casa {
         if(roomHasDevice(divisao, id)) return this.divisoes.get(divisao).stream().filter(sd -> id.equals(sd.getID())).findAny().orElse(null);
         return null;
     }
+    // FALTA METER ISTO NOS TESTES
+    public String estadoCasa() {
+        StringBuilder str = new StringBuilder("Casa-");
+        Set<String> setOfKeys = divisoes.keySet();
+        int i=1;
+        for (String key : setOfKeys) {
+            i++;
+            str.append(key).append("/").append(estadoListaSD(divisoes.get(key)));
+            if(i==setOfKeys.size())str.append(">");
+        }
+        return str + ";" + proprietario + ";" + NIF + ";\n";
+    }
+
+    public String estadoListaSD(List<SmartDevice> devices) {
+        StringBuilder str = new StringBuilder();
+        int i=1;
+        for(SmartDevice device : devices) {
+            str.append(estadoSD(device,i,devices.size()));
+            i++;
+        }
+        return str+"";
+    }
+
+    public String estadoSD (SmartDevice device, int i, int size){
+        String str = null;
+        switch (device.getClass().getSimpleName()) {
+            case "SmartBulb" -> {
+                SmartBulb sb = (SmartBulb) device;
+                str = "SmartBulb" + "," + sb.getID() + "," + sb.getOn() + "," +
+                        sb.getTone() + "," + sb.getDimensao();
+                if(i!=size) str = str + "<";
+            }
+            case "SmartSpeaker" -> {
+                SmartSpeaker ss = (SmartSpeaker) device;
+                str = "SmartSpeaker" + "," + ss.getID() + "," + ss.getOn() + "," +
+                        ss.getVolume() + "," + ss.getChannel() + "," + ss.getMarca();
+                if(i!=size) str = str + "<";
+            }
+
+            case "SmartCamera" ->{
+                SmartCamera sc = (SmartCamera) device;
+                str = "SmartCamera" + "," + sc.getID() + "," + sc.getOn() + "," +
+                        sc.getResolution() + "," + sc.getSize();
+                if(i!=size) str = str + "<";
+            }
+        }
+        return str;
+    }
     /*
     @Override
     public int hashCode() {
         return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
-
-
-
 }

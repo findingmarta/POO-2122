@@ -64,7 +64,6 @@ public class SmartCamera extends SmartDevice {
         return sc.toString();
     }
 
-
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SmartCamera)) return false;
