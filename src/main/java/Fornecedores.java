@@ -1,6 +1,10 @@
 public class Fornecedores {
+
+    private String name;
     private double valor_base;
     private double imposto;
+
+    private double desconto;
 
     /**
      * Construtores
@@ -55,6 +59,7 @@ public class Fornecedores {
         Fornecedores that = (Fornecedores) o;
         return Double.compare(that.valor_base, valor_base) == 0 && Double.compare(that.imposto, imposto) == 0;
     }
+
 
     public Fornecedores clone (){
         return new Fornecedores(this);

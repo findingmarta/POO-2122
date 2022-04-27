@@ -31,25 +31,7 @@ public class Main {
                 }
                 Main.menuinicial(l,f);
             }
-            case 4 -> {
-                String newFilePath = "src\\main\\java\\EstadoNovo.txt";
-                String filePath = "src\\main\\java\\Estado.txt";
-                Menu.clearWindow();
-                String sb = """
-                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
-                \u001B[1m 1) \u001B[0m Ficheiro Original.
-                \u001B[1m 2) \u001B[0m Novo Ficheiro.
-                \u001B[1m 0) \u001B[0m Menu Inicial.
-                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
-                Selecione a opção pretendida:\s""";
-                System.out.println(sb);
-
-                Scanner scanner = new Scanner(System.in);
-                int i = scanner.nextInt();
-                if (i==1) Estado.loadEstado(l,f,filePath);
-                else if (i==2) Estado.loadEstado(l,f,newFilePath);
-                Main.menuinicial(l,f);
-            }
+            case 4 -> Menu.MenuEstado(l,f);
             case 0 -> System.exit(0);
         }
     }
@@ -88,34 +70,17 @@ public class Main {
                 c.addRoom(d);
                 Main.menucasa1(l,f);
             }
-            /*
-            case 6 -> {
-                int i=-1;
-                while(i < 0 || i> l.size()) {
-                    System.out.println("Insira o índice da casa: ");
-                    Scanner scanner = new Scanner(System.in);
-                    i = scanner.nextInt();
-                }
-                Casa c = l.get(i - 1);
-                System.out.println("Insira a divisão: ");
-                Scanner divisao = new Scanner(System.in);
-                String d = divisao.next();
 
-                System.out.println("Insira o SmartDevice: ");
-                Scanner device = new Scanner(System.in);
-                String de = device.next();
-                SmartDevice device1 = new SmartBulb();
-                c.addToRoom(d,device1);
-                Main.menucasa1(l);
+            case 6 -> Menu.MenuDispositivos(l,f);
 
-            }
-*/
             //List<Casa> ListCasa = Menu.listCasas();
             //ListCasa.add(scanner, nome, nif);
             case 0 -> Main.menuinicial(l,f);
             default -> Main.menuinicial(l,f);
         }
     }
+
+
 
     public static void Menulistacasa (List<Casa> l, List<Fornecedores> f) {
         int opcao = -1;

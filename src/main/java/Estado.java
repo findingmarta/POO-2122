@@ -118,7 +118,7 @@ public class Estado {
     }
 
     public static void saveEstado(List<Casa> casasList, List<Fornecedores> fornecedoresList) throws IOException {
-        Writer fos =  new FileWriter("src\\main\\java\\EstadoNovo.txt");
+        Writer fos =  new FileWriter("src/main/java/EstadoNovo.txt");
         for (Casa casa : casasList) fos.write(casa.estadoCasa());
         for (Fornecedores fornecedor : fornecedoresList) fos.write(fornecedor.toString());
         fos.flush();

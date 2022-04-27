@@ -22,6 +22,25 @@ public class Menu {
         return scanner.nextInt();
     }
 
+    public static void MenuEstado(List<Casa> l, List<Fornecedores> f){
+        String newFilePath = "src/main/java/EstadoNovo.txt";
+        String filePath = "src/main/java/estado.txt";
+        Menu.clearWindow();
+        String sb = """
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+                \u001B[1m 1) \u001B[0m Ficheiro Original.
+                \u001B[1m 2) \u001B[0m Novo Ficheiro.
+                \u001B[1m 0) \u001B[0m Menu Inicial.
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+                Selecione a opção pretendida:\s""";
+        System.out.println(sb);
+
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+        if (i==1) Estado.loadEstado(l,f,filePath);
+        else if (i==2) Estado.loadEstado(l,f,newFilePath);
+        Main.menuinicial(l,f);
+    }
     public static int MenuCasa() {
         clearWindow();
         String sb = """
@@ -120,14 +139,14 @@ public class Menu {
 
                     System.out.println("Ligar ou Desligar? ");
                     Scanner modo = new Scanner(System.in);
-                    String m = modo.next();
+                    String m = modo.next().toLowerCase();
 
-                    while(!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")){
+                    while(!m.equals("ligar") && !m.equals("desligar")){
                         System.out.println("Ligar ou Desligar? ");
                         modo = new Scanner(System.in);
                         m = modo.next();
                     }
-                    if (m.equals("Ligar") || m.equals("ligar") ) {
+                    if (m.equals("ligar") ) {
                         c.setDeviceOn(d, s);
                     } else {
                         c.setDeviceOff(d, s);
@@ -148,38 +167,145 @@ public class Menu {
             Scanner scanner = new Scanner(System.in);
             i = scanner.nextInt();
         }
-        System.out.println("Insira a divisão: "); //verificar se a divsao existe
-        Scanner divisao = new Scanner(System.in);
-        String d = divisao.next();
         Casa c = l.get(i - 1);
-        while (!(c.hasRoom(d))) {
-            System.out.println("Insira a divisão: ");
-            divisao = new Scanner(System.in);
-            d = divisao.next();
-        }
-        System.out.println("Ligar ou Desligar? ");
-        Scanner modo = new Scanner(System.in);
-        String m = modo.next();
-        while(!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")){
+
+        if(!c.getDivisoes().isEmpty()) {
+            System.out.println("Insira a divisão: "); //verificar se a divsao existe
+            Scanner divisao = new Scanner(System.in);
+            String d = divisao.next();
+
+            while (!(c.hasRoom(d))) {
+                System.out.println("Insira a divisão: ");
+                divisao = new Scanner(System.in);
+                d = divisao.next();
+            }
             System.out.println("Ligar ou Desligar? ");
-            modo = new Scanner(System.in);
-            m = modo.next();
+            Scanner modo = new Scanner(System.in);
+            String m = modo.next();
+            while (!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")) {
+                System.out.println("Ligar ou Desligar? ");
+                modo = new Scanner(System.in);
+                m = modo.next();
+            }
+            Main.menucasa1(l, f);
+            if (m.equals("Ligar") || m.equals("ligar")) {
+                c.setDivisonOn(d);
+            } else {
+                c.setDivisonOff(d);
+            }
+            Main.menucasa1(l, f);
         }
-        Main.menucasa1(l,f);
-        if (m.equals("Ligar") || m.equals("ligar") ) {
-            c.setDivisonOn(d);
-        } else {
-            c.setDivisonOff(d);
-        }
-        Main.menucasa1(l,f);
-        /*
-        System.out.println("\nInsira 0 para retornar para o Menu Casa");
-        Scanner decisao = new Scanner(System.in);
-        int deci = decisao.nextInt();
-        if (deci==0) Main.menucasa1(l);
-         */
+        else Menu.voltartoMenu(l,f);
     }
+
+
+    public static int EscolhaDispotivios (){
+        String sb = """
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                 \u001B[1m                   DISPOSITIVO \u001B[0m
+
+                \u001B[1m 1) \u001B[0m SmartBulb.
+                \u001B[1m 2) \u001B[0m SmartCamera.
+                \u001B[1m 3) \u001B[0m SmartSpeaker.
+
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                Selecione a opção pretendida:\s""";
+
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static SmartDevice EscolhaDispositivos (String id, boolean turn){
+        int disp = -1;
+        while (disp < 0 || disp > 3) {
+            disp = Menu.EscolhaDispotivios();
+        }
+        switch (disp) {
+            case 1-> {
+                System.out.println("Insira o tone (1,2 ou 3): ");
+                Scanner tone = new Scanner(System.in);
+                int t = tone.nextInt();
+                System.out.println("Insira a dimensão: ");
+                Scanner dimensao = new Scanner(System.in);
+                double di = dimensao.nextDouble();
+                return new SmartBulb(id,turn,t,di);
+            }
+            case 2-> {
+                System.out.println("Insira a resolução: ");
+                Scanner resolucao = new Scanner(System.in);
+                double r = resolucao.nextDouble();
+                System.out.println("Insira o tamanho da imagem: ");
+                Scanner size = new Scanner(System.in);
+                double s = size.nextDouble();
+                return new SmartCamera(id,turn,r,s);
+            }
+            case 3-> {
+                System.out.println("Insira a marca: ");
+                Scanner marca = new Scanner(System.in);
+                String m = marca.next();
+                System.out.println("Insira a rádio : ");
+                Scanner radio = new Scanner(System.in);
+                String r = radio.next();
+                System.out.println("Insira o volume : ");
+                Scanner volume = new Scanner(System.in);
+                int v = volume.nextInt();
+                return new SmartSpeaker(id,turn,v,r,m);
+            }
+
+        }
+        return null;
+    }
+
+    public static void MenuDispositivos (List<Casa> l, List<Fornecedores> f){
+        int i = -1;
+        while (i < 0 || i > l.size()) {
+            System.out.println("Insira o índice da casa: ");
+            Scanner scanner = new Scanner(System.in);
+            i = scanner.nextInt();
+        }
+        Casa c = l.get(i - 1);
+        if (!c.getDivisoes().isEmpty()) {
+
+            System.out.println("Insira a divisão: ");
+            Scanner divisao = new Scanner(System.in);
+            String d = divisao.next();
+            while (!(c.hasRoom(d))) {
+                System.out.println("Insira a divisão: ");
+                divisao = new Scanner(System.in);
+                d = divisao.next();
+            }
+
+            System.out.println("Insira o id : ");
+            Scanner id = new Scanner(System.in);
+            String id1 = id.next();
+            //condicao veridica id
+
+            System.out.println("Off ou On: ");
+            Scanner estado = new Scanner(System.in);
+            String est = estado.next().toLowerCase();
+            System.out.println(est);
+            while (!est.equals("on") && !est.equals("of")){
+                System.out.println("Off ou On: ");
+                estado = new Scanner(System.in);
+                est = estado.next().toLowerCase();
+            }
+            boolean turn;
+            if (est.equals("on")) turn = true;
+            else  turn = false;
+
+            SmartDevice s = Menu.EscolhaDispositivos(id1,turn);
+            c.addDevices(d, s);
+            Main.menucasa1(l, f);
+        }
+        else Menu.voltartoMenu(l,f);
+    }
+
+
     /*
+
 
     public static int MenuFornecedores() {
         clearWindow();

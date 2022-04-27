@@ -11,6 +11,7 @@ public class SmartDevice {
     private String id;
     private boolean on;
 
+
     /**
      * Constructor for objects of class SmartDevice
      */

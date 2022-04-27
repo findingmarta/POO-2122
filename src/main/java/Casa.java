@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
  * divisoes que existem na casa.
  */
 public class Casa {
-    private List<SmartDevice> devices;
+    //private List<SmartDevice> devices;
     private Map <String, List<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
@@ -75,7 +75,7 @@ public class Casa {
         //sb.append("Dispositivos: ").append(devices).append('\n');
         Set<String> setOfKeys = divisoes.keySet();
         for (String key : setOfKeys) {
-            sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ").append(divisoes.get(key)).append("\n");
+            sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ").append(divisoes.get(key)).append("\n\n");
         }
 
       //  for (String divisao: divisoes) {
@@ -125,6 +125,10 @@ public class Casa {
 
     public void addRoomEDevices(String divisao, List<SmartDevice> devices) {
        if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
+    }
+
+    public void addDevices(String divisao, SmartDevice devices) {
+        this.divisoes.get(divisao).add(devices);
     }
 
     public void addRoom(String divisao) {
