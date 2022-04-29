@@ -37,8 +37,8 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         int i = scanner.nextInt();
-        if (i==1) Estado.loadEstado(l,f,filePath);
-        else if (i==2) Estado.loadEstado(l,f,newFilePath);
+        //if (i==1) Estado.loadEstado(l,f,filePath);
+        //else if (i==2) Estado.loadEstado(l,f,newFilePath);
         Main.menuinicial(l,f);
     }
     public static int MenuCasa() {
@@ -114,28 +114,15 @@ public class Menu {
 
             Casa c = l.get(i - 1);
 
-            if(!c.getDivisoes().isEmpty()) {
-                System.out.println("Insira a divisão: ");
-                Scanner divisao = new Scanner(System.in);
-                String d = divisao.next();
-                while (!(c.hasRoom(d))) {
-                    System.out.println("Insira a divisão: ");
-                    divisao = new Scanner(System.in);
-                    d = divisao.next();
-                }
-
-                if (!(c.roomisEmpty(d))){
                     System.out.println("Insira o id: ");
                     Scanner id = new Scanner(System.in);
                     String id1 = id.next();
 
-                    while (!(c.roomHasDevice(d, id1))) {
+                    while (!(c.hasDevice(id1))) {
                         System.out.println("Insira o id: ");
                         id = new Scanner(System.in);
                         id1 = id.next();
                     }
-                    SmartDevice s = c.getDevice(d, id1);
-                    //System.out.println(s);
 
                     System.out.println("Ligar ou Desligar? ");
                     Scanner modo = new Scanner(System.in);
@@ -147,16 +134,12 @@ public class Menu {
                         m = modo.next();
                     }
                     if (m.equals("ligar") ) {
-                        c.setDeviceOn(d, s);
+                        c.setDeviceOn(id1);
                     } else {
-                        c.setDeviceOff(d, s);
+                        c.setDeviceOff(id1);
                     }
                     Main.menucasa1(l,f);
-                }
-                else Menu.voltartoMenu(l,f);
 
-            }
-            else Menu.voltartoMenu(l,f);
         }
 
     public static void definirDivisoes(List<Casa> l, List<Fornecedores> f) {
@@ -181,14 +164,14 @@ public class Menu {
             }
             System.out.println("Ligar ou Desligar? ");
             Scanner modo = new Scanner(System.in);
-            String m = modo.next();
-            while (!m.equals("Ligar") && !m.equals("ligar") && !m.equals("Desligar") && !m.equals("desligar")) {
+            String m = modo.next().toUpperCase();
+            while ( !m.equals("ligar") && !m.equals("desligar")) {
                 System.out.println("Ligar ou Desligar? ");
                 modo = new Scanner(System.in);
                 m = modo.next();
             }
             Main.menucasa1(l, f);
-            if (m.equals("Ligar") || m.equals("ligar")) {
+            if (m.equals("ligar")) {
                 c.setDivisonOn(d);
             } else {
                 c.setDivisonOff(d);
@@ -286,23 +269,20 @@ public class Menu {
             System.out.println("Off ou On: ");
             Scanner estado = new Scanner(System.in);
             String est = estado.next().toLowerCase();
-            System.out.println(est);
-            while (!est.equals("on") && !est.equals("of")){
+            while (!est.equals("on") && !est.equals("off")){
                 System.out.println("Off ou On: ");
                 estado = new Scanner(System.in);
                 est = estado.next().toLowerCase();
             }
             boolean turn;
-            if (est.equals("on")) turn = true;
-            else  turn = false;
+            turn = est.equals("on");
 
             SmartDevice s = Menu.EscolhaDispositivos(id1,turn);
-            c.addDevices(d, s);
+            c.addDevices(d,id1, s);
             Main.menucasa1(l, f);
         }
         else Menu.voltartoMenu(l,f);
     }
-
 
     /*
 

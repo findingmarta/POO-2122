@@ -24,11 +24,11 @@ public class Main {
             case 1 -> Main.menucasa1(l,f);
             case 2 -> Main.menuinicial(l,f);
             case 3 -> {
-                try {
-                    Estado.saveEstado(l,f);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
+                //try {
+                 //   Estado.saveEstado(l,f);
+                //} catch (IOException e){
+                 //   e.printStackTrace();
+                //}
                 Main.menuinicial(l,f);
             }
             case 4 -> Menu.MenuEstado(l,f);
