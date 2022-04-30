@@ -341,4 +341,23 @@ public class Menu {
         for (AbstractMap.SimpleEntry<String, Integer> m : l) sb.append(m.getKey()+"----->"+m.getValue()+"encomendas transportadas\n");
         System.out.println(sb.toString());
     }*/
+
+
+    public static void erros (int i){
+        StringBuilder sb = new StringBuilder();
+        if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");
+        else if (i==2) sb.append("     Dados inválidos     ").append("\n");
+        else if (i==3) sb.append("     Erro ao ler o ficheiro     ").append("\n");
+
+        else if (i==4) sb.append("     Estado não foi guardado     ").append("\n");
+        else if (i==5) sb.append("     Estruturas de dados não foram lidas     ").append("\n");
+        else if (i==6) sb.append("     Código inválido    ").append("\n");
+        else if (i==7) sb.append("     Data inválida    ").append("\n");
+        else if (i==8) sb.append("     Estado não foi carregado     ").append("\n");
+
+        System.out.print(sb.toString());
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        clearWindow();
+    }
 }

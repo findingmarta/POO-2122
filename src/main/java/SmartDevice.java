@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A classe SmartDevice é um contactor simples.
@@ -73,9 +71,10 @@ public class SmartDevice {
                 this.on == sd.getOn());
     }
 
+    /**
     public SmartDevice clone() {
         return new SmartDevice(this);
-    }
+    }**/
 
     /**
      * Metodos
@@ -94,25 +93,19 @@ public class SmartDevice {
             sd.setOn(false);
         }
     }
-    public static List<SmartDevice> makeDevices() {
-        List<SmartDevice> devices = new ArrayList<>();
-        devices.add(new SmartSpeaker());
-        devices.add(new SmartCamera());
-        devices.add(new SmartDevice("1234", true));
-        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
-        devices.add(new SmartCamera("2222", false, 155.0, 33.0));
-        devices.add(new SmartBulb("123456789", false, SmartBulb.WARM, 2.0));
+    public static HashSet<String> idDevices() {
+        HashSet<String> devices = new HashSet<>();
+        devices.add("1111");
+        devices.add("2222");
+        devices.add("123456789");
         return devices;
     }
 
-    public static List<SmartDevice> makeDevices2() {
-        List<SmartDevice> devices = new ArrayList<>();
-        devices.add(new SmartSpeaker());
-        devices.add(new SmartCamera());
-        devices.add(new SmartDevice("1234", true));
-        devices.add(new SmartSpeaker("1111", false,15, "RFM", "Marshall"));
-        devices.add(new SmartCamera("2222", false, 155.0, 33.0));
-        devices.add(new SmartBulb("12345", false, SmartBulb.WARM, 2.0));
+    public static HashSet<String> idDevices2() {
+        HashSet<String> devices = new HashSet<>();
+        devices.add("123");
+        devices.add("5553");
+        devices.add("123456789");
         return devices;
     }
 }

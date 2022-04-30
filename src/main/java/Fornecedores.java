@@ -1,17 +1,13 @@
-public class Fornecedores {
-
-    private String name;
+public abstract class Fornecedores {
     private double valor_base;
     private double imposto;
-
-    private double desconto;
 
     /**
      * Construtores
      */
     public Fornecedores (){
-        this.valor_base = 0.0;
-        this.imposto = 0.0;
+        this.valor_base = 0.148;
+        this.imposto = 0.60;
     }
 
     public Fornecedores (double valor_base, double imposto){
@@ -24,9 +20,11 @@ public class Fornecedores {
         this.imposto = umFornecedor.imposto;
     }
 
+
     /**
      * Getters e Setters
      */
+    /**
     public double getValor_base() {
         return valor_base;
     }
@@ -42,7 +40,7 @@ public class Fornecedores {
     public void setImposto(double imposto) {
         this.imposto = imposto;
     }
-
+**/
     /**
      * Metodo toString, equals e clone
      */
@@ -60,10 +58,12 @@ public class Fornecedores {
         return Double.compare(that.valor_base, valor_base) == 0 && Double.compare(that.imposto, imposto) == 0;
     }
 
-
+    /**
     public Fornecedores clone (){
         return new Fornecedores(this);
-    }
+    }**/
+
+    public abstract double PrecoDiarioPorDispositivo (SmartDevice sb);
 
     /**
      * Metodos
@@ -77,18 +77,4 @@ public class Fornecedores {
         }
         return this.getValor_base()*consumo*(this.getImposto()+1)*0.9;
     }*/
-    public double PrecoDiarioPorDispositivo_SB (SmartBulb sb){
-        double consumo = sb.consumoEnergia();
-        return (this.getValor_base()*consumo*(this.getImposto()+1)*0.9)*24;  //CONFIRMAR
-    }
-
-    public double PrecoDiarioPorDispositivo_SS (SmartSpeaker ss){
-        double consumo = ss.consumoEnergia();
-        return (this.getValor_base()*consumo*(this.getImposto()+1)*0.9)*24;
-    }
-
-    public double PrecoDiarioPorDispositivo_SC (SmartCamera sc){
-        double consumo = sc.consumoEnergia();
-        return (this.getValor_base()*consumo*(this.getImposto()+1)*0.9)*24;
-    }
 }

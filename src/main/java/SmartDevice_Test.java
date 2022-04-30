@@ -48,6 +48,12 @@ public class SmartDevice_Test {
         assertEquals("b1",smartDev1.getID());
     }
 
+    //testar AQUI o abstrat
+    @Test
+    public abstract double testConsumoEnergia(){
+
+    }
+
     @Test
     public void testTurnAllOn() {
         List<SmartDevice> devices = SmartDevice.makeDevices();

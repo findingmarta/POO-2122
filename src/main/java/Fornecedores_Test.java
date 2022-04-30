@@ -1,48 +1,15 @@
+/**
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class Fornecedores_Test {
         @Test
         public void testContructor() {
-            Fornecedores fornec1 = new Fornecedores();
-            assertNotNull(fornec1);
-            fornec1 = new Fornecedores(250.3, 23.0);
+            Fornecedores fornec1;
             assertNotNull(fornec1);
         }
 
-    @Test
-    public void testGetValor_base() {
-        Fornecedores fornec1 = new Fornecedores(200.7, 25.0);
-        assertEquals(200.7, fornec1.getValor_base());
-        fornec1 = new Fornecedores(390.4, 22.5);
-        assertEquals(390.4,fornec1.getValor_base());
-    }
-
-    @Test
-    public void testSetValor_base(){
-        Fornecedores fornec1 = new Fornecedores(199.9, 29.7);
-        fornec1.setValor_base(200.0);
-        assertEquals(200.0, fornec1.getValor_base());
-        fornec1.setValor_base(342.6);
-        assertEquals(342.6, fornec1.getValor_base());
-    }
-
-    @Test
-    public void testGetImposto() {
-        Fornecedores fornec1 = new Fornecedores(654.3, 26.3);
-        assertEquals(26.3, fornec1.getImposto());
-        fornec1 = new Fornecedores(655.9, 23.3);
-        assertEquals(23.3,fornec1.getImposto());
-    }
-
-    @Test
-    public void testSetImposto(){
-        Fornecedores fornec1 = new Fornecedores(683.2, 32.4);
-        fornec1.setImposto(32.7);
-        assertEquals(32.7, fornec1.getImposto());
-        fornec1.setImposto(46.8);
-        assertEquals(46.8, fornec1.getImposto());
-    }
+    //testes da abstrata
 
     @Test
     public void testPrecoDiarioPorDispositivo_SB(){
@@ -75,3 +42,4 @@ public class Fornecedores_Test {
 
 
 }
+ **/
