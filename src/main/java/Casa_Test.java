@@ -1,7 +1,7 @@
-/*import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.util.*;
-
+/*
 public class Casa_Test {
     private Map<String, HashSet<String>> makeDivisoes() {
         Map <String, HashSet<String>> divisoes = new HashMap<>();

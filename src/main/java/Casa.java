@@ -25,7 +25,6 @@ public class Casa implements Serializable {
         this.divisoes = new HashMap<>();
         this.proprietario = "";
         this.NIF = "";
-        this.fornecedor = null;
     }
 
     public Casa(Map<String, SmartDevice> devices, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
@@ -109,16 +108,21 @@ public class Casa implements Serializable {
         //sb.append("Dispositivos: ").append(devices).append('\n');
         Set<String> setOfKeys = divisoes.keySet();
         for (String key : setOfKeys) {
-            sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ").append(devices.get(divisoes.get(key))).append("\n\n");
+            sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ");
+            HashSet<String> set = divisoes.get(key);
+            for (String s : set){
+                sb.append(getDevice(s));
+            }
+            sb.append("\n\n");
         }
 
       //  for (String divisao: divisoes) {
        //     sb.append(divisao).append(": ").append(divisoes.get(divisao));
        // }
         //sb.append("Divisoes: \n").append(divisoes).append('\n');
-        sb.append("\u001B[1m Proprietario: \u001B[0m").append(proprietario).append('\n');
-        sb.append("\u001B[1m NIF: \u001B[0m").append(NIF).append('\n');
-        sb.append("\u001B[1m Fornecedor: \u001B[0m").append(fornecedor).append('\n');
+        sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
+        sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
+        sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -201,6 +205,20 @@ public class Casa implements Serializable {
     }*/
 
 
+    public double consumoTotal() {
+        Set<String> setOfKeys = devices.keySet();
+        Fornecedores forn = this.getFornecedor();
+        System.out.println(forn);
+        Fornecedores forn1 = new FornecEDP();
+        double contador = 0;
+        for (String key : setOfKeys) {
+            SmartDevice s = this.getDevice(key);
+            if (s.getOn()) contador += forn1.PrecoDiarioPorDispositivo(s);
+            else contador += 0;
+        }
+        return contador;
+    }
+
     /*
     // FALTA METER ISTO NOS TESTES
     public String estadoCasa() {
@@ -249,5 +267,12 @@ public class Casa implements Serializable {
             }
         }
         return str;
+    }
+    /*
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
 }

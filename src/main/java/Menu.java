@@ -1,8 +1,21 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.time.temporal.ChronoUnit;
+
+
 
 public class Menu {
-    public static int MenuInicial(){
+    //Tentar encontrar outra forma mais elegante
+    public static void clearWindow() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
+    }
+
+    public static int MenuInicial() {
         clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -46,7 +59,6 @@ public class Menu {
             }
         }
     }
-
     public static int MenuCasa() {
         clearWindow();
         String sb = """
@@ -73,11 +85,11 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static int MenuListaCasas(List<Casa> l){
+    public static int MenuListaCasas(List<Casa> l) {
         Menu.clearWindow();
         StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         sb.append(" \u001B[1m             LISTAS DE CASAS \u001B[0m\n\n");
-        for (int i=0; i < l.size(); i++){
+        for (int i = 0; i < l.size(); i++) {
             String nif = l.get(i).getNIF();
             String prop = l.get(i).getProprietario();
             sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m Casa").append(i + 1).append(" -> NIF: ").append(nif).append("  Proprietário: ").append(prop).append("\n");
@@ -118,21 +130,21 @@ public class Menu {
                 i = scanner.nextInt();
             }
 
-            Casa c = l.get(i - 1);
+        Casa c = l.get(i - 1);
 
-                    System.out.println("Insira o id: ");
-                    Scanner id = new Scanner(System.in);
-                    String id1 = id.next();
+        System.out.println("Insira o id: ");
+        Scanner id = new Scanner(System.in);
+        String id1 = id.next();
 
-                    while (!(c.hasDevice(id1))) {
-                        System.out.println("Insira o id: ");
-                        id = new Scanner(System.in);
-                        id1 = id.next();
-                    }
+        while (!(c.hasDevice(id1))) {
+            System.out.println("O id inserido nao existe, tente novamente: ");
+            id = new Scanner(System.in);
+            id1 = id.next();
+        }
 
-                    System.out.println("Ligar ou Desligar? ");
-                    Scanner modo = new Scanner(System.in);
-                    String m = modo.next().toLowerCase();
+        System.out.println("Ligar ou Desligar? ");
+        Scanner modo = new Scanner(System.in);
+        String m = modo.next().toLowerCase();
 
                     while(!m.equals("ligar") && !m.equals("desligar")){
                         System.out.println("Ligar ou Desligar? ");
@@ -157,20 +169,20 @@ public class Menu {
         }
         Casa c = l.get(i - 1);
 
-        if(!c.getDivisoes().isEmpty()) {
+        if (!c.getDivisoes().isEmpty()) {
             System.out.println("Insira a divisão: "); //verificar se a divsao existe
             Scanner divisao = new Scanner(System.in);
-            String d = divisao.next();
+            String d = divisao.next().toLowerCase();
 
             while (!(c.hasRoom(d))) {
-                System.out.println("Insira a divisão: ");
+                System.out.println("A divisão inserida nao existe, tente novamente: ");
                 divisao = new Scanner(System.in);
-                d = divisao.next();
+                d = divisao.next().toLowerCase();
             }
             System.out.println("Ligar ou Desligar? ");
             Scanner modo = new Scanner(System.in);
-            String m = modo.next().toUpperCase();
-            while ( !m.equals("ligar") && !m.equals("desligar")) {
+            String m = modo.next().toLowerCase();
+            while (!m.equals("ligar") && !m.equals("desligar")) {
                 System.out.println("Ligar ou Desligar? ");
                 modo = new Scanner(System.in);
                 m = modo.next();
@@ -187,7 +199,7 @@ public class Menu {
     }
 
 
-    public static int EscolhaDispotivios (){
+    public static int EscolhaDispotivios() {
         String sb = """
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
 
@@ -256,13 +268,14 @@ public class Menu {
         }
         Casa c = l.get(i - 1);
         if (!c.getDivisoes().isEmpty()) {
+
             System.out.println("Insira a divisão: ");
             Scanner divisao = new Scanner(System.in);
-            String d = divisao.next();
+            String d = divisao.next().toLowerCase();
             while (!(c.hasRoom(d))) {
-                System.out.println("Insira a divisão: ");
+                System.out.println("A divisão inserida nao existe, tente novamente: ");
                 divisao = new Scanner(System.in);
-                d = divisao.next();
+                d = divisao.next().toLowerCase();
             }
 
             System.out.println("Off ou On: ");
@@ -285,6 +298,58 @@ public class Menu {
         else Menu.voltartoMenu(estado);
     }
 
+    public static boolean isDateValid(String strDate) {
+        String dateFormat = "dd/MM/yyyy";
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public static double CalculateDays() {
+        double diff = 0;
+            System.out.println("Insira a data no formato dd/MM/yyyy:");
+            Scanner scanner = new Scanner(System.in);
+            String s = scanner.next();
+            String s1 = scanner.next();
+            String dateFormat = "dd/MM/yyyy";
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            while (!(Menu.isDateValid(s)) || (!Menu.isDateValid(s1))) {
+                System.out.println("Insira a data no formato dd/MM/yyyy:");
+                s = scanner.next();
+                s1 = scanner.next();
+            }
+            LocalDate dBefore = LocalDate.parse(s, dateTimeFormatter);
+            LocalDate dAfter = LocalDate.parse(s1, dateTimeFormatter);
+            if (!dBefore.isAfter(dAfter)) {
+                diff = ChronoUnit.DAYS.between(dBefore, dAfter);
+                System.out.println("difference is : " + diff);
+            }
+            else Menu.CalculateDays();
+        return diff;
+    }
+
+    public static void erros (int i){
+        StringBuilder sb = new StringBuilder();
+        if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");
+        else if (i==2) sb.append("     Dados inválidos     ").append("\n");
+        else if (i==3) sb.append("     Erro ao ler o ficheiro     ").append("\n");
+
+        else if (i==4) sb.append("     Estado não foi guardado     ").append("\n");
+        else if (i==5) sb.append("     Estruturas de dados não foram lidas     ").append("\n");
+        else if (i==6) sb.append("     Código inválido    ").append("\n");
+        else if (i==7) sb.append("     Data inválida    ").append("\n");
+        else if (i==8) sb.append("     Estado não foi carregado     ").append("\n");
+
+        System.out.print(sb.toString());
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        clearWindow();
+    }
     /*
 
 
@@ -316,16 +381,7 @@ public class Menu {
         return (hour+":"+ min+" H");
     }
 
-     */
-    //Tentar encontrar outra forma mais elegante
-    public static void clearWindow() {
-        for (int i = 0;i<100;i++){
-            System.out.println();
-        }
-    }
 
-
-    /*
     public static void maisFreqT(List<AbstractMap.SimpleEntry<String, Double>> l) {
         clearWindow();
         StringBuilder sb = new StringBuilder("-----------Entidades que utilizam mais o sistema-----------\n\n");
@@ -342,23 +398,4 @@ public class Menu {
         for (AbstractMap.SimpleEntry<String, Integer> m : l) sb.append(m.getKey()+"----->"+m.getValue()+"encomendas transportadas\n");
         System.out.println(sb.toString());
     }*/
-
-
-    public static void erros (int i){
-        StringBuilder sb = new StringBuilder();
-        if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");
-        else if (i==2) sb.append("     Dados inválidos     ").append("\n");
-        else if (i==3) sb.append("     Erro ao ler o ficheiro     ").append("\n");
-
-        else if (i==4) sb.append("     Estado não foi guardado     ").append("\n");
-        else if (i==5) sb.append("     Estruturas de dados não foram lidas     ").append("\n");
-        else if (i==6) sb.append("     Código inválido    ").append("\n");
-        else if (i==7) sb.append("     Data inválida    ").append("\n");
-        else if (i==8) sb.append("     Estado não foi carregado     ").append("\n");
-
-        System.out.print(sb.toString());
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        clearWindow();
     }
-}

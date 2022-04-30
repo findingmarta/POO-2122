@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.*;
-
+/*
 public class Estado_Test {
     private Casa makeCasa(){
         Casa casa = new Casa();
@@ -21,13 +21,13 @@ public class Estado_Test {
         casa.setFornecedor(null);
         return casa;
     }
-    /*
+
     private Fornecedores makeFornecedor(){
         Fornecedores fornecedor = new Fornecedores();
         fornecedor.setImposto(19.9);
         fornecedor.setValor_base(1.11);
         return fornecedor;
-    }*/
+    }
 
     private Map<String, HashSet<String>> makeDivisoes1() {
         Map <String, HashSet<String>> divisoes = new HashMap<>();
@@ -199,4 +199,4 @@ public class Estado_Test {
         //assertEquals(casa,estado.getCasas().get(0));
     }
     //FALTA PARA OS FORNECEDORES
-}
+}*/

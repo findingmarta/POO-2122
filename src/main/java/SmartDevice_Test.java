@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-
+/*
 public class SmartDevice_Test {
     @Test
     public void testContructor() {
@@ -81,5 +81,5 @@ public class SmartDevice_Test {
         smartDev1.setOn(false);
         smartDev2.setID("b2");
         assertFalse(smartDev1.equals(smartDev2));
-    }*/
-}
+    }
+}*/

@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+//import static javax.swing.UIManager.get;
+
 public class Main {
     public static void main(String[] args) {
         Estado estado = new Estado();
@@ -57,7 +59,7 @@ public class Main {
     public static void menucasa1(Estado estado) {
         List<Casa> l = estado.getCasas();
         int opcao = -1;
-        while (opcao < 0 || opcao > 6) {
+        while (opcao < 0 || opcao > 8) {
             opcao = Menu.MenuCasa();
         }
         switch (opcao) {
@@ -83,15 +85,35 @@ public class Main {
                     i = scanner.nextInt();
                 }
                 Casa c = l.get(i - 1);
+
                 System.out.println("Insira a divisão: ");
                 Scanner divisao = new Scanner(System.in);
-                String d = divisao.next();
+                String d = divisao.next().toLowerCase();
                 c.addRoom(d);
                 Main.menucasa1(estado);
             }
 
             case 6 -> Menu.MenuDispositivos(estado,l);
+            case 7 -> {
 
+            }
+            case 8 -> {
+                int i=-1;
+                while(i < 0 || i> l.size()) {
+                    System.out.println("Insira o índice da casa: ");
+                    Scanner scanner = new Scanner(System.in);
+                    i = scanner.nextInt();
+                }
+                Casa c = l.get(i - 1);
+                double precoFinal = c.consumoTotal() * Menu.CalculateDays();
+                System.out.println(precoFinal);
+                System.out.println("Insira 0 para retornar ao MenuCasa. ");
+                Scanner s = new Scanner(System.in);
+                int s1 = s.nextInt();
+                if (s1 == 0) Main.menucasa1(estado);
+
+
+            }
             //List<Casa> ListCasa = Menu.listCasas();
             //ListCasa.add(scanner, nome, nif);
             case 0 -> Main.menuinicial(estado);

@@ -1,10 +1,11 @@
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
+
 /**
  * A classe SmartDevice é um contactor simples.
  * Permite ligar ou desligar circuitos.
  */
-public class SmartDevice implements Serializable {
+public abstract class SmartDevice implements Serializable {
 
     private String id;
     private boolean on;
@@ -112,4 +113,6 @@ public class SmartDevice implements Serializable {
         devices.add("123456789");
         return devices;
     }
+
+    public abstract double consumoEnergia();
 }
