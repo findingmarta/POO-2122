@@ -86,7 +86,7 @@ public abstract class SmartDevice implements Serializable {
      */
     // IMPEDIR DE CRIAR DEVICES REPETIDOS (mesmo id)
     //public abstract double consumoEnergia();
-
+/*
     public void turnAllOn(List<SmartDevice> devices) {
         for(SmartDevice sd : devices) {
             sd.setOn(true);
@@ -97,7 +97,7 @@ public abstract class SmartDevice implements Serializable {
         for(SmartDevice sd : devices) {
             sd.setOn(false);
         }
-    }
+    }*/
     public static HashSet<String> idDevices() {
         HashSet<String> devices = new HashSet<>();
         devices.add("1111");

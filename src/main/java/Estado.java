@@ -155,7 +155,6 @@ public class Estado implements Serializable {
         } catch (IOException exc) {
             Menu.erros(3);
         }
-        lines.forEach(System.out::println);
         return lines;
     }
 

@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.util.*;
-/*
+
 public class Casa_Test {
     private Map<String, HashSet<String>> makeDivisoes() {
         Map <String, HashSet<String>> divisoes = new HashMap<>();
@@ -20,9 +20,9 @@ public class Casa_Test {
 
     private Map<String, SmartDevice> makeDevices() {
         Map<String, SmartDevice> devices = new HashMap<>();
-        devices.put("111", new SmartBulb ("111", true, 1, 20));
-        devices.put("396", new SmartSpeaker ("396", true, 15, "COMERCIAL", "SONY"));
-        devices.put ("99912", new SmartCamera("99912", false, 187.2, 301.1));
+        devices.put ("1111", new SmartCamera("1111", false, 187.2, 301.1));
+        devices.put("123456789", new SmartBulb ("123456789", false, 2, 2.0));
+        devices.put("2222", new SmartSpeaker ("2222", true, 15, "COMERCIAL", "SONY"));
         return devices;
     }
 
@@ -103,7 +103,6 @@ public class Casa_Test {
     public void testGetDevice() {
         Casa casa1 = new Casa(makeDevices(), makeDivisoes(), "Maria", "11111111");
         SmartDevice sd = new SmartBulb("123456789", false, SmartBulb.WARM, 2.0);
-        casa1.getDevice(sd.getID());
         assertEquals(casa1.getDevice("123456789"), sd);
     }
 
@@ -130,7 +129,12 @@ public class Casa_Test {
         String divisao = "Sala";
         casa1.setDivisonOn(divisao);
         Map<String, HashSet<String>> divisoes = casa1.getDivisoes();
-        assertTrue(divisoes.get(divisao).stream().allMatch(SmartDevice::getOn));
+        Map<String, SmartDevice> devices = casa1.getDevices();
+        HashSet<String> ids = divisoes.get(divisao);
+
+        for(String id : ids){
+            assertTrue(devices.values().stream().allMatch(sd->casa1.getDevice(id).getOn()));
+        }
     }
 
     @Test
@@ -138,8 +142,13 @@ public class Casa_Test {
         Casa casa1 = new Casa(makeDevices(), makeDivisoes(), "Maria", "11111111");
         String divisao = "Sala";
         casa1.setDivisonOff(divisao);
-        Map<String,  HashSet<String>> divisoes = casa1.getDivisoes();
-        assertFalse(divisoes.get(divisao).stream().allMatch(SmartDevice::getOn));
+        Map<String, HashSet<String>> divisoes = casa1.getDivisoes();
+        Map<String, SmartDevice> devices = casa1.getDevices();
+        HashSet<String> ids = divisoes.get(divisao);
+
+        for(String id : ids){
+            assertFalse(devices.values().stream().allMatch(sd->casa1.getDevice(id).getOn()));
+        }
     }
 
     @Test
@@ -169,18 +178,17 @@ public class Casa_Test {
     @Test
     public void addSmartDevice (){
         Casa casa1 = new Casa(makeDevices(), makeDivisoes(), "Maria", "11111111");
-        SmartDevice ss = new SmartSpeaker("1111", false,15, "RFM", "Marshall");
-        casa1.addSmartDevice("111",ss);
-
-        assertEquals(ss, casa1.getDevice("111"));
+        SmartDevice ss = new SmartSpeaker(false,15, "RFM", "Marshall");
+        casa1.addSmartDevice(ss);
+        assertEquals(ss, casa1.getDevice(ss.getID()));
     }
 
     @Test
     public void testAddToRoom() {
-        SmartDevice sd = new SmartBulb("999", false, SmartBulb.NEUTRAL, 2.0);
+        //SmartDevice sd = new SmartBulb("999", false, SmartBulb.NEUTRAL, 2.0);
         Casa casa1 = new Casa(makeDevices(), makeDivisoes(), "Maria", "11111111");
         String divisao = "Sala";
-        casa1.addToRoom(divisao,"999",sd);
+        casa1.addToRoom(divisao,"999");
         assertTrue(casa1.roomHasDevice(divisao, "999"));
     }
-}*/
+}

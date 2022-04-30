@@ -1,4 +1,4 @@
-/**
+/*
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -38,8 +38,5 @@ public class Fornecedores_Test {
         smartCam1 = new SmartCamera("cam1",true, 142.2,40.0);
         assertEquals(Math.round(510.2*5691*25.56*24), Math.round(fornec1.PrecoDiarioPorDispositivo_SC(smartCam1)));
     }
-
-
-
 }
- **/
+ */

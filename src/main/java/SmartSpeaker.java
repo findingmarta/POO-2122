@@ -105,13 +105,17 @@ public class SmartSpeaker extends SmartDevice {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         SmartSpeaker ss = (SmartSpeaker) o;
-        return Objects.equals(this.getID(), ss.getID()) && Objects.equals(this.getOn(), ss.getOn()) &&
+        return  super.equals(ss) &&
+                this.volume == ss.getVolume() &&
+                this.channel.equals(ss.getChannel()) &&
+                this.marca.equals(ss.getMarca());
+    }
+    /*return Objects.equals(this.getID(), ss.getID()) && Objects.equals(this.getOn(), ss.getOn()) &&
                 this.volume == ss.getVolume() &&
                 Objects.equals(this.channel, ss.getChannel()) &&
-                Objects.equals(this.marca, ss.getMarca());
-    }
+                Objects.equals(this.marca, ss.getMarca());*/
 
     public SmartSpeaker clone (){
         return new SmartSpeaker(this);

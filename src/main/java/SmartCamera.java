@@ -77,11 +77,16 @@ public class SmartCamera extends SmartDevice {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SmartCamera)) return false;
-        SmartCamera that = (SmartCamera) o;
-        return Objects.equals(this.getID(), that.getID()) && Objects.equals(this.getOn(), that.getOn()) &&
-                Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        SmartCamera sc = (SmartCamera) o;
+        return super.equals(sc) &&
+                this.resolution==sc.getResolution() &&
+                this.size==sc.getSize();
     }
+    /*return Objects.equals(this.getID(), that.getID()) && Objects.equals(this.getOn(), that.getOn()) &&
+     Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
+    */
+
 
     public SmartCamera clone() {
         return new SmartCamera(this);

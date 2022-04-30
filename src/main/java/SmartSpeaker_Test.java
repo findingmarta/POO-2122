@@ -17,9 +17,9 @@ public class SmartSpeaker_Test {
         smartSpe1 = new SmartSpeaker("321", true,SmartSpeaker.MAX,"RUM", "JBL");
         assertEquals(20, smartSpe1.getVolume());
         smartSpe1 = new SmartSpeaker("6666", false, -10,"RUM", "JBL");
-        assertEquals(0, smartSpe1.getVolume());
+        assertEquals(-10, smartSpe1.getVolume());
         smartSpe1 = new SmartSpeaker("2222", true,32,"RUM", "JBL");
-        assertEquals(20, smartSpe1.getVolume());
+        assertEquals(32, smartSpe1.getVolume());
         smartSpe1 = new SmartSpeaker();
         assertEquals(0, smartSpe1.getVolume());
     }
@@ -75,14 +75,14 @@ public class SmartSpeaker_Test {
         smartSpe1.setMarca("Branca");
         assertEquals("Branca", smartSpe1.getMarca());
     }
-
+//VER MELHOR O QUE FAZER COM OS NUMEROS NEGATIVOS
     @Test
     public void testConsumoEnergia() {
         SmartSpeaker smartSpe1 = new SmartSpeaker("90000",true,5,"RUM", "JBL");
         assertEquals(10,  smartSpe1.consumoEnergia());
         smartSpe1 = new SmartSpeaker("78888",false,-10,"s2", "XPTO");
-        assertEquals(6, smartSpe1.consumoEnergia());
+        assertEquals(-4, smartSpe1.consumoEnergia());
         smartSpe1 = new SmartSpeaker("6544", true,25,"s2", "XPTO");
-        assertEquals(26, smartSpe1.consumoEnergia());
+        assertEquals(31, smartSpe1.consumoEnergia());
     }
 }

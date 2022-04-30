@@ -87,11 +87,15 @@ public class SmartBulb extends SmartDevice {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         SmartBulb sb = (SmartBulb) o;
-        return Objects.equals(this.getID(), sb.getID()) && Objects.equals(this.getOn(), sb.getOn())
-                && this.tone == sb.tone && this.dimensao == sb.dimensao;
+        return  super.equals(sb) &&
+                this.tone == sb.tone &&
+                this.dimensao == sb.dimensao;
     }
+    /*return Objects.equals(this.getID(), sb.getID()) && Objects.equals(this.getOn(), sb.getOn())
+                && this.tone == sb.tone && this.dimensao == sb.dimensao;
+    */
 
     public SmartBulb clone() {
         return new SmartBulb(this);

@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.*;
 
-/*
 public class Estado_Test {
     private Casa makeCasa(){
         Casa casa = new Casa();
@@ -22,13 +21,13 @@ public class Estado_Test {
         casa.setFornecedor(null);
         return casa;
     }
-
+    /*
     private Fornecedores makeFornecedor(){
         Fornecedores fornecedor = new Fornecedores();
         fornecedor.setImposto(19.9);
         fornecedor.setValor_base(1.11);
         return fornecedor;
-    }
+    }*/
 
     private Map<String, HashSet<String>> makeDivisoes1() {
         Map <String, HashSet<String>> divisoes = new HashMap<>();
@@ -44,19 +43,19 @@ public class Estado_Test {
         Map <String, SmartDevice> devices = new HashMap<>();
 
         devices.put("122", new SmartBulb("122",false,1, 60.0));
-        devices.put("1351", new SmartBulb("1351",false,1, 40.0));
+        devices.put("1161", new SmartBulb("1161",false,1, 14.0));
 
-        devices.put("994", new SmartSpeaker("994",false,55, "RFM Oceano Pacifico", "Marshall"));
-        devices.put("1122", new SmartBulb("1122",false,0, 40.0));
-        devices.put("745", new SmartCamera("745",false,3840.0, 2160.0));
+        devices.put("1163", new SmartSpeaker("1163",false,55, "RFM Oceano Pacifico", "Marshall"));
+        devices.put("1514", new SmartBulb("1514",false,0, 40.0));
+        devices.put("335", new SmartCamera("335",false,3840.0, 2160.0));
 
-        devices.put("628", new SmartSpeaker("628",false,35, "RTP Antena 1 98.3 FM", "Marshall"));
-        devices.put("1533", new SmartBulb("1533",false,2, 60.0));
-        devices.put("669", new SmartSpeaker("669",false,42, "RFM", "Sennheiser"));
-        devices.put("311", new SmartSpeaker("311",false,30, "M80 Radio", "LG"));
-        devices.put("1515", new SmartSpeaker("1515",false,65, "RTP Antena 1 98.3 FM", "Sony"));
-        devices.put("104", new SmartSpeaker("104",false,52, "Radio Renascenca", "LG"));
-        devices.put("1299", new SmartSpeaker("1299",false,45, "MEGA HITS", "BOSE"));
+        devices.put("571", new SmartSpeaker("571",false,35, "RTP Antena 1 98.3 FM", "Marshall"));
+        devices.put("47", new SmartBulb("47",false,2, 60.0));
+        devices.put("1215", new SmartSpeaker("1215",false,42, "RFM", "Sennheiser"));
+        devices.put("845", new SmartSpeaker("845",false,30, "M80 Radio", "LG"));
+        devices.put("1530", new SmartSpeaker("1530",false,65, "RTP Antena 1 98.3 FM", "Sony"));
+        devices.put("1093", new SmartSpeaker("1093",false,52, "Radio Renascenca", "LG"));
+        devices.put("1626", new SmartSpeaker("1626",false,45, "MEGA HITS", "BOSE"));
         return devices;
     }
 
@@ -65,21 +64,21 @@ public class Estado_Test {
 
         HashSet<String> ids1 = new HashSet<>();
         ids1.add("122");
-        ids1.add("1351");
+        ids1.add("1161");
 
         HashSet<String> ids2 = new HashSet<>();
-        ids2.add("994");
-        ids2.add("1122");
-        ids2.add("745");
+        ids2.add("1163");
+        ids2.add("1514");
+        ids2.add("335");
 
         HashSet<String> ids3 = new HashSet<>();
-        ids3.add("628");
-        ids3.add("1533");
-        ids3.add("669");
-        ids3.add("311");
-        ids3.add("1515");
-        ids3.add("104");
-        ids3.add("1299");
+        ids3.add("571");
+        ids3.add("47");
+        ids3.add("1215");
+        ids3.add("845");
+        ids3.add("1530");
+        ids3.add("1093");
+        ids3.add("1626");
 
         divisoes.put("Sala de Jantar",ids1);
         divisoes.put("Garagem",ids2);
@@ -153,10 +152,10 @@ public class Estado_Test {
     @Test
     public void testLerFicheiro(){
         List<String> lines = Estado.lerFicheiro();
-        assertEquals("Fornecedor:EDP Comercial", lines.get(0));
-        assertEquals("Fornecedor:Galp Energia", lines.get(1));
-        assertEquals("Casa:Joao Pedro Malheiro da Costa,707666276,Coopernico", lines.get(6));
-        assertEquals("Divisao:Sala de Jantar", lines.get(7));
+        assertEquals("Fornecedor:EDP", lines.get(0));
+        assertEquals("Fornecedor:Jomar", lines.get(1));
+        assertEquals("Casa:Joao Pedro Malheiro da Costa,707666276,EDP", lines.get(3));
+        assertEquals("Divisao:Sala de Jantar", lines.get(4));
     }
 
     @Test
@@ -168,8 +167,8 @@ public class Estado_Test {
         Casa casa = makeCasa2();
         assertEquals(casa.getProprietario(),c.get(0).getProprietario());
         assertEquals(casa.getNIF(),c.get(0).getNIF());
-        assertEquals(casa.getDivisoes(),c.get(0).getDivisoes());
         assertEquals(casa.getDevices(),c.get(0).getDevices());
+        assertEquals(casa.getDivisoes(),c.get(0).getDivisoes());
         assertEquals(casa, c.get(0));
     }
 
@@ -190,14 +189,15 @@ public class Estado_Test {
     @Test
     public void testSaveEstado(){
         Estado estado = new Estado();
-        Casa casa = makeCasa2();
         estado.loadEstado();
+        Casa casa = makeCasa2();
         try {
             estado.saveEstado("src/main/java/Estado.obj");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //assertEquals(casa,estado.getCasas().get(0));
+        assertEquals(casa.getDevices(),estado.getCasas().get(0).getDevices());
+        assertEquals(casa.getDivisoes(),estado.getCasas().get(0).getDivisoes());
     }
     //FALTA PARA OS FORNECEDORES
-}*/
+}
