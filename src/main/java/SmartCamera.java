@@ -23,6 +23,17 @@ public class SmartCamera extends SmartDevice {
         this.size = size;
     }
 
+    public SmartCamera (boolean b, double re, double size){
+        super(b);
+        this.resolution = re;
+        this.size = size;
+    }
+
+    public SmartCamera (double re, double size){
+        this.resolution = re;
+        this.size = size;
+    }
+
     public SmartCamera (SmartCamera sc){
         super (sc);
         this.resolution = sc.getResolution();

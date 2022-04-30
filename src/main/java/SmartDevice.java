@@ -1,10 +1,10 @@
 import java.util.*;
-
+import java.io.Serializable;
 /**
  * A classe SmartDevice é um contactor simples.
  * Permite ligar ou desligar circuitos.
  */
-public class SmartDevice {
+public class SmartDevice implements Serializable {
 
     private String id;
     private boolean on;
@@ -25,6 +25,10 @@ public class SmartDevice {
 
     public SmartDevice(String id, boolean b) {
         this.id = id;
+        this.on = b;
+    }
+
+    public SmartDevice(boolean b) {
         this.on = b;
     }
 

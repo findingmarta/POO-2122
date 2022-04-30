@@ -1,4 +1,6 @@
-public abstract class Fornecedores {
+import java.io.Serializable;
+
+public abstract class Fornecedores implements Serializable {
     private double valor_base;
     private double imposto;
 

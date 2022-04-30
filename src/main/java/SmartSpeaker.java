@@ -30,6 +30,19 @@ public class SmartSpeaker extends SmartDevice {
         this.marca = marca;
     }
 
+    public SmartSpeaker(boolean turn, int volume, String channel, String marca) {
+        super(turn);
+        this.volume = volume;
+        this.channel = channel;
+        this.marca = marca;
+    }
+
+    public SmartSpeaker(int volume, String channel, String marca) {
+        this.volume = volume;
+        this.channel = channel;
+        this.marca = marca;
+    }
+
     public SmartSpeaker(SmartSpeaker ss) {
         this.volume = ss.getVolume();
         this.channel = ss.getChannel();
@@ -50,9 +63,7 @@ public class SmartSpeaker extends SmartDevice {
     /**
      * Getters e Setters
      */
-    public int getVolume() {
-        if (this.volume<0) this.setVolume(0);
-        if (this.volume>20) this.setVolume(20);
+    public int getVolume() {     // NAO ESQUECER DISTO
         return this.volume;
     }
 

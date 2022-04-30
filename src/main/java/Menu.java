@@ -1,5 +1,5 @@
+import java.io.IOException;
 import java.util.*;
-//import java.time.LocalDateTime;
 
 public class Menu {
     public static int MenuInicial(){
@@ -10,7 +10,7 @@ public class Menu {
                  \u001B[1m           MENU INICIAL \u001B[0m
 
                  \u001B[1m 1) \u001B[0m Menu Casa.
-                 \u001B[1m 2) \u001B[0m Ver fornecedores.
+                 \u001B[1m 2) \u001B[0m Menu Fornecedores.
                  \u001B[1m 3) \u001B[0m Salvar Estado.
                  \u001B[1m 4) \u001B[0m Carregar Estado.
                  \u001B[1m 0) \u001B[0m Sair.
@@ -22,9 +22,9 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static void MenuEstado(List<Casa> l, List<Fornecedores> f){
-        String newFilePath = "src/main/java/EstadoNovo.txt";
-        String filePath = "src/main/java/estado.txt";
+    public static void MenuEstado(){
+        String newFilePath = "src/main/java/Estado.obj";
+        Estado estado = new Estado();
         Menu.clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
@@ -37,10 +37,16 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         int i = scanner.nextInt();
-        //if (i==1) Estado.loadEstado(l,f,filePath);
-        //else if (i==2) Estado.loadEstado(l,f,newFilePath);
-        Main.menuinicial(l,f);
+        if (i==1) estado.loadEstado();
+        else if (i==2) {
+            try {
+                estado.loadEstadoObj(newFilePath);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
     public static int MenuCasa() {
         clearWindow();
         String sb = """
@@ -96,16 +102,16 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static void voltartoMenu (List<Casa> l, List<Fornecedores> f) {
+    public static void voltartoMenu (Estado estado) {
         System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
         System.out.println("Insira 0 para retornar ao MenuCasa. ");
         Scanner s = new Scanner(System.in);
         int s1 = s.nextInt();
-        if (s1 == 0) Main.menucasa1(l,f);
+        if (s1 == 0) Main.menucasa1(estado);
     }
 
-    public static void definirDispositivos(List<Casa> l, List<Fornecedores> f) {
-            int i=-1;
+    public static void definirDispositivos(Estado estado, List<Casa> l) {
+        int i=-1;
             while(i < 0 || i> l.size()) {
                 System.out.println("Insira o índice da casa: ");
                 Scanner scanner = new Scanner(System.in);
@@ -138,13 +144,12 @@ public class Menu {
                     } else {
                         c.setDeviceOff(id1);
                     }
-                    Main.menucasa1(l,f);
+                    Main.menucasa1(estado);
 
         }
 
-    public static void definirDivisoes(List<Casa> l, List<Fornecedores> f) {
+    public static void definirDivisoes(Estado estado, List<Casa> l) {
         int i=-1;
-
         while(i < 0 || i> l.size()) {
             System.out.println("Insira o índice da casa: ");
             Scanner scanner = new Scanner(System.in);
@@ -170,15 +175,15 @@ public class Menu {
                 modo = new Scanner(System.in);
                 m = modo.next();
             }
-            Main.menucasa1(l, f);
+            Main.menucasa1(estado);
             if (m.equals("ligar")) {
                 c.setDivisonOn(d);
             } else {
                 c.setDivisonOff(d);
             }
-            Main.menucasa1(l, f);
+            Main.menucasa1(estado);
         }
-        else Menu.voltartoMenu(l,f);
+        else Menu.voltartoMenu(estado);
     }
 
 
@@ -201,7 +206,7 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static SmartDevice EscolhaDispositivos (String id, boolean turn){
+    public static SmartDevice EscolhaDispositivos (boolean turn){
         int disp = -1;
         while (disp < 0 || disp > 3) {
             disp = Menu.EscolhaDispotivios();
@@ -214,7 +219,7 @@ public class Menu {
                 System.out.println("Insira a dimensão: ");
                 Scanner dimensao = new Scanner(System.in);
                 double di = dimensao.nextDouble();
-                return new SmartBulb(id,turn,t,di);
+                return new SmartBulb(turn,t,di);
             }
             case 2-> {
                 System.out.println("Insira a resolução: ");
@@ -223,7 +228,7 @@ public class Menu {
                 System.out.println("Insira o tamanho da imagem: ");
                 Scanner size = new Scanner(System.in);
                 double s = size.nextDouble();
-                return new SmartCamera(id,turn,r,s);
+                return new SmartCamera(turn,r,s);
             }
             case 3-> {
                 System.out.println("Insira a marca: ");
@@ -235,14 +240,14 @@ public class Menu {
                 System.out.println("Insira o volume : ");
                 Scanner volume = new Scanner(System.in);
                 int v = volume.nextInt();
-                return new SmartSpeaker(id,turn,v,r,m);
+                return new SmartSpeaker(turn,v,r,m);
             }
 
         }
         return null;
     }
 
-    public static void MenuDispositivos (List<Casa> l, List<Fornecedores> f){
+    public static void MenuDispositivos (Estado estado, List<Casa> l){
         int i = -1;
         while (i < 0 || i > l.size()) {
             System.out.println("Insira o índice da casa: ");
@@ -251,7 +256,6 @@ public class Menu {
         }
         Casa c = l.get(i - 1);
         if (!c.getDivisoes().isEmpty()) {
-
             System.out.println("Insira a divisão: ");
             Scanner divisao = new Scanner(System.in);
             String d = divisao.next();
@@ -261,27 +265,24 @@ public class Menu {
                 d = divisao.next();
             }
 
-            System.out.println("Insira o id : ");
-            Scanner id = new Scanner(System.in);
-            String id1 = id.next();
-            //condicao veridica id
-
             System.out.println("Off ou On: ");
-            Scanner estado = new Scanner(System.in);
-            String est = estado.next().toLowerCase();
+            Scanner estadoDevice = new Scanner(System.in);
+            String est = estadoDevice.next().toLowerCase();
             while (!est.equals("on") && !est.equals("off")){
                 System.out.println("Off ou On: ");
-                estado = new Scanner(System.in);
-                est = estado.next().toLowerCase();
+                estadoDevice = new Scanner(System.in);
+                est = estadoDevice.next().toLowerCase();
             }
             boolean turn;
             turn = est.equals("on");
 
-            SmartDevice s = Menu.EscolhaDispositivos(id1,turn);
-            c.addDevices(d,id1, s);
-            Main.menucasa1(l, f);
+            SmartDevice s = Menu.EscolhaDispositivos(turn);
+            assert s != null;
+            c.addSmartDevice(s);
+            c.addToRoom(d,s.getID());
+            Main.menucasa1(estado);
         }
-        else Menu.voltartoMenu(l,f);
+        else Menu.voltartoMenu(estado);
     }
 
     /*

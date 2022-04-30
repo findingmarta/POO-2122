@@ -1,21 +1,21 @@
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.abs;
 
 /**
  * A CasaInteligente faz a gestao dos SmartDevices que existem e das
  * divisoes que existem na casa.
  */
-public class Casa {
+public class Casa implements Serializable {
     //private List<SmartDevice> devices;
    // private String morada;
-    private Map<String, SmartDevice> devices; // identificador -> SmartDevice
+    private Map<String, SmartDevice> devices;      // identificador -> SmartDevice
     private Map<String, HashSet<String>> divisoes; // Espaço -> Lista codigo dos devices
-
-    //private Map <String, HashSet<SmartDevice>> divisoes;
     private String proprietario;
     private String NIF;
-
-    private Fornecedores fornecedor;   // CRIAR E MUDAR OS METEDOS QUE ENVOLVAM ISTO
+    private Fornecedores fornecedor;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -25,6 +25,7 @@ public class Casa {
         this.divisoes = new HashMap<>();
         this.proprietario = "";
         this.NIF = "";
+        this.fornecedor = null;
     }
 
     public Casa(Map<String, SmartDevice> devices, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
@@ -32,6 +33,7 @@ public class Casa {
         this.setDivisoes(divisoes);
         this.setProprietario(proprietario);
         this.setNIF(NIF);
+        this.setFornecedor(fornecedor);
     }
 
     public Casa (String proprietario, String NIF) {
@@ -39,6 +41,15 @@ public class Casa {
         this.divisoes = new HashMap<>();
         this.setProprietario(proprietario);
         this.setNIF(NIF);
+        this.setFornecedor(fornecedor);
+    }
+
+    public Casa (String proprietario, String NIF, Fornecedores fornecedor) {
+        this.devices = new HashMap<>();
+        this.divisoes = new HashMap<>();
+        this.setProprietario(proprietario);
+        this.setNIF(NIF);
+        this.setFornecedor(fornecedor);
     }
 
     public Casa(Casa umaCasa) {
@@ -46,6 +57,7 @@ public class Casa {
         this.divisoes = umaCasa.getDivisoes();
         this.proprietario = umaCasa.getProprietario();
         this.NIF = umaCasa.getNIF();
+        this.fornecedor = umaCasa.getFornecedor();
     }
 
     /**
@@ -81,6 +93,14 @@ public class Casa {
         this.NIF = NIF;
     }
 
+    public Fornecedores getFornecedor(){
+        return this.fornecedor;          //CLONEEEE??
+    }
+
+    public void setFornecedor(Fornecedores fornecedor){
+        this.fornecedor = fornecedor;
+    }
+
     /**
      * Metodo toString, equals e clone
      */
@@ -98,6 +118,7 @@ public class Casa {
         //sb.append("Divisoes: \n").append(divisoes).append('\n');
         sb.append("\u001B[1m Proprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1m NIF: \u001B[0m").append(NIF).append('\n');
+        sb.append("\u001B[1m Fornecedor: \u001B[0m").append(fornecedor).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -107,7 +128,7 @@ public class Casa {
         if (o == null || getClass() != o.getClass()) return false;
         Casa Casa = (Casa) o;
         return Objects.equals(this.divisoes, Casa.divisoes) && Objects.equals(this.proprietario, Casa.getProprietario()) &&
-                Objects.equals(this.NIF, Casa.getNIF());
+                Objects.equals(this.NIF, Casa.getNIF()) && Objects.equals(this.fornecedor, Casa.getFornecedor());
     }
 
     public Casa clone() {
@@ -137,16 +158,12 @@ public class Casa {
         return this.divisoes.keySet().stream().anyMatch(d -> d.equals(divisao));
     }
 
-    /*
-    public void addRoomEDevices(String divisao, List<SmartDevice> devices) {
-       if(!hasRoom(divisao)) this.divisoes.put(divisao, devices);
+    public boolean roomisEmpty (String divisao) {
+        return this.divisoes.get(divisao).isEmpty();
     }
-    */
 
-    public void addDevices(String divisao, String id, SmartDevice devices) {
-        this.divisoes.get(divisao).add(id);
-        this.devices.put(id,devices);
-
+    public boolean roomHasDevice (String divisao, String id) {
+       return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.equals(id));
     }
 
     public void addRoom(String divisao) {
@@ -154,28 +171,35 @@ public class Casa {
         if(!hasRoom(divisao)) this.divisoes.put(divisao, id);
     }
 
-    public boolean roomisEmpty (String divisao) {
-        return this.divisoes.get(divisao).isEmpty();
+    public void addToRoom (String divisao, String id) {
+        if(!roomHasDevice(divisao, id)) this.divisoes.get(divisao).add(id);
     }
 
     public boolean hasDevice(String id){
         return this.devices.keySet().stream().anyMatch(sd-> sd.equals(id));
     }
-    public boolean roomHasDevice (String divisao, String id) {
-       return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.equals(id));
-    }
 
-    public void addSmartDevice (String id, SmartDevice sd){
-        this.devices.put(id,sd);
-    }
-    public void addToRoom (String divisao, String id, SmartDevice sd) {
-        if(!roomHasDevice(divisao, id)) this.divisoes.get(divisao).add(id);
-    }
-
-    public SmartDevice getDevice( String id) {
+    public SmartDevice getDevice(String id) {
         if(hasDevice(id)) return this.devices.get(id);
         return null;
     }
+
+    public void addSmartDevice (SmartDevice sd){
+        int id = hashCode();
+        sd.setID(String.valueOf(id));
+        this.devices.put(String.valueOf(id),sd);
+    }
+
+    @Override
+    public int hashCode() {
+        return abs(Objects.hash(devices, divisoes, proprietario, NIF, fornecedor)/1000000);
+    }  // VER MELHOR
+    /*
+    public void addDevices(String divisao, String id, SmartDevice devices) {
+        this.divisoes.get(divisao).add(id);
+        this.devices.put(id,devices);
+    }*/
+
 
     /*
     // FALTA METER ISTO NOS TESTES
@@ -225,12 +249,5 @@ public class Casa {
             }
         }
         return str;
-    }
-    /*
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(divisoes, devices, proprietario, NIF);
     }*/
 }
