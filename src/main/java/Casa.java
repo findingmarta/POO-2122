@@ -207,13 +207,11 @@ public class Casa implements Serializable {
 
     public double consumoTotal() {
         Set<String> setOfKeys = devices.keySet();
-        Fornecedores forn = this.getFornecedor();
-        System.out.println(forn);
-        Fornecedores forn1 = new FornecEDP();
+        Fornecedores forn = getFornecedor();
         double contador = 0;
         for (String key : setOfKeys) {
             SmartDevice s = this.getDevice(key);
-            if (s.getOn()) contador += forn1.PrecoDiarioPorDispositivo(s);
+            if (s.getOn()) contador += forn.PrecoDiarioPorDispositivo(s);
             else contador += 0;
         }
         return contador;

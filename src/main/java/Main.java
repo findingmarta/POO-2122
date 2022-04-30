@@ -95,6 +95,23 @@ public class Main {
 
             case 6 -> Menu.MenuDispositivos(estado,l);
             case 7 -> {
+                int i = -1;
+                while (i < 0 || i > l.size()) {
+                    System.out.println("Insira o índice da casa: ");
+                    Scanner scanner = new Scanner(System.in);
+                    i = scanner.nextInt();
+                }
+                Casa c = l.get(i - 1);
+
+                System.out.println("Insira o fornecedor: ");
+                Scanner divisao = new Scanner(System.in);
+                String d = divisao.next().toLowerCase();
+                Fornecedores forn = null;
+                if (d.equals("edp")) {
+                    forn = new FornecEDP();
+                }
+                c.setFornecedor(forn);
+                Main.menucasa1(estado);
 
             }
             case 8 -> {
@@ -106,7 +123,7 @@ public class Main {
                 }
                 Casa c = l.get(i - 1);
                 double precoFinal = c.consumoTotal() * Menu.CalculateDays();
-                System.out.println(precoFinal);
+                System.out.println("Preço Final : " + precoFinal);
                 System.out.println("Insira 0 para retornar ao MenuCasa. ");
                 Scanner s = new Scanner(System.in);
                 int s1 = s.nextInt();
