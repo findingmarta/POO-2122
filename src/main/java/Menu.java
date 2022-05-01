@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 
 public class Menu {
+
     //Tentar encontrar outra forma mais elegante
     public static void clearWindow() {
         for (int i = 0; i < 100; i++) {
@@ -26,6 +27,7 @@ public class Menu {
                  \u001B[1m 2) \u001B[0m Menu Fornecedores.
                  \u001B[1m 3) \u001B[0m Salvar Estado.
                  \u001B[1m 4) \u001B[0m Carregar Estado.
+                 \u001B[1m 5) \u001B[0m Imissão de faturas.
                  \u001B[1m 0) \u001B[0m Sair.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -33,6 +35,18 @@ public class Menu {
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
+    }
+
+    public static void emissaoFaturas (Estado estado){
+        for (Casa c : estado.getCasas()){
+            double precoFinal = c.consumoTotal() * Menu.CalculateDays();
+            System.out.println("\nPreço Final : " + precoFinal);
+            System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
+            Scanner s = new Scanner(System.in);
+            int s1 = s.nextInt();
+            if (s1 == 0) Main.menucasa1(estado);
+        }
+
     }
 
     public static void MenuEstado(){
@@ -173,12 +187,14 @@ public class Menu {
         if (!c.getDivisoes().isEmpty()) {
             System.out.println("Insira a divisão: "); //verificar se a divsao existe
             Scanner divisao = new Scanner(System.in);
-            String d = divisao.next().toLowerCase();
+            String d = divisao.next();
 
             while (!(c.hasRoom(d))) {
+                System.out.println(d);
+
                 System.out.println("A divisão inserida nao existe, tente novamente: ");
                 divisao = new Scanner(System.in);
-                d = divisao.next().toLowerCase();
+                d = divisao.next();
             }
             System.out.println("Ligar ou Desligar? ");
             Scanner modo = new Scanner(System.in);
@@ -188,7 +204,7 @@ public class Menu {
                 modo = new Scanner(System.in);
                 m = modo.next();
             }
-            Main.menucasa1(estado);
+            //Main.menucasa1(estado);
             if (m.equals("ligar")) {
                 c.setDivisonOn(d);
             } else {

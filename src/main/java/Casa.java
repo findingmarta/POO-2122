@@ -115,11 +115,6 @@ public class Casa implements Serializable {
             }
             sb.append("\n\n");
         }
-
-      //  for (String divisao: divisoes) {
-       //     sb.append(divisao).append(": ").append(divisoes.get(divisao));
-       // }
-        //sb.append("Divisoes: \n").append(divisoes).append('\n');
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
         sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor).append('\n');

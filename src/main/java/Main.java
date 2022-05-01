@@ -13,7 +13,7 @@ public class Main {
     public static void menuinicial(Estado estado){
         int opcao = -1;
 
-        while(opcao < 0 || opcao > 4) {
+        while(opcao < 0 || opcao > 5) {
             opcao = Menu.MenuInicial();
         }
 
@@ -52,6 +52,7 @@ public class Main {
                 }
                 Main.menuinicial(estado);
             }
+            case 5 -> Menu.emissaoFaturas(estado);
             case 0 -> System.exit(0);
         }
     }
@@ -106,10 +107,12 @@ public class Main {
                 System.out.println("Insira o fornecedor: ");
                 Scanner divisao = new Scanner(System.in);
                 String d = divisao.next().toLowerCase();
-                Fornecedores forn = null;
-                if (d.equals("edp")) {
-                    forn = new FornecEDP();
-                }
+                Fornecedores forn = switch (d) {
+                    case "edp" -> new FornecEDP();
+                    case "endesa" -> new FornecEndesa();
+                    case "jomar" -> new FornecJomar();
+                    default -> null;
+                };
                 c.setFornecedor(forn);
                 Main.menucasa1(estado);
 
@@ -123,8 +126,8 @@ public class Main {
                 }
                 Casa c = l.get(i - 1);
                 double precoFinal = c.consumoTotal() * Menu.CalculateDays();
-                System.out.println("Preço Final : " + precoFinal);
-                System.out.println("Insira 0 para retornar ao MenuCasa. ");
+                System.out.println("\nPreço Final : " + precoFinal);
+                System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
                 Scanner s = new Scanner(System.in);
                 int s1 = s.nextInt();
                 if (s1 == 0) Main.menucasa1(estado);

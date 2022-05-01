@@ -95,23 +95,17 @@ public class Estado implements Serializable {
         String[] dados = linhaPartida.split(",");
         String proprietario = dados[0];
         String NIF = dados[1];
-        //Fornecedores fornecedor = parseF(dados[2]);
-        return new Casa(proprietario,NIF,null);
+        Fornecedores fornecedor = parseF(dados[2]);
+        return new Casa(proprietario,NIF,fornecedor);
     }
 
     public static Fornecedores parseF(String linhaPartida){
-        String[] dados = linhaPartida.split(",");
+        //String[] dados = linhaPartida.split(",");
         Fornecedores fornec1 = null;
-        switch (dados[0]) {
-            case "EDP" -> {
-                fornec1 = new FornecEDP();
-            }
-            case "Endesa" -> {
-                fornec1 = new FornecEndesa();
-            }
-            case "Jomar" -> {
-                fornec1 = new FornecJomar();
-            }
+        switch (linhaPartida) {
+            case "EDP" -> fornec1 = new FornecEDP();
+            case "Endesa" -> fornec1 = new FornecEndesa();
+            case "Jomar" -> fornec1 = new FornecJomar();
             default -> Menu.erros(2);
         }
         return fornec1;
