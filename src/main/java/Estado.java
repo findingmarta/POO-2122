@@ -40,10 +40,11 @@ public class Estado implements Serializable {
         this.fornecedores = fornecedores;
     }
 
+
     public List<Double> getFaturas(){
         List<Double> faturas = new ArrayList<>();
         for ( Casa c : this.casas){
-            faturas.add(c.getFatura());
+            faturas.add(c.getFatura().getpreco());
         }
         return faturas;
     }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Main {
     public static void menuinicial(Estado estado) throws IOException {
         int opcao = -1;
 
-        while(opcao < 0 || opcao > 5) {
+        while(opcao < 0 || opcao > 6) {
             opcao = Menu.MenuInicial();
         }
 
@@ -55,7 +56,8 @@ public class Main {
                 else if (i==3){
                     try {
                         estado.loadFaturasObj(faturasFile);
-                        Main.Menulistafatura(estado);
+                        Faturas f = new Faturas ();
+                        Main.Menulistafatura(estado,f);
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -64,6 +66,7 @@ public class Main {
                 Main.menuinicial(estado);
             }
             case 5 -> Menu.emissaoFaturas(estado);
+            case 6 -> Main.menuEstatistica(estado);
             case 0 -> System.exit(0);
         }
     }
@@ -136,7 +139,7 @@ public class Main {
                     i = scanner.nextInt();
                 }
                 Casa c = l.get(i - 1);
-                double precoFinal = c.consumoTotal() * Menu.CalculateDays();
+                double precoFinal = c.consumoTotal();
                 System.out.println("\nPreço Final : " + precoFinal);
                 System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
                 Scanner s = new Scanner(System.in);
@@ -151,7 +154,7 @@ public class Main {
             default -> Main.menuinicial(estado);
         }
     }
-    public static void Menulistafatura (Estado estado) throws IOException {
+    public static void Menulistafatura (Estado estado, Faturas f) throws IOException {
         List<Casa> l = estado.getCasas();
         int opcao = -1;
         while (opcao < 0 || opcao > l.size()) {
@@ -171,6 +174,25 @@ public class Main {
         }
         if (opcao ==0) Main.menucasa1(estado);
         int a = Menu.MenuCasaInfo(opcao-1, l);
-        if (a==0) Main.Menulistacasa(estado);
+        if (a==0) Main.menuinicial(estado);
+    }
+    public static void menuEstatistica(Estado estado) throws IOException{
+        List<Casa> l = estado.getCasas();
+        int opcao = -1;
+        while (opcao < 0 || opcao > 5) {
+            opcao = Menu.MenuEstatistica();
+        }
+        switch (opcao){
+            case 1 -> {
+                System.out.println(l.get(l.size()-1));
+                Main.menuEstatistica(estado);
+            }
+            case 2 -> {
+                List<Fornecedores> f = estado.getFornecedores();
+             //  Comparator Fornecedores = (a,b) - a.getVolume()-b.getVolume();
+               // f.stream().max()
+            }
+        }
+
     }
 }

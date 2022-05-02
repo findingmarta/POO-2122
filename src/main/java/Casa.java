@@ -16,7 +16,9 @@ public class Casa implements Serializable {
     private String proprietario;
     private String NIF;
     private Fornecedores fornecedor;
-    private double fatura;
+    private Faturas fatura;
+
+
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -102,11 +104,11 @@ public class Casa implements Serializable {
         this.fornecedor = fornecedor;
     }
 
-    public double getFatura() {
+    public Faturas getFatura() {
         return this.fatura;
     }
 
-    public void setFatura(double fatura) {
+    public void setFatura(Faturas fatura) {
         this.fatura = fatura;
     }
 
@@ -128,7 +130,7 @@ public class Casa implements Serializable {
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
         sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor).append('\n');
-        sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
+        //sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -236,8 +238,8 @@ public class Casa implements Serializable {
 
     public static class faturaComparator implements Comparator<Casa> {
         @Override
-        public int compare(Casa pesso1, Casa pessoa2) {
-            return Double.compare(pesso1.getFatura(), pessoa2.getFatura());
+        public int compare(Casa c1, Casa c2) {
+            return Double.compare(c1.getFatura().getpreco(), c2.getFatura().getpreco());
         }
     }
     /*

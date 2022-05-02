@@ -28,6 +28,27 @@ public class Menu {
                  \u001B[1m 3) \u001B[0m Salvar Estado.
                  \u001B[1m 4) \u001B[0m Carregar Estado.
                  \u001B[1m 5) \u001B[0m Imissão de faturas.
+                 \u001B[1m 6) \u001B[0m Estatísticas.
+                 \u001B[1m 0) \u001B[0m Sair.
+                \u001B[1m \u001B[36m____________________________________\u001B[0m\s
+
+                 Selecione a opção pretendida:\s""";
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static int MenuEstatistica() {
+        clearWindow();
+        String sb = """
+                \u001B[1m \u001B[36m____________________________________\u001B[0m\s
+
+                 \u001B[1m           MENU ESTATÍSTICAS \u001B[0m
+
+                 \u001B[1m 1) \u001B[0m Casa com maior gasto.
+                 \u001B[1m 2) \u001B[0m Fornecedor com maior volume de facturação.
+                 \u001B[1m 3) \u001B[0m Faturas emitidas por um fornecedor.
+                 \u001B[1m 4) \u001B[0m Top x consumidores.
                  \u001B[1m 0) \u001B[0m Sair.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -123,7 +144,7 @@ public class Menu {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                 " \u001B[1m                   FATURA INFO \u001B[0m\n\n" +
-                l.get(i).StringFaturas() +
+                l.get(i).getFatura().StringFaturas() +
                 "\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                 "Selecione 0 para voltar atrás: ";
 
@@ -330,6 +351,7 @@ public class Menu {
         }
     }
 
+    /*
     public static double CalculateDays() {
         double diff = 0;
             System.out.println("Insira a data no formato dd/MM/yyyy:");
@@ -347,27 +369,46 @@ public class Menu {
             LocalDate dAfter = LocalDate.parse(s1, dateTimeFormatter);
             if (!dBefore.isAfter(dAfter)) {
                 diff = ChronoUnit.DAYS.between(dBefore, dAfter);
-                //System.out.println("difference is : " + diff);
             }
             else Menu.CalculateDays();
         return diff;
     }
+    */
+
 
     public static void emissaoFaturas (Estado estado) throws IOException {
-        double tempo = Menu.CalculateDays();
-        for (Casa c : estado.getCasas()){
-            double precoFinal = c.consumoTotal() * tempo;
-            //System.out.println(precoFinal);
-            c.setFatura(precoFinal);
-            //System.out.println("\nPreço Final : " + precoFinal);
-            //System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
-        }
-        Estado.ordenaListCasa(estado.getCasas());
-        estado.saveFaturas("src/main/java/Faturas.obj");
 
-        Scanner s = new Scanner(System.in);
-        int s1 = s.nextInt();
-        if (s1 == 0) Main.menucasa1(estado);
+        double diff = 0;
+        System.out.println("Insira a data no formato dd/MM/yyyy:");
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.next();
+        String s1 = scanner.next();
+        String dateFormat = "dd/MM/yyyy";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        while (!(Menu.isDateValid(s)) || (!Menu.isDateValid(s1))) {
+            System.out.println("Insira a data no formato dd/MM/yyyy:");
+            s = scanner.next();
+            s1 = scanner.next();
+        }
+        LocalDate dBefore = LocalDate.parse(s, dateTimeFormatter);
+        LocalDate dAfter = LocalDate.parse(s1, dateTimeFormatter);
+        if (!dBefore.isAfter(dAfter)) {
+            diff = ChronoUnit.DAYS.between(dBefore, dAfter);
+            for (Casa c : estado.getCasas()) {
+                double precoFinal = c.consumoTotal() * diff;
+                Faturas fatura = new Faturas(precoFinal,s,s1);
+                c.setFatura(fatura);
+                Fornecedores f = c.getFornecedor();
+                f.aumentaVolumeFaturacao(precoFinal);
+            }
+            Estado.ordenaListCasa(estado.getCasas());
+            estado.saveFaturas("src/main/java/Faturas.obj");
+
+            //int voltar = scanner.nextInt();
+            //if (voltar == 0) Main.menuinicial(estado);
+            Main.menuinicial(estado);
+        }
+        else Main.menuinicial(estado);
 
     }
     public static void erros (int i){

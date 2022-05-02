@@ -4,6 +4,8 @@ public abstract class Fornecedores implements Serializable {
     private double valor_base;
     private double imposto;
 
+    private double volumeFaturacao;
+
     /**
      * Construtores
      */
@@ -22,8 +24,18 @@ public abstract class Fornecedores implements Serializable {
         this.imposto = umFornecedor.imposto;
     }
 
+    public double getVolumeFaturacao() {
+        return volumeFaturacao;
+    }
 
-    /**
+    public void setVolumeFaturacao(double volumeFaturacao) {
+        this.volumeFaturacao = volumeFaturacao;
+    }
+
+    public void aumentaVolumeFaturacao(double volumeFaturacao) {
+        this.volumeFaturacao += volumeFaturacao;
+    }
+/**
      * Getters e Setters
      */
     /**
