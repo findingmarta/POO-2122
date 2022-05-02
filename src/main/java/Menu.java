@@ -37,17 +37,6 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static void emissaoFaturas (Estado estado){
-        for (Casa c : estado.getCasas()){
-            double precoFinal = c.consumoTotal() * Menu.CalculateDays();
-            System.out.println("\nPreço Final : " + precoFinal);
-            System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
-            Scanner s = new Scanner(System.in);
-            int s1 = s.nextInt();
-            if (s1 == 0) Main.menucasa1(estado);
-        }
-
-    }
 
     public static void MenuEstado(){
         String newFilePath = "src/main/java/Estado.obj";
@@ -57,6 +46,7 @@ public class Menu {
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
                 \u001B[1m 1) \u001B[0m Ficheiro Original.
                 \u001B[1m 2) \u001B[0m Novo Ficheiro.
+                \u001B[1m 3) \u001B[0m Faturas.
                 \u001B[1m 0) \u001B[0m Menu Inicial.
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
                 Selecione a opção pretendida:\s""";
@@ -129,7 +119,20 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static void voltartoMenu (Estado estado) {
+    public static int FaturaInfo(int i, List<Casa> l) {
+        clearWindow();
+        String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
+                " \u001B[1m                   FATURA INFO \u001B[0m\n\n" +
+                l.get(i).StringFaturas() +
+                "\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
+                "Selecione 0 para voltar atrás: ";
+
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static void voltartoMenu (Estado estado) throws IOException {
         System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
         System.out.println("Insira 0 para retornar ao MenuCasa. ");
         Scanner s = new Scanner(System.in);
@@ -137,7 +140,7 @@ public class Menu {
         if (s1 == 0) Main.menucasa1(estado);
     }
 
-    public static void definirDispositivos(Estado estado, List<Casa> l) {
+    public static void definirDispositivos(Estado estado, List<Casa> l) throws IOException {
         int i=-1;
             while(i < 0 || i> l.size()) {
                 System.out.println("Insira o índice da casa: ");
@@ -175,7 +178,7 @@ public class Menu {
 
         }
 
-    public static void definirDivisoes(Estado estado, List<Casa> l) {
+    public static void definirDivisoes(Estado estado, List<Casa> l) throws IOException {
         int i=-1;
         while(i < 0 || i> l.size()) {
             System.out.println("Insira o índice da casa: ");
@@ -276,7 +279,7 @@ public class Menu {
         return null;
     }
 
-    public static void MenuDispositivos (Estado estado, List<Casa> l){
+    public static void MenuDispositivos (Estado estado, List<Casa> l) throws IOException {
         int i = -1;
         while (i < 0 || i > l.size()) {
             System.out.println("Insira o índice da casa: ");
@@ -350,6 +353,23 @@ public class Menu {
         return diff;
     }
 
+    public static void emissaoFaturas (Estado estado) throws IOException {
+        double tempo = Menu.CalculateDays();
+        for (Casa c : estado.getCasas()){
+            double precoFinal = c.consumoTotal() * tempo;
+            //System.out.println(precoFinal);
+            c.setFatura(precoFinal);
+            //System.out.println("\nPreço Final : " + precoFinal);
+            //System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
+        }
+        Estado.ordenaListCasa(estado.getCasas());
+        estado.saveFaturas("src/main/java/Faturas.obj");
+
+        Scanner s = new Scanner(System.in);
+        int s1 = s.nextInt();
+        if (s1 == 0) Main.menucasa1(estado);
+
+    }
     public static void erros (int i){
         StringBuilder sb = new StringBuilder();
         if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");

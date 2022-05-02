@@ -7,6 +7,8 @@ public class Estado implements Serializable {
     private List<Casa> casas;
     private List<Fornecedores> fornecedores;
 
+    //private TreeMap<Double, Integer> faturas;
+
     public Estado() {
         this.casas = new ArrayList<>();
         this.fornecedores = new ArrayList<>();
@@ -36,6 +38,14 @@ public class Estado implements Serializable {
 
     public void setFornecedores(List<Fornecedores> fornecedores){
         this.fornecedores = fornecedores;
+    }
+
+    public List<Double> getFaturas(){
+        List<Double> faturas = new ArrayList<>();
+        for ( Casa c : this.casas){
+            faturas.add(c.getFatura());
+        }
+        return faturas;
     }
 
     /**
@@ -160,6 +170,7 @@ public class Estado implements Serializable {
         oos.close();
     }
 
+
     public Estado loadEstadoObj(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -168,5 +179,25 @@ public class Estado implements Serializable {
         this.casas = e.casas;
         this.fornecedores = e.fornecedores;
         return e;
+    }
+
+    public  List<Casa> loadFaturasObj(String file) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<Casa> e = (List<Casa>) ois.readObject();
+        ois.close();
+        return e;
+    }
+
+    public static void ordenaListCasa(List<Casa> casas){
+        casas.sort(new Casa.faturaComparator());
+    }
+
+    public void saveFaturas(String file) throws IOException {
+        FileOutputStream fos =  new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.getFaturas());
+        oos.flush();
+        oos.close();
     }
 }

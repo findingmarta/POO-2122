@@ -5,12 +5,12 @@ import java.util.Scanner;
 //import static javax.swing.UIManager.get;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Estado estado = new Estado();
         Main.menuinicial(estado);
     }
 
-    public static void menuinicial(Estado estado){
+    public static void menuinicial(Estado estado) throws IOException {
         int opcao = -1;
 
         while(opcao < 0 || opcao > 5) {
@@ -30,14 +30,16 @@ public class Main {
             }
             case 4 -> {
                 String newFilePath = "src/main/java/Estado.obj";
+                String faturasFile = "src/main/java/Faturas.obj";
                 Menu.clearWindow();
                 String sb = """
-                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
-                \u001B[1m 1) \u001B[0m Ficheiro Original.
-                \u001B[1m 2) \u001B[0m Novo Ficheiro.
-                \u001B[1m 0) \u001B[0m Menu Inicial.
-                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
-                Selecione a opção pretendida:\s""";
+                        \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+                        \u001B[1m 1) \u001B[0m Ficheiro Original.
+                        \u001B[1m 2) \u001B[0m Novo Ficheiro.
+                        \u001B[1m 3) \u001B[0m Faturas.
+                        \u001B[1m 0) \u001B[0m Menu Inicial.
+                        \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+                        Selecione a opção pretendida:\s""";
                 System.out.println(sb);
 
                 Scanner scanner = new Scanner(System.in);
@@ -50,6 +52,15 @@ public class Main {
                         e.printStackTrace();
                     }
                 }
+                else if (i==3){
+                    try {
+                        estado.loadFaturasObj(faturasFile);
+                        Main.Menulistafatura(estado);
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
                 Main.menuinicial(estado);
             }
             case 5 -> Menu.emissaoFaturas(estado);
@@ -57,7 +68,7 @@ public class Main {
         }
     }
 
-    public static void menucasa1(Estado estado) {
+    public static void menucasa1(Estado estado) throws IOException {
         List<Casa> l = estado.getCasas();
         int opcao = -1;
         while (opcao < 0 || opcao > 8) {
@@ -140,10 +151,19 @@ public class Main {
             default -> Main.menuinicial(estado);
         }
     }
+    public static void Menulistafatura (Estado estado) throws IOException {
+        List<Casa> l = estado.getCasas();
+        int opcao = -1;
+        while (opcao < 0 || opcao > l.size()) {
+            opcao = Menu.MenuListaCasas(l);
+        }
+        if (opcao ==0) Main.menucasa1(estado);
+        int a = Menu.FaturaInfo(opcao-1, l);
+        if (a==0) Main.Menulistacasa(estado);
+    }
 
 
-
-    public static void Menulistacasa (Estado estado) {
+    public static void Menulistacasa (Estado estado) throws IOException {
         List<Casa> l = estado.getCasas();
         int opcao = -1;
         while (opcao < 0 || opcao > l.size()) {

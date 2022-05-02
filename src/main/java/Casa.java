@@ -16,6 +16,7 @@ public class Casa implements Serializable {
     private String proprietario;
     private String NIF;
     private Fornecedores fornecedor;
+    private double fatura;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -59,6 +60,7 @@ public class Casa implements Serializable {
         this.fornecedor = umaCasa.getFornecedor();
     }
 
+
     /**
      * Getters e Setters
      */
@@ -100,6 +102,14 @@ public class Casa implements Serializable {
         this.fornecedor = fornecedor;
     }
 
+    public double getFatura() {
+        return this.fatura;
+    }
+
+    public void setFatura(double fatura) {
+        this.fatura = fatura;
+    }
+
     /**
      * Metodo toString, equals e clone
      */
@@ -118,6 +128,17 @@ public class Casa implements Serializable {
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
         sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor).append('\n');
+        sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
+        sb.append("\n\u001B[36m } \u001B[0m");
+        return sb.toString();
+    }
+
+    public String StringFaturas() {
+        final StringBuilder sb = new StringBuilder("\n\u001B[36m   FATURA { \u001B[0m \n\n");
+        //sb.append("Dispositivos: ").append(devices).append('\n');
+        sb.append("\u001B[1m Data inicial: \u001B[0m").append("nao sei").append('\n');
+        sb.append("\u001B[1m Data Final: \u001B[0m").append("nao sei").append('\n');
+        sb.append("\u001B[1m Custo: \u001B[0m").append(fatura).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -212,6 +233,13 @@ public class Casa implements Serializable {
         return contador;
     }
 
+
+    public static class faturaComparator implements Comparator<Casa> {
+        @Override
+        public int compare(Casa pesso1, Casa pessoa2) {
+            return Double.compare(pesso1.getFatura(), pessoa2.getFatura());
+        }
+    }
     /*
     // FALTA METER ISTO NOS TESTES
     public String estadoCasa() {
