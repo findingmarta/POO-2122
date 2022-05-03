@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -56,8 +57,8 @@ public class Main {
                 else if (i==3){
                     try {
                         estado.loadFaturasObj(faturasFile);
-                        Faturas f = new Faturas ();
-                        Main.Menulistafatura(estado,f);
+                        //Faturas f = new Faturas ();
+                        Main.Menulistafatura(estado);
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -154,15 +155,15 @@ public class Main {
             default -> Main.menuinicial(estado);
         }
     }
-    public static void Menulistafatura (Estado estado, Faturas f) throws IOException {
+    public static void Menulistafatura (Estado estado) throws IOException {
         List<Casa> l = estado.getCasas();
         int opcao = -1;
         while (opcao < 0 || opcao > l.size()) {
             opcao = Menu.MenuListaCasas(l);
         }
-        if (opcao ==0) Main.menucasa1(estado);
+        if (opcao ==0) Main.menuinicial(estado);
         int a = Menu.FaturaInfo(opcao-1, l);
-        if (a==0) Main.Menulistacasa(estado);
+        if (a==0) Main.menuinicial(estado);
     }
 
 
@@ -178,6 +179,7 @@ public class Main {
     }
     public static void menuEstatistica(Estado estado) throws IOException{
         List<Casa> l = estado.getCasas();
+        Scanner scanner = new Scanner(System.in);
         int opcao = -1;
         while (opcao < 0 || opcao > 5) {
             opcao = Menu.MenuEstatistica();
@@ -185,12 +187,40 @@ public class Main {
         switch (opcao){
             case 1 -> {
                 System.out.println(l.get(l.size()-1));
+                int i = scanner.nextInt();
+                while (i!=0){
+                    i = scanner.nextInt();
+                }
                 Main.menuEstatistica(estado);
             }
             case 2 -> {
                 List<Fornecedores> f = estado.getFornecedores();
-             //  Comparator Fornecedores = (a,b) - a.getVolume()-b.getVolume();
-               // f.stream().max()
+                System.out.println(f.get(0).toString());
+                int i = scanner.nextInt();
+                if (i==0) Main.menuEstatistica(estado);
+            }
+            case 3 -> {
+                List<Casa> casas = new ArrayList<>();
+                System.out.println("Insira o fornecedor: ");
+                String d = scanner.next().toLowerCase();
+                for (Casa c : l) {
+                    if ((d.equals(c.Stringfornecedor(c.getFornecedor()).toLowerCase()))) {
+                        casas.add(c);
+                    }
+                }
+                int i = -1;
+                while (i < 0 || i > casas.size()) {
+                   i = Menu.MenuListaCasas(casas);
+                }
+                if (i ==0) Main.menuinicial(estado);
+                int a = Menu.FaturaInfo(opcao-1, casas);
+                if (a==0) Main.menuEstatistica(estado);
+
+            }
+            case 4 -> {
+               Main.Menulistacasa(estado);
+
+
             }
         }
 

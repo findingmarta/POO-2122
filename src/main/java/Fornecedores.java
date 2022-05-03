@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Set;
 public abstract class Fornecedores implements Serializable {
     private double valor_base;
@@ -59,10 +60,10 @@ public abstract class Fornecedores implements Serializable {
      * Metodo toString, equals e clone
      */
     public String toString() {
-        return "Fornecedores{" +
-                "valor_base=" + valor_base +
-                ", imposto=" + imposto +
-                '}';
+        return "Fornecedores: \n" +
+                "Valor_base=" + valor_base +
+                "\nImposto=" + imposto +
+                "\nFaturação: " + volumeFaturacao;
     }
 
     public boolean equals(Object o) {
@@ -76,6 +77,13 @@ public abstract class Fornecedores implements Serializable {
     public Fornecedores clone (){
         return new Fornecedores(this);
     }**/
+
+    public static class fornecedoresComparator implements Comparator<Fornecedores> {
+        @Override
+        public int compare(Fornecedores f1, Fornecedores f2) {
+            return Double.compare(f1.getVolumeFaturacao(), f2.getVolumeFaturacao());
+        }
+    }
 
     public abstract double PrecoDiarioPorDispositivo (SmartDevice sb);
 

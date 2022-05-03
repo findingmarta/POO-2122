@@ -104,6 +104,14 @@ public class Casa implements Serializable {
         this.fornecedor = fornecedor;
     }
 
+    public String Stringfornecedor (Fornecedores fornecedor){
+        String forn= "";
+        if (fornecedor instanceof FornecJomar) forn = "Jomar";
+        else if (fornecedor instanceof FornecEDP) forn = "EDP";
+        else if (fornecedor instanceof FornecEndesa) forn = "Endesa";
+        return forn;
+    }
+
     public Faturas getFatura() {
         return this.fatura;
     }
@@ -129,18 +137,8 @@ public class Casa implements Serializable {
         }
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
-        sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor).append('\n');
+        sb.append("\u001B[1mFornecedor: \u001B[0m").append(Stringfornecedor(fornecedor)).append('\n');
         //sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
-        sb.append("\n\u001B[36m } \u001B[0m");
-        return sb.toString();
-    }
-
-    public String StringFaturas() {
-        final StringBuilder sb = new StringBuilder("\n\u001B[36m   FATURA { \u001B[0m \n\n");
-        //sb.append("Dispositivos: ").append(devices).append('\n');
-        sb.append("\u001B[1m Data inicial: \u001B[0m").append("nao sei").append('\n');
-        sb.append("\u001B[1m Data Final: \u001B[0m").append("nao sei").append('\n');
-        sb.append("\u001B[1m Custo: \u001B[0m").append(fatura).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -239,9 +237,10 @@ public class Casa implements Serializable {
     public static class faturaComparator implements Comparator<Casa> {
         @Override
         public int compare(Casa c1, Casa c2) {
-            return Double.compare(c1.getFatura().getpreco(), c2.getFatura().getpreco());
+            return Double.compare(c1.getFatura().getConsumo(), c2.getFatura().getConsumo());
         }
     }
+
     /*
     // FALTA METER ISTO NOS TESTES
     public String estadoCasa() {

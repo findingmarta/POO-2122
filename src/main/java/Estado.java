@@ -191,7 +191,11 @@ public class Estado implements Serializable {
     }
 
     public static void ordenaListCasa(List<Casa> casas){
+
         casas.sort(new Casa.faturaComparator());
+    }
+    public static void ordenaListFornecedores(List<Fornecedores> forn){
+        forn.sort(new Fornecedores.fornecedoresComparator());
     }
 
     public void saveFaturas(String file) throws IOException {

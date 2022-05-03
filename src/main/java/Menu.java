@@ -127,6 +127,8 @@ public class Menu {
         return scanner.nextInt();
     }
 
+
+
     public static int MenuCasaInfo(int i, List<Casa> l) {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
@@ -396,7 +398,7 @@ public class Menu {
             diff = ChronoUnit.DAYS.between(dBefore, dAfter);
             for (Casa c : estado.getCasas()) {
                 double precoFinal = c.consumoTotal() * diff;
-                Faturas fatura = new Faturas(precoFinal,s,s1);
+                Faturas fatura = new Faturas(precoFinal,s,s1,c.consumoTotal());
                 c.setFatura(fatura);
                 Fornecedores f = c.getFornecedor();
                 f.aumentaVolumeFaturacao(precoFinal);
