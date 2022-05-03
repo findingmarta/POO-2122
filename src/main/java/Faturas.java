@@ -1,26 +1,31 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Faturas {
 
-    private double fatura;
+    private List<Faturas> faturas;
 
     private double consumo;
     private String dataInicial;
     private String  dataFinal;
 
     public Faturas() {
-        this.fatura = 0.0;
+        this.faturas = new ArrayList<>();
         this.dataInicial = ("");
         this.dataFinal = ("");
         this.consumo = 0.0;
     }
 
+    /*
     public Faturas( double fatura, String dataInicial, String  dataFinal, double consumo) {
-        this.fatura = fatura;
+        this.faturas =
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.consumo = consumo;
     }
+    */
+
 
     public double getpreco() {
         return fatura;

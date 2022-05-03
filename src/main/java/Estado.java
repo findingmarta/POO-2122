@@ -1,28 +1,34 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
 public class Estado implements Serializable {
     private List<Casa> casas;
     private List<Fornecedores> fornecedores;
+    private LocalDate data;
 
     //private TreeMap<Double, Integer> faturas;
 
     public Estado() {
         this.casas = new ArrayList<>();
         this.fornecedores = new ArrayList<>();
+        this.data= LocalDate.of(2018,01,01);
     }
 
     public Estado(List<Casa> casas, List<Fornecedores> fornecedores) {
         this.casas = casas;
         this.fornecedores = fornecedores;
+        this.data= LocalDate.of(2018,01,01);
     }
 
     public Estado(Estado umEstado) {
         this.casas = umEstado.casas;
         this.fornecedores = umEstado.fornecedores;
+        this.data= umEstado.data;
     }
+
 
     public List<Casa> getCasas(){
         return this.casas;
@@ -40,6 +46,13 @@ public class Estado implements Serializable {
         this.fornecedores = fornecedores;
     }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
 
     public List<Double> getFaturas(){
         List<Double> faturas = new ArrayList<>();

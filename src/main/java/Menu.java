@@ -384,33 +384,32 @@ public class Menu {
         System.out.println("Insira a data no formato dd/MM/yyyy:");
         Scanner scanner = new Scanner(System.in);
         String s = scanner.next();
-        String s1 = scanner.next();
         String dateFormat = "dd/MM/yyyy";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        while (!(Menu.isDateValid(s)) || (!Menu.isDateValid(s1))) {
+        while (!(Menu.isDateValid(s))) {
             System.out.println("Insira a data no formato dd/MM/yyyy:");
             s = scanner.next();
-            s1 = scanner.next();
         }
-        LocalDate dBefore = LocalDate.parse(s, dateTimeFormatter);
-        LocalDate dAfter = LocalDate.parse(s1, dateTimeFormatter);
-        if (!dBefore.isAfter(dAfter)) {
+        LocalDate dBefore = estado.getData();
+        LocalDate dAfter = LocalDate.parse(s, dateTimeFormatter);
+        if (dAfter.isAfter(dBefore)) {
             diff = ChronoUnit.DAYS.between(dBefore, dAfter);
             for (Casa c : estado.getCasas()) {
                 double precoFinal = c.consumoTotal() * diff;
-                Faturas fatura = new Faturas(precoFinal,s,s1,c.consumoTotal());
+                Faturas fatura = new Faturas(precoFinal,dBefore.toString(),s,c.consumoTotal());
                 c.setFatura(fatura);
                 Fornecedores f = c.getFornecedor();
                 f.aumentaVolumeFaturacao(precoFinal);
             }
             Estado.ordenaListCasa(estado.getCasas());
+            estado.setData(dAfter);
             estado.saveFaturas("src/main/java/Faturas.obj");
 
             //int voltar = scanner.nextInt();
             //if (voltar == 0) Main.menuinicial(estado);
             Main.menuinicial(estado);
         }
-        else Main.menuinicial(estado);
+        else Menu.emissaoFaturas(estado);
 
     }
     public static void erros (int i){
