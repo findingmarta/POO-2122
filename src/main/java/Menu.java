@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.temporal.ChronoUnit;
-
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Menu {
@@ -176,7 +176,7 @@ public class Menu {
         System.out.println("Insira 0 para retornar ao MenuCasa. ");
         Scanner s = new Scanner(System.in);
         int s1 = s.nextInt();
-        if (s1 == 0) Main.menucasa1(estado);
+        if (s1 == 0) Controller.menucasa1(estado);
     }
 
     public static void definirDispositivos(Estado estado, List<Casa> l) throws IOException {
@@ -213,7 +213,7 @@ public class Menu {
                     } else {
                         c.setDeviceOff(id1);
                     }
-                    Main.menucasa1(estado);
+                    Controller.menucasa1(estado);
 
         }
 
@@ -252,7 +252,7 @@ public class Menu {
             } else {
                 c.setDivisonOff(d);
             }
-            Main.menucasa1(estado);
+            Controller.menucasa1(estado);
         }
         else Menu.voltartoMenu(estado);
     }
@@ -352,7 +352,7 @@ public class Menu {
             assert s != null;
             c.addSmartDevice(s);
             c.addToRoom(d,s.getID());
-            Main.menucasa1(estado);
+            Controller.menucasa1(estado);
         }
         else Menu.voltartoMenu(estado);
     }
@@ -424,7 +424,7 @@ public class Menu {
 
             //int voltar = scanner.nextInt();
             //if (voltar == 0) Main.menuinicial(estado);
-            Main.menuinicial(estado);
+            Controller.menuinicial(estado);
         }
         else Menu.emissaoFaturas(estado);
 

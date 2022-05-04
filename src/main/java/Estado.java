@@ -55,13 +55,16 @@ public class Estado implements Serializable {
     }
 
     /*
-    public List<Double> getFaturas(){
-        List<Double> faturas = new ArrayList<>();
+
+    public List<Faturas> getFaturas(){
+        List<Faturas> faturas = new ArrayList<>();
         for ( Casa c : this.casas){
-            faturas.add(c.getFatura().getpreco());
+            faturas.add(c.getFatura());
         }
         return faturas;
     }*/
+
+
 
     /**
      * Metodos
@@ -207,10 +210,12 @@ public class Estado implements Serializable {
 
         casas.sort(new Casa.faturaComparator());
     }
+
+
     public static void ordenaListFornecedores(List<Fornecedores> forn){
         forn.sort(new Fornecedores.fornecedoresComparator());
     }
-
+/*
     /*
     public void saveFaturas(String file) throws IOException {
         FileOutputStream fos =  new FileOutputStream(file);
