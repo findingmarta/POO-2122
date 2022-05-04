@@ -4,27 +4,26 @@ import java.util.List;
 
 public class Faturas {
 
-    private List<Faturas> faturas;
-
+    private double fatura;
     private double consumo;
     private String dataInicial;
     private String  dataFinal;
 
     public Faturas() {
-        this.faturas = new ArrayList<>();
+        this.fatura = 0.0;
         this.dataInicial = ("");
         this.dataFinal = ("");
         this.consumo = 0.0;
     }
 
-    /*
+
     public Faturas( double fatura, String dataInicial, String  dataFinal, double consumo) {
-        this.faturas =
+        this.fatura = fatura;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.consumo = consumo;
     }
-    */
+
 
 
     public double getpreco() {

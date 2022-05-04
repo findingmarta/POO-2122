@@ -54,13 +54,14 @@ public class Estado implements Serializable {
         this.data = data;
     }
 
+    /*
     public List<Double> getFaturas(){
         List<Double> faturas = new ArrayList<>();
         for ( Casa c : this.casas){
             faturas.add(c.getFatura().getpreco());
         }
         return faturas;
-    }
+    }*/
 
     /**
      * Metodos
@@ -194,15 +195,14 @@ public class Estado implements Serializable {
         this.fornecedores = e.fornecedores;
         return e;
     }
-
+ /*
     public  List<Casa> loadFaturasObj(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Casa> e = (List<Casa>) ois.readObject();
         ois.close();
         return e;
-    }
-
+    }*/
     public static void ordenaListCasa(List<Casa> casas){
 
         casas.sort(new Casa.faturaComparator());
@@ -211,11 +211,12 @@ public class Estado implements Serializable {
         forn.sort(new Fornecedores.fornecedoresComparator());
     }
 
+    /*
     public void saveFaturas(String file) throws IOException {
         FileOutputStream fos =  new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this.getFaturas());
         oos.flush();
         oos.close();
-    }
+    }*/
 }

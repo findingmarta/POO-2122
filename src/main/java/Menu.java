@@ -142,11 +142,27 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static int FaturaInfo(int i, List<Casa> l) {
+    public static int faturaList( Casa c) {
+        Menu.clearWindow();
+        StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
+        sb.append(" \u001B[1m             LISTAS DE FATURAS \u001B[0m\n\n");
+        List<Faturas> l = c.getFatura();
+        for (int i = 0; i < l.size(); i++) {
+        String nif = l.get(i).getDataInicial();
+        String prop = l.get(i).getDataFinal();
+        sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m Casa").append(i + 1).append(" -> Data Inicial: ").append(nif).append("  Data Final: ").append(prop).append("\n");
+    }
+        sb.append(" \u001B[1m 0) \u001B[0m Menu Casa\n");
+        sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+}
+    public static int FaturaInfo(int i, List<Faturas> l) {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                 " \u001B[1m                   FATURA INFO \u001B[0m\n\n" +
-                l.get(i).getFatura().StringFaturas() +
+                l.get(i).StringFaturas() +
                 "\n\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                 "Selecione 0 para voltar atrás: ";
 
@@ -397,13 +413,14 @@ public class Menu {
             for (Casa c : estado.getCasas()) {
                 double precoFinal = c.consumoTotal() * diff;
                 Faturas fatura = new Faturas(precoFinal,dBefore.toString(),s,c.consumoTotal());
-                c.setFatura(fatura);
+                c.getFatura().add(fatura);
                 Fornecedores f = c.getFornecedor();
                 f.aumentaVolumeFaturacao(precoFinal);
             }
             Estado.ordenaListCasa(estado.getCasas());
             estado.setData(dAfter);
-            estado.saveFaturas("src/main/java/Faturas.obj");
+            //estado.saveFaturas("src/main/java/Faturas.obj");
+            //estado.saveFaturas("src/main/java/Faturas.obj");
 
             //int voltar = scanner.nextInt();
             //if (voltar == 0) Main.menuinicial(estado);

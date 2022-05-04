@@ -16,7 +16,7 @@ public class Casa implements Serializable {
     private String proprietario;
     private String NIF;
     private Fornecedores fornecedor;
-    private Faturas fatura;
+    private List<Faturas> faturas;
 
 
 
@@ -28,6 +28,7 @@ public class Casa implements Serializable {
         this.divisoes = new HashMap<>();
         this.proprietario = "";
         this.NIF = "";
+        this.faturas= new ArrayList<>();
     }
 
     public Casa(Map<String, SmartDevice> devices, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
@@ -36,6 +37,7 @@ public class Casa implements Serializable {
         this.setProprietario(proprietario);
         this.setNIF(NIF);
         this.setFornecedor(fornecedor);
+        this.faturas= new ArrayList<>();
     }
 
     public Casa (String proprietario, String NIF) {
@@ -52,6 +54,7 @@ public class Casa implements Serializable {
         this.setProprietario(proprietario);
         this.setNIF(NIF);
         this.setFornecedor(fornecedor);
+        this.faturas= new ArrayList<>();
     }
 
     public Casa(Casa umaCasa) {
@@ -60,6 +63,7 @@ public class Casa implements Serializable {
         this.proprietario = umaCasa.getProprietario();
         this.NIF = umaCasa.getNIF();
         this.fornecedor = umaCasa.getFornecedor();
+        this.faturas= umaCasa.getFatura();
     }
 
 
@@ -112,12 +116,12 @@ public class Casa implements Serializable {
         return forn;
     }
 
-    public Faturas getFatura() {
-        return this.fatura;
+    public List<Faturas> getFatura() {
+        return this.faturas;
     }
 
-    public void setFatura(Faturas fatura) {
-        this.fatura = fatura;
+    public void setFatura(List<Faturas> fatura) {
+        this.faturas = fatura;
     }
 
     /**
@@ -237,7 +241,9 @@ public class Casa implements Serializable {
     public static class faturaComparator implements Comparator<Casa> {
         @Override
         public int compare(Casa c1, Casa c2) {
-            return Double.compare(c1.getFatura().getConsumo(), c2.getFatura().getConsumo());
+            List<Faturas> listfaturas = c1.getFatura();
+            List<Faturas> listfaturas2 = c2.getFatura();
+            return Double.compare(listfaturas.get(listfaturas.size()-1).getConsumo(), listfaturas.get(listfaturas2.size()-1).getConsumo());
         }
     }
 

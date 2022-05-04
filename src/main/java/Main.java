@@ -46,7 +46,10 @@ public class Main {
 
                 Scanner scanner = new Scanner(System.in);
                 int i = scanner.nextInt();
-                if (i==1) estado.loadEstado();
+                if (i==1) {
+                    estado.loadEstado();
+                    Main.menuinicial(estado);
+                }
                 else if (i==2) {
                     try {
                         estado.loadEstadoObj(newFilePath);
@@ -55,6 +58,10 @@ public class Main {
                     }
                 }
                 else if (i==3){
+                    Main.Menulistafatura(estado);
+
+                }
+                    /*
                     try {
                         estado.loadFaturasObj(faturasFile);
                         //Faturas f = new Faturas ();
@@ -64,7 +71,7 @@ public class Main {
                     }
 
                 }
-                Main.menuinicial(estado);
+                Main.menuinicial(estado);*/
             }
             case 5 -> Menu.emissaoFaturas(estado);
             case 6 -> Main.menuEstatistica(estado);
@@ -162,8 +169,12 @@ public class Main {
             opcao = Menu.MenuListaCasas(l);
         }
         if (opcao ==0) Main.menuinicial(estado);
-        int a = Menu.FaturaInfo(opcao-1, l);
+        int a = Menu.faturaList(l.get(opcao-1));
         if (a==0) Main.menuinicial(estado);
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+        Menu.FaturaInfo(i,l.get(opcao-1).getFatura());
+
     }
 
 
@@ -213,8 +224,8 @@ public class Main {
                    i = Menu.MenuListaCasas(casas);
                 }
                 if (i ==0) Main.menuinicial(estado);
-                int a = Menu.FaturaInfo(opcao-1, casas);
-                if (a==0) Main.menuEstatistica(estado);
+               // int a = Menu.FaturaInfo(opcao-1, casas);
+                // if (a==0) Main.menuEstatistica(estado);
 
             }
             case 4 -> {
