@@ -1,38 +1,28 @@
+/**
+ * Esta é uma classe extendida de Fornecedor que usufrui dos métodos da mesma
+ * Define as diferentes fórmulas relativas aos diferentes fornecedores
+ */
 public class FornecEDP extends Fornecedores{
-
-    private String nome;
-
 
     public FornecEDP() {
         super();
-        this.nome = "";
     }
 
-    public FornecEDP(String nome) {
-        super();
-        this.nome = nome;
+    public FornecEDP(double volumeFaturacao) {
+        super(volumeFaturacao);
     }
 
     public FornecEDP(FornecEDP umFornecedor) {
         super(umFornecedor);
-        this.nome = umFornecedor.nome;
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public Fornecedores clone() {
+        return new FornecEDP(this);
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    /**
-     * Esta é uma classe extendida de Fornecedor que usufrui dos métodos da mesma
-     * Define as diferentes fórmulas relativas aos diferentes fornecedores
-     */
-
 
     public double PrecoDiarioPorDispositivo(SmartDevice sd){
         double consumo = sd.consumoEnergia();
-        return (0.148*(consumo+3)*(0.6*0.9)*24);
-    }
+        return this.getValorBase()*(consumo+3)*this.getImposto()*0.9*24;
+    }  //e se o consumo for 0??
 }

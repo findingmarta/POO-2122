@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.nio.file.*;
-import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
@@ -17,33 +16,55 @@ public class Estado implements Serializable {
         this.data= "01/01/2018";
     }
 
-    public Estado(List<Casa> casas, List<Fornecedores> fornecedores) {
-        this.casas = casas;
-        this.fornecedores = fornecedores;
+    public Estado(List<Casa> nCasas, List<Fornecedores> nFornecedores) {
+        this.casas = new ArrayList<>();
+        for (Casa c : nCasas){
+            this.casas.add(c.clone());
+        }
+        this.fornecedores = new ArrayList<>();
+        for (Fornecedores f : nFornecedores){
+            this.fornecedores.add(f.clone());
+        }
         this.data= "01/01/2018";
     }
 
     public Estado(Estado umEstado) {
-        this.casas = umEstado.casas;
-        this.fornecedores = umEstado.fornecedores;
-        this.data= umEstado.data;
+        this.casas = umEstado.getCasas();
+        this.fornecedores = umEstado.getFornecedores();
+        this.data= umEstado.getData();
     }
-
 
     public List<Casa> getCasas(){
-        return this.casas;
+        List<Casa> nCasas = new ArrayList<>();
+        for(Casa c : this.casas){
+            nCasas.add(c.clone());
+        }
+        return nCasas;
     }
 
-    public void setCasas(List<Casa> casas){           //CLONE !!!!
-        this.casas = casas;
+    public void setCasas(List<Casa> nCasas){
+        this.casas = new ArrayList<>();
+        if(nCasas!=null){
+            for (Casa c : nCasas) casas.add(c.clone());
+        }
+        //assert nCasas != null;
     }
 
     public List<Fornecedores> getFornecedores(){
-        return this.fornecedores;
+        List<Fornecedores> nFornecedores = new ArrayList<>();
+        for(Fornecedores f : this.fornecedores){
+            nFornecedores.add(f.clone());
+        }
+        return nFornecedores;
     }
 
-    public void setFornecedores(List<Fornecedores> fornecedores){
-        this.fornecedores = fornecedores;
+    public void setFornecedores(List<Fornecedores> nFornecedores){
+        this.fornecedores = new ArrayList<>();
+        if(nFornecedores!=null) {
+            for (Fornecedores f : nFornecedores) {
+                fornecedores.add(f.clone());
+            }
+        }
     }
 
     public String getData() {
@@ -52,6 +73,30 @@ public class Estado implements Serializable {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    /**
+     * Metodo equals, toString e clone
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estado estado = (Estado) o;
+        return  Objects.equals(this.casas, estado.casas) &&
+                Objects.equals(this.fornecedores, estado.fornecedores);
+    }
+
+    @Override
+    public String toString() {
+        return "Estado " +
+                casas +
+                fornecedores;
+    }
+
+    @Override
+    public Estado clone() {
+        return new Estado(this);
     }
 
     /*
@@ -69,8 +114,27 @@ public class Estado implements Serializable {
     /**
      * Metodos
      */
-    public void loadEstado() {
-        List<String> linhas = lerFicheiro();
+    public void addCasa (Casa c){
+        this.casas.add(c.clone());
+    }
+
+    public void updateCasa (Casa c, int index){
+        Casa casa = this.casas.get(index);
+        casa.setProprietario(c.getProprietario());
+        casa.setNIF(c.getNIF());
+        casa.setDevices(c.getDevices());
+        casa.setDivisoes(c.getDivisoes());
+        casa.setFornecedor(c.getFornecedor());
+        casa.setFatura(c.getFatura());
+    }
+
+    /*public void updateFornecedor (Fornecedores f){
+        Fornecedores fornecedor = this.fornecedores.get(index);
+        fornecedor.setVolumeFaturacao(f.getVolumeFaturacao());
+    }*/
+
+    public void loadEstado(String file) {
+        List<String> linhas = lerFicheiro(file);
         Fornecedores f;
         Casa c = null;
         String divisao = null;
@@ -92,24 +156,25 @@ public class Estado implements Serializable {
                 }
                 case "SmartBulb" -> {
                     SmartBulb sb = parseSB(linhaPartida[1]);
-                    if (divisao == null) System.out.println("Linha inválida.");
+                    //if (divisao == null) System.out.println("Linha inválida.");
                     assert c != null;
+                    assert divisao != null;
                     sb.setOn(false);
                     c.addSmartDevice(sb);
                     c.addToRoom(divisao,sb.getID());
                 }
                 case "SmartSpeaker" -> {
                     SmartSpeaker ss = parseSS(linhaPartida[1]);
-                    if (divisao == null) System.out.println("Linha inválida.");
                     assert c != null;
+                    assert divisao != null;
                     ss.setOn(false);
                     c.addSmartDevice(ss);
                     c.addToRoom(divisao,ss.getID());
                 }
                 case "SmartCamera" -> {
                     SmartCamera sc = parseSC(linhaPartida[1]);
-                    if (divisao == null) System.out.println("Linha inválida.");
                     assert c != null;
+                    assert divisao != null;
                     sc.setOn(false);
                     c.addSmartDevice(sc);
                     c.addToRoom(divisao,sc.getID());
@@ -119,7 +184,7 @@ public class Estado implements Serializable {
         }
     }
 
-    public static Casa parseC(String linhaPartida){
+    private static Casa parseC(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         String proprietario = dados[0];
         String NIF = dados[1];
@@ -127,19 +192,19 @@ public class Estado implements Serializable {
         return new Casa(proprietario,NIF,fornecedor);
     }
 
-    public static Fornecedores parseF(String linhaPartida){
+    private static Fornecedores parseF(String linhaPartida){
         //String[] dados = linhaPartida.split(",");
-        Fornecedores fornec1 = null;
+        Fornecedores fornec = null;
         switch (linhaPartida) {
-            case "EDP" -> fornec1 = new FornecEDP();
-            case "Endesa" -> fornec1 = new FornecEndesa();
-            case "Jomar" -> fornec1 = new FornecJomar();
-            default -> Menu.erros(2);
+            case "EDP" -> fornec = new FornecEDP();
+            case "Endesa" -> fornec = new FornecEndesa();
+            case "Jomar" -> fornec = new FornecJomar();
+            default -> System.out.println("Linha inválida!");
         }
-        return fornec1;
+        return fornec;
     }
 
-    public static SmartBulb parseSB(String linhaPartida){
+    private static SmartBulb parseSB(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartBulb sb = new SmartBulb();
         switch (dados[0]) {
@@ -152,7 +217,7 @@ public class Estado implements Serializable {
         return sb;
     }
 
-    public static SmartSpeaker parseSS(String linhaPartida){
+    private static SmartSpeaker parseSS(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartSpeaker ss = new SmartSpeaker();
         ss.setVolume(Integer.parseInt(dados[0]));
@@ -161,7 +226,7 @@ public class Estado implements Serializable {
         return ss;
     }
 
-    public static SmartCamera parseSC(String linhaPartida){
+    private static SmartCamera parseSC(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartCamera sc = new SmartCamera();
         sc.setResolution(Double.parseDouble(dados[0]));
@@ -169,9 +234,8 @@ public class Estado implements Serializable {
         return sc;
     }
 
-    public static List<String> lerFicheiro() {
+    public static List<String> lerFicheiro(String file) {
         List<String> lines = new ArrayList<>();
-        String file = "src/main/java/logs.txt";
         try {
             lines = Files.readAllLines(Paths.get(file));
         } catch (IOException exc) {

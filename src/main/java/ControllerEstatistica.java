@@ -25,16 +25,20 @@ public class ControllerEstatistica {
                 case 2 -> {
                     List<Fornecedores> f = estado.getFornecedores ();
                     Estado.ordenaListFornecedores (f);
-                    System.out.println (f.get (f.size ()-1).toString ());
-                    int i = scanner.nextInt ();
+                    //Fornecedores forn = (f.get ((f.size ()) - 1));
+                    for (Fornecedores forn : f) {
+                        String Stringforn = forn.Stringfornecedor (forn);
+                        System.out.println ("Fornecedor: " + Stringforn + forn.toString ());
+                        int i = scanner.nextInt ();
+                    }
                 }
                 case 3 -> {
                     List<Casa> casas = new ArrayList<> ();
                     System.out.println ("Insira o fornecedor: ");
                     String d = scanner.next ().toLowerCase ();
                     for (Casa c : l) {
-                        if ((d.equals (c.Stringfornecedor (c.getFornecedor ()).toLowerCase ()))) {
-                            casas.add (c);
+                        if ((d.equals (c.getFornecedor().Stringfornecedor (c.getFornecedor ()).toLowerCase ()))) {
+                            casas.add(c.clone());
                         }
                     }
                     int i = -1;

@@ -1,15 +1,37 @@
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.*;
 
-public class Estado_Test {
+public class EstadoTest {
+    private static List<Fornecedores> nFornecedores = new ArrayList<>();
+    private static List<Casa> nCasas = new ArrayList<>();
+    static Estado estado = new Estado();
+
+    @BeforeAll
+    static void load(){
+        estado.loadEstado("src/main/java/testes.txt");
+        nCasas = estado.getCasas();
+        nFornecedores = estado.getFornecedores();
+    }
+
     private Casa makeCasa(){
         Casa casa = new Casa();
         casa.setDivisoes(makeDivisoes1());
         casa.setProprietario("EU");
         casa.setNIF("987654321");
         return casa;
+    }
+
+    private Map<String, HashSet<String>> makeDivisoes1() {
+        Map <String, HashSet<String>> divisoes = new HashMap<>();
+        HashSet<String> devices = new HashSet<>();
+        devices.add("33333");
+        devices.add("12345");
+        devices.add("11111");
+        divisoes.put("Sala",devices);
+        return divisoes;
     }
 
     private Casa makeCasa2(){
@@ -20,23 +42,6 @@ public class Estado_Test {
         casa.setNIF("707666276");
         casa.setFornecedor(null);
         return casa;
-    }
-    /*
-    private Fornecedores makeFornecedor(){
-        Fornecedores fornecedor = new Fornecedores();
-        fornecedor.setImposto(19.9);
-        fornecedor.setValor_base(1.11);
-        return fornecedor;
-    }*/
-
-    private Map<String, HashSet<String>> makeDivisoes1() {
-        Map <String, HashSet<String>> divisoes = new HashMap<>();
-        HashSet<String> devices = new HashSet<>();
-        devices.add("33333");
-        devices.add("12345");
-        devices.add("11111");
-        divisoes.put("Sala",devices);
-        return divisoes;
     }
 
     private Map<String, SmartDevice> makeDevices2() {
@@ -86,7 +91,22 @@ public class Estado_Test {
         return divisoes;
     }
 
-    private boolean mapEqualsDivices (Map<String, SmartDevice> first, Map<String, SmartDevice> second) {
+    private List<Fornecedores> makeFornecedores(){
+        List<Fornecedores> fornecedores = new ArrayList<>();
+        fornecedores.add(new FornecEDP());
+        fornecedores.add(new FornecEndesa());
+        fornecedores.add(new FornecJomar());
+        return fornecedores;
+    }
+
+    private List<Casa> makeCasas(){
+        List<Casa> casas = new ArrayList<>();
+        casas.add(makeCasa());
+        casas.add(makeCasa2());
+        return casas;
+    }
+
+    /*private boolean mapEqualsDivices (Map<String, SmartDevice> first, Map<String, SmartDevice> second) {
         if (first.size() != second.size()) return false;
         return first.entrySet().stream().allMatch(e -> e.getValue().equals(second.get(e.getKey())));
     }
@@ -94,64 +114,72 @@ public class Estado_Test {
     private boolean mapEqualsDivisoes (Map<String, HashSet<String>> first, Map<String, HashSet<String>> second) {
         if (first.size() != second.size()) return false;
         return first.entrySet().stream().allMatch(e -> e.getValue().equals(second.get(e.getKey())));
-    }
+    }*/
 
     @Test
     public void testContructor() {
         Estado estado = new Estado();
-        assertNotNull(estado);
+        assertTrue(estado.getCasas().isEmpty());
+        assertTrue(estado.getFornecedores().isEmpty());
 
-        List<Casa> casas = new ArrayList<>();
-        casas.add(makeCasa());
-        List<Fornecedores> fornecedores = new ArrayList<>();
-        //fornecedores.add(makeFornecedor());
-        estado = new Estado(casas, fornecedores);
-        assertNotNull(estado);
+        estado = new Estado(nCasas,nFornecedores);
+        assertEquals(nCasas, estado.getCasas());
+        assertEquals(nFornecedores, estado.getFornecedores());
+
+        Estado umEstado = new Estado(makeCasas(), makeFornecedores());
+        estado = new Estado(umEstado);
+        assertEquals(umEstado, estado);
+    }
+
+    @Test
+    public void testGetCasas() {
+        Estado estado = new Estado();
+        assertTrue(estado.getCasas().isEmpty());
+
+        estado = new Estado(nCasas,nFornecedores);
+        List<Casa> casas1 = estado.getCasas();
+        assertEquals(nCasas, casas1);
     }
 
     @Test
     public void testSetCasas() {
         Estado estado = new Estado();
-        List<Casa> casas = new ArrayList<>();
-        casas.add(makeCasa());
-        estado.setCasas(casas);
-        assertEquals(casas, estado.getCasas());
+        estado.setCasas(nCasas);
+        assertEquals(nCasas, estado.getCasas());
+        estado.setCasas(null);
+        assertTrue(estado.getCasas().isEmpty());
+
+        estado = new Estado(nCasas,makeFornecedores());
+        estado.setCasas(makeCasas());
+        assertEquals(makeCasas(), estado.getCasas());
     }
 
     @Test
-    public void testGetCasas() {
-        List<Fornecedores> fornecedores = new ArrayList<>();
-        List<Casa> casas = new ArrayList<>();
-        //fornecedores.add(makeFornecedor());
-        casas.add(makeCasa());
-        Estado estado = new Estado(casas,fornecedores);
-        List<Casa> casas1 = estado.getCasas();
-        assertEquals(casas, casas1);
+    public void testGetFornecedores() {
+        Estado estado = new Estado();
+        assertTrue(estado.getFornecedores().isEmpty());
+
+        estado = new Estado(nCasas,nFornecedores);
+        List<Fornecedores> fornecedores1 = estado.getFornecedores();
+        assertEquals(nFornecedores, fornecedores1);
     }
 
     @Test
     public void testSetFornecedores() {
         Estado estado = new Estado();
-        List<Fornecedores> fornecedores = new ArrayList<>();
-        //fornecedores.add(makeFornecedor());
-        estado.setFornecedores(fornecedores);
-        assertEquals(fornecedores, estado.getFornecedores());
-    }
+        estado.setFornecedores(nFornecedores);
+        assertEquals(nFornecedores, estado.getFornecedores());
+        estado.setFornecedores(null);
+        assertTrue(estado.getFornecedores().isEmpty());
 
-    @Test
-    public void testGetFornecedores() {
-        List<Fornecedores> fornecedores = new ArrayList<>();
-        List<Casa> casas = new ArrayList<>();
-        //fornecedores.add(makeFornecedor());
-        casas.add(makeCasa());
-        Estado estado = new Estado(casas,fornecedores);
-        List<Fornecedores> fornecedores1 = estado.getFornecedores();
-        assertEquals(fornecedores, fornecedores1);
+        estado = new Estado(makeCasas(),nFornecedores);
+        estado.setFornecedores(makeFornecedores());
+        assertEquals(makeFornecedores(), estado.getFornecedores());
     }
 
     @Test
     public void testLerFicheiro(){
-        List<String> lines = Estado.lerFicheiro();
+        List<String> lines = Estado.lerFicheiro("src/main/java/logs.txt");
         assertEquals("Fornecedor:EDP", lines.get(0));
         assertEquals("Fornecedor:Jomar", lines.get(1));
         assertEquals("Casa:Joao Pedro Malheiro da Costa,707666276,EDP", lines.get(3));
@@ -161,43 +189,35 @@ public class Estado_Test {
     @Test
     public void testLoadEstado() {
         Estado estado = new Estado();
-        estado.loadEstado();
+        estado.loadEstado("src/main/java/testes.txt");
         List<Casa> c = estado.getCasas();
         List<Fornecedores> f = estado.getFornecedores();
-        Casa casa = makeCasa2();
-        assertEquals(casa.getProprietario(),c.get(0).getProprietario());
-        assertEquals(casa.getNIF(),c.get(0).getNIF());
-        assertEquals(casa.getDevices(),c.get(0).getDevices());
-        assertEquals(casa.getDivisoes(),c.get(0).getDivisoes());
-        assertEquals(casa, c.get(0));
-    }
-
-    @Test
-    public void testLoadEstadoObj(){
-        Estado estado = new Estado();
-        try {
-            estado = estado.loadEstadoObj("src/main/java/Estado.obj");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        assertEquals("Joao Pedro Malheiro da Costa",estado.getCasas().get(0).getProprietario());
-        assertEquals("707666276",estado.getCasas().get(0).getNIF());
-        assertTrue(mapEqualsDivices(estado.getCasas().get(0).getDevices(),makeDevices2()));
-        assertTrue(mapEqualsDivisoes(estado.getCasas().get(0).getDivisoes(),makeDivisoes2()));
+        assertEquals(nCasas, c);
+        assertEquals(nFornecedores, f);
     }
 
     @Test
     public void testSaveEstado(){
         Estado estado = new Estado();
-        estado.loadEstado();
-        Casa casa = makeCasa2();
+        estado.loadEstado("src/main/java/logs.txt");
         try {
             estado.saveEstado("src/main/java/Estado.obj");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(casa.getDevices(),estado.getCasas().get(0).getDevices());
-        assertEquals(casa.getDivisoes(),estado.getCasas().get(0).getDivisoes());
     }
-    //FALTA PARA OS FORNECEDORES
+
+    @Test   //carregar primeiro o estado
+    public void testLoadEstadoObj(){
+        Estado estadoObj = new Estado();
+        Estado estadoTxt = new Estado();
+        estadoTxt.loadEstado("src/main/java/logs.txt");
+        try {
+            estadoObj = estadoObj.loadEstadoObj("src/main/java/Estado.obj");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(estadoTxt.getCasas(), estadoObj.getCasas());
+        assertEquals(estadoTxt.getFornecedores(), estadoObj.getFornecedores());
+    }
 }

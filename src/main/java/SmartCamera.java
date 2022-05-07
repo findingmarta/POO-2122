@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 /**
  * Uma SmartCamera é uma câmara de vigilância com uma certa resolução e tamanho de imagem
  */
@@ -17,21 +15,27 @@ public class SmartCamera extends SmartDevice {
         this.size = 0.0;
     }
 
-    public SmartCamera (String id, boolean b, double re, double size){
-        super(id,b);
-        this.resolution = re;
-        this.size = size;
+    public SmartCamera (String id, boolean turn, double re, double size){
+        super(id,turn);
+        if(re<0) this.resolution = 0;
+        else this.resolution = re;
+        if(size<0) this.size = 0;
+        else this.size = size;
     }
 
-    public SmartCamera (boolean b, double re, double size){
-        super(b);
-        this.resolution = re;
-        this.size = size;
+    public SmartCamera (boolean turn, double re, double size){
+        super(turn);
+        if(re<0) this.resolution = 0;
+        else this.resolution = re;
+        if(size<0) this.size = 0;
+        else this.size = size;
     }
 
     public SmartCamera (double re, double size){
-        this.resolution = re;
-        this.size = size;
+        if(re<0) this.resolution = 0;
+        else this.resolution = re;
+        if(size<0) this.size = 0;
+        else this.size = size;
     }
 
     public SmartCamera (SmartCamera sc){
@@ -51,7 +55,6 @@ public class SmartCamera extends SmartDevice {
         this.size = size;
     }
 
-
     public double getResolution(){
         return this.resolution;
     }
@@ -63,11 +66,12 @@ public class SmartCamera extends SmartDevice {
     /**
      * Metodo toString, equals e clone
      */
+    @Override
     public String toString (){
         String estado;
         if (getOn()) estado = "ON";
         else estado = "OF";
-        final StringBuffer sc = new StringBuffer("\n SmarCamera (\u001B[36m").append(getID()).append("\u001B[0m");
+        final StringBuilder sc = new StringBuilder("\n SmarCamera (\u001B[36m").append(getID()).append("\u001B[0m");
         sc.append(",").append(estado).append("): ");
         sc.append("Resolução-> ").append(resolution).append("  ");
         sc.append("Tamanho-> ").append(size).append("  ");
@@ -75,6 +79,7 @@ public class SmartCamera extends SmartDevice {
         return sc.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
@@ -83,11 +88,8 @@ public class SmartCamera extends SmartDevice {
                 this.resolution==sc.getResolution() &&
                 this.size==sc.getSize();
     }
-    /*return Objects.equals(this.getID(), that.getID()) && Objects.equals(this.getOn(), that.getOn()) &&
-     Double.compare(that.getResolution(), getResolution()) == 0 && Double.compare(that.getSize(), getSize()) == 0;
-    */
 
-
+    @Override
     public SmartCamera clone() {
         return new SmartCamera(this);
     }
@@ -96,6 +98,7 @@ public class SmartCamera extends SmartDevice {
      * Metodos
      */
     public double consumoEnergia(){
+        if(getResolution()==0 || getSize()==0) return 0;
         return 3 + (this.resolution * this.size);
     }
 }

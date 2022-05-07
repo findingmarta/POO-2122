@@ -1,0 +1,6 @@
+2022.04.10,Casa,1,setOn,12345
+2022.04.10,Casa,1,setDivisionOn,Sala
+2022.04.10,Casa,2,setOff,32144
+2022.04.10,Casa,1,setDivisionOff,Jardim 1
+2022.04.11,Casa,2,mudarFornecedor,EDP
+2022.04.12,Fornecedor,Endesa,alterarValorDesconto, 123.99

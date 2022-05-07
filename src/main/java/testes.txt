@@ -1,0 +1,248 @@
+Casa:Marta Isabel da Silva e Sa,842037533,EDP
+Divisao:Escritorio
+SmartBulb:Neutral,0.21
+SmartBulb:Neutral,17.94
+SmartBulb:Neutral,14.68
+Divisao:Sala de Jantar
+SmartBulb:Warm,40.55
+SmartBulb:Neutral,17.22
+SmartBulb:Cold,10.20
+SmartSpeaker:39,TSF Radio Noticias,Marshall
+SmartSpeaker:63,Radio Comercial,Sennheiser
+SmartBulb:Warm,10.20
+SmartBulb:Neutral,0.11
+SmartCamera:1366,768
+SmartCamera:3840,2160
+Divisao:Cozinha
+SmartBulb:Cold,20.63
+SmartCamera:3840,2160
+SmartBulb:Cold,10.19
+SmartBulb:Warm,20.59
+SmartBulb:Neutral,20.81
+SmartBulb:Cold,10.19
+SmartBulb:Neutral,0.11
+SmartSpeaker:72,RFM Oceano Pacifico,Goodis
+Casa:Joana Catarina Veloso Branco,127167894,Endesa
+Divisao:Quarto
+SmartBulb:Neutral,10.44
+SmartBulb:Neutral,16.30
+SmartBulb:Neutral,20.47
+SmartCamera:1920,1080
+SmartBulb:Cold,13.26
+SmartCamera:3840,2160
+Divisao:Cozinha
+SmartBulb:Neutral,0.18
+SmartBulb:Neutral,0.28
+SmartBulb:Neutral,0.24
+SmartBulb:Warm,10.17
+SmartSpeaker:30,RFM,Bang&Olufsen
+SmartBulb:Neutral,50.18
+SmartBulb:Neutral,0.10
+SmartSpeaker:30,M80 Radio,Marshall
+SmartBulb:Warm,10.00
+SmartBulb:Neutral,0.19
+Divisao:Sala de Estar
+SmartCamera:3840,2160
+SmartSpeaker:70,RTP Antena 1 98.3 FM,Philips
+SmartSpeaker:50,M80 Radio,Sennheiser
+SmartBulb:Neutral,14.67
+SmartSpeaker:26,TSF Radio Noticias,Sony
+SmartSpeaker:4,RFM Oceano Pacifico,Goodis
+SmartBulb:Neutral,0.21
+Casa:Joana Isabel Freitas Pereira,940955797,Jomar
+Divisao:Sala de Jantar
+SmartCamera:2160,1440
+SmartBulb:Neutral,50.04
+SmartCamera:2160,1440
+SmartBulb:Warm,10.10
+Divisao:Quarto
+SmartCamera:1920,1080
+SmartBulb:Neutral,50.27
+SmartCamera:3840,2160
+SmartBulb:Neutral,0.12
+SmartSpeaker:34,MEGA HITS,JBL
+SmartCamera:3840,2160
+Divisao:Cozinha
+SmartBulb:Neutral,20.95
+SmartSpeaker:33,RFM Oceano Pacifico,JBL
+SmartBulb:Neutral,0.12
+SmartBulb:Neutral,0.96
+SmartBulb:Neutral,0.13
+SmartCamera:1920,1080
+Divisao:Sala de Estar
+SmartBulb:Neutral,17.19
+SmartCamera:1920,1080
+SmartCamera:1366,768
+SmartBulb:Neutral,50.70
+SmartBulb:Neutral,14.95
+SmartBulb:Neutral,18.48
+SmartBulb:Warm,10.17
+SmartSpeaker:50,RFM,Bowers&Wilkins
+Divisao:Cozinha 1
+SmartCamera:1366,768
+SmartCamera:2160,1440
+SmartBulb:Neutral,19.18
+SmartSpeaker:85,RTP Antena 1 98.3 FM,Bowers&Wilkins
+Divisao:Jardim
+SmartSpeaker:55,MEGA HITS,Philips
+SmartBulb:Neutral,0.15
+SmartCamera:1366,768
+SmartBulb:Neutral,50.44
+SmartBulb:Warm,15.68
+SmartBulb:Warm,10.49
+SmartBulb:Warm,10.29
+SmartCamera:1280,720
+SmartBulb:Warm,10.12
+Divisao:Garagem
+SmartBulb:Neutral,19.28
+Divisao:Cozinha 2
+SmartBulb:Neutral,14.39
+SmartSpeaker:4,RTP Antena 1 98.3 FM,Goodis
+Divisao:Garagem 1
+SmartBulb:Warm,30.56
+SmartBulb:Warm,10.29
+SmartBulb:Neutral,0.15
+SmartBulb:Warm,10.96
+SmartCamera:2160,1440
+SmartBulb:Neutral,50.92
+SmartBulb:Neutral,0.13
+SmartBulb:Neutral,30.25
+SmartBulb:Neutral,50.25
+SmartCamera:2160,1440
+Divisao:Cozinha 3
+SmartBulb:Neutral,0.17
+SmartSpeaker:28,Radio Renascenca,Marshall
+SmartBulb:Neutral,19.97
+SmartCamera:1280,720
+SmartBulb:Neutral,10.44
+SmartCamera:1280,720
+SmartSpeaker:70,RFM Oceano Pacifico,Sony
+SmartBulb:Warm,10.24
+SmartCamera:1920,1080
+Casa:Jaime Abreu Fernandes de Oliveira,571182142,Endesa
+Divisao:Cozinha
+SmartBulb:Neutral,0.11
+SmartBulb:Warm,10.29
+SmartBulb:Cold,10.21
+SmartCamera:3840,2160
+SmartBulb:Neutral,10.44
+Divisao:Quarto
+SmartBulb:Warm,20.13
+SmartBulb:Neutral,0.12
+SmartSpeaker:76,M80 Radio,LG
+SmartSpeaker:70,RFM Oceano Pacifico,Bowers&Wilkins
+SmartBulb:Neutral,0.18
+SmartBulb:Neutral,19.61
+SmartSpeaker:41,MEGA HITS,LG
+SmartSpeaker:65,RTP Antena 1 98.3 FM,LG
+SmartCamera:3840,2160
+Divisao:Garagem
+SmartBulb:Neutral,0.17
+SmartBulb:Neutral,0.16
+SmartBulb:Neutral,0.10
+SmartCamera:2160,1440
+Divisao:Sala de Jantar
+SmartBulb:Neutral,19.26
+SmartBulb:Cold,10.14
+SmartBulb:Neutral,0.17
+SmartBulb:Neutral,0.22
+SmartCamera:3840,2160
+SmartCamera:1366,768
+SmartCamera:1024,768
+Divisao:Casa de Banho
+SmartBulb:Neutral,0.10
+SmartBulb:Warm,10.65
+Divisao:Garagem 1
+SmartBulb:Neutral,10.44
+SmartBulb:Warm,10.17
+SmartCamera:1280,720
+SmartCamera:1280,720
+Divisao:Quarto 1
+SmartBulb:Neutral,0.16
+SmartBulb:Neutral,0.16
+SmartBulb:Cold,13.79
+SmartCamera:1366,768
+SmartCamera:1280,720
+SmartCamera:1024,768
+Divisao:Quarto 2
+SmartBulb:Neutral,0.26
+SmartSpeaker:52,MEGA HITS,Sony
+SmartBulb:Neutral,17.00
+SmartCamera:2160,1440
+SmartSpeaker:60,TSF Radio Noticias,Marshall
+SmartCamera:1280,720
+SmartCamera:1920,1080
+SmartBulb:Neutral,0.96
+Divisao:Garagem 2
+SmartBulb:Neutral,20.76
+SmartCamera:2160,1440
+SmartCamera:2160,1440
+SmartBulb:Neutral,17.95
+Casa:Benjamim Meleiro Rodrigues,684554457,EDP
+Divisao:Escritorio
+SmartBulb:Neutral,16.30
+SmartBulb:Neutral,0.23
+SmartBulb:Neutral,0.17
+SmartBulb:Warm,10.19
+SmartBulb:Neutral,0.23
+SmartBulb:Cold,13.79
+SmartBulb:Neutral,0.17
+SmartBulb:Neutral,0.19
+SmartBulb:Neutral,0.12
+Divisao:Quarto
+SmartBulb:Neutral,0.10
+SmartBulb:Warm,10.24
+SmartBulb:Neutral,0.26
+Divisao:Jardim
+SmartBulb:Cold,40.16
+SmartCamera:1366,768
+Divisao:Jardim 1
+SmartBulb:Neutral,16.78
+Divisao:Quarto 1
+SmartBulb:Neutral,14.66
+SmartCamera:1024,768
+SmartSpeaker:60,Cidade FM,Goodis
+Divisao:Casa de Banho
+SmartBulb:Neutral,0.19
+SmartSpeaker:60,RTP Antena 1 98.3 FM,Bang&Olufsen
+SmartSpeaker:55,RFM Oceano Pacifico,BOSE
+SmartBulb:Neutral,0.11
+SmartSpeaker:43,M80 Radio,Philips
+SmartSpeaker:55,RFM,Philips
+SmartBulb:Neutral,18.81
+SmartSpeaker:60,Radio Radar,Goodis
+SmartBulb:Neutral,0.24
+SmartCamera:2160,1440
+Divisao:Sala de Estar
+SmartBulb:Warm,30.28
+SmartBulb:Neutral,0.21
+SmartCamera:1280,720
+SmartBulb:Neutral,30.86
+SmartBulb:Neutral,0.23
+SmartBulb:Warm,10.19
+SmartBulb:Warm,10.11
+Divisao:Sala de Estar 1
+SmartBulb:Warm,10.23
+SmartBulb:Warm,10.14
+SmartCamera:1920,1080
+SmartBulb:Neutral,20.26
+SmartBulb:Neutral,0.16
+Divisao:Quarto 2
+SmartBulb:Neutral,14.67
+SmartBulb:Neutral,0.19
+SmartBulb:Warm,16.41
+SmartSpeaker:45,Radio Renascenca,Philips
+SmartSpeaker:40,RTP Antena 1 98.3 FM,Goodis
+SmartBulb:Neutral,16.74
+SmartBulb:Warm,20.51
+SmartBulb:Neutral,30.75
+Divisao:Sala de Estar 2
+SmartBulb:Cold,10.28
+SmartBulb:Cold,10.23
+SmartBulb:Neutral,50.61
+SmartBulb:Warm,18.79
+SmartSpeaker:9,RFM,Sony
+SmartBulb:Neutral,20.35
+SmartBulb:Warm,10.24
+SmartCamera:1280,720
+SmartCamera:1920,1080

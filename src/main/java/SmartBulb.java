@@ -34,8 +34,16 @@ public class SmartBulb extends SmartDevice {
     }
 
     public SmartBulb(int tone, double dimensao) {
-        this.tone = tone;
+        //this.tone = tone;
+        if (tone>WARM) this.tone = WARM;
+        else this.tone = Math.max(tone, COLD);
         this.dimensao = dimensao;
+    }
+
+    public SmartBulb(String id) {
+        super(id);
+        this.tone = NEUTRAL;
+        this.dimensao = 0.0;
     }
 
     public SmartBulb (SmartBulb sb)  {
@@ -44,18 +52,12 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = sb.getDimensao();
     }
 
-    public SmartBulb(String id) {
-        super(id);
-        this.tone = NEUTRAL;
-    }
-
     /**
      * Getters e Setters
      */
     public void setTone(int t) {
         if (t>WARM) this.tone = WARM;
-        else if (t<COLD) this.tone = COLD;
-        else this.tone = t;
+        else this.tone = Math.max(t, COLD);
     }
 
     public int getTone() {
@@ -63,7 +65,11 @@ public class SmartBulb extends SmartDevice {
     }
 
     public void setDimensao(double dimensao) {
-        this.dimensao = dimensao;
+        if(dimensao>=0) this.dimensao = dimensao;
+        else {
+            System.out.println("Dimensao invalida!");
+            this.dimensao = 0.0;
+        }
     }
 
     public double getDimensao() {
@@ -73,11 +79,12 @@ public class SmartBulb extends SmartDevice {
     /**
      * Metodo toString, equals e clone
      */
+    @Override
     public String toString() {
         String estado;
         if (getOn()) estado = "ON";
         else estado = "OF";
-        final StringBuffer sb = new StringBuffer("\n SmartBulb (\u001B[36m").append(getID()).append("\u001B[0m");
+        final StringBuilder sb = new StringBuilder("\n SmartBulb (\u001B[36m").append(getID()).append("\u001B[0m");
         sb.append(",").append(estado).append("): ");
         sb.append("Tone-> ").append(tone).append("  ");
         sb.append("Dimensao-> ").append(dimensao).append("  ");
@@ -85,6 +92,7 @@ public class SmartBulb extends SmartDevice {
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
@@ -93,18 +101,22 @@ public class SmartBulb extends SmartDevice {
                 this.tone == sb.tone &&
                 this.dimensao == sb.dimensao;
     }
-    /*return Objects.equals(this.getID(), sb.getID()) && Objects.equals(this.getOn(), sb.getOn())
-                && this.tone == sb.tone && this.dimensao == sb.dimensao;
-    */
 
+    @Override
     public SmartBulb clone() {
         return new SmartBulb(this);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), tone, dimensao);
     }
 
     /**
      * Metodos
      */
     public double consumoEnergia(){
+        if(getDimensao()<=0) return 0;
         return 1 + this.tone + this.dimensao;
     }
 }

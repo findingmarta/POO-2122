@@ -1,82 +1,71 @@
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.Set;
-public abstract class Fornecedores implements Serializable {
-    private double valor_base;
-    private double imposto;
 
+public abstract class Fornecedores implements Serializable {
+    private double valorBase = 0.148;
+    private double imposto = 0.60;
     private double volumeFaturacao;
 
     /**
      * Construtores
      */
     public Fornecedores (){
-        this.valor_base = 0.148;
-        this.imposto = 0.60;
+        this.volumeFaturacao = 0.0;   // ????
     }
 
-    public Fornecedores (double valor_base, double imposto){
-        this.valor_base = valor_base;
-        this.imposto = imposto;
-    }
-
-    public Fornecedores (Fornecedores umFornecedor){
-        this.valor_base = umFornecedor.valor_base;
-        this.imposto = umFornecedor.imposto;
-    }
-
-    public double getVolumeFaturacao() {
-        return volumeFaturacao;
-    }
-
-    public void setVolumeFaturacao(double volumeFaturacao) {
+    public Fornecedores (double volumeFaturacao){
         this.volumeFaturacao = volumeFaturacao;
     }
 
-    public void aumentaVolumeFaturacao(double volumeFaturacao) {
-        this.volumeFaturacao += volumeFaturacao;
-    }
-/**
-     * Getters e Setters
-     */
-    /**
-    public double getValor_base() {
-        return valor_base;
+    public Fornecedores (Fornecedores umFornecedor){
+        this.volumeFaturacao = umFornecedor.getVolumeFaturacao();
+        this.valorBase = umFornecedor.getValorBase();
+        this.imposto = umFornecedor.getImposto();
     }
 
-    public void setValor_base(double valor_base) {
-        this.valor_base = valor_base;
+    /**
+     * Getters e Setters
+     */
+
+    public double getValorBase() {
+        return this.valorBase;
     }
 
     public double getImposto() {
-        return imposto;
+        return this.imposto;
     }
 
-    public void setImposto(double imposto) {
-        this.imposto = imposto;
+    public double getVolumeFaturacao() {
+        return this.volumeFaturacao;
     }
-**/
+
+    public void setVolumeFaturacao(double volumeFaturacao) {
+        if(volumeFaturacao>=0) this.volumeFaturacao = volumeFaturacao;
+        else {
+            System.out.println("Volume de faturação inválido!");
+            this.volumeFaturacao = 0.0;
+        }
+    }
+
     /**
      * Metodo toString, equals e clone
      */
+    @Override
     public String toString() {
         return "Fornecedores: \n" +
-                "Valor_base=" + valor_base +
+                "Valor_base=" + valorBase +
                 "\nImposto=" + imposto +
                 "\nFaturação: " + volumeFaturacao;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fornecedores that = (Fornecedores) o;
-        return Double.compare(that.valor_base, valor_base) == 0 && Double.compare(that.imposto, imposto) == 0;
+        return o != null && getClass() == o.getClass();
     }
 
-    /**
-    public Fornecedores clone (){
-        return new Fornecedores(this);
-    }**/
+    @Override
+    public abstract Fornecedores clone ();
 
     public static class fornecedoresComparator implements Comparator<Fornecedores> {
         @Override
@@ -85,11 +74,23 @@ public abstract class Fornecedores implements Serializable {
         }
     }
 
-    public abstract double PrecoDiarioPorDispositivo (SmartDevice sb);
-
     /**
      * Metodos
      */
+    public abstract double PrecoDiarioPorDispositivo (SmartDevice sd);
+
+    public void aumentaVolumeFaturacao(double volumeFaturacao) {        //pode ser negativo???
+        setVolumeFaturacao(this.volumeFaturacao += volumeFaturacao);
+    }
+
+    public String Stringfornecedor (Fornecedores fornecedor){
+        String forn= "";
+        if (fornecedor instanceof FornecJomar) forn = "Jomar";
+        else if (fornecedor instanceof FornecEDP) forn = "EDP";
+        else if (fornecedor instanceof FornecEndesa) forn = "Endesa";
+        return forn;
+    }
+
     /*public double PrecoDiarioPorDispositivo (SmartDevice sd){
         double consumo = 0.0;
         switch (sd){

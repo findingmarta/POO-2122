@@ -14,13 +14,13 @@ public class ControllerCasa {
             Scanner scanner = new Scanner(System.in);
             switch (opcao) {
                 case 1 -> {
-                int escolha = -1;
-                while (escolha < 0 || escolha > l.size()) {
-                    escolha = Menu.MenuListaCasas(l);
+                    int escolha = -1;
+                    while (escolha < 0 || escolha > l.size()) {
+                        escolha = Menu.MenuListaCasas(l);
+                    }
+                    if (escolha == 0) break;
+                    int a = Menu.MenuCasaInfo(escolha - 1, l);
                 }
-                if (escolha == 0) break;
-                int a = Menu.MenuCasaInfo(escolha - 1, l);
-            }
                 case 2 ->{
                     int i = -1;
                     while (i < 0 || i > l.size ()) {
@@ -45,7 +45,7 @@ public class ControllerCasa {
                     }
                     if (m.equals ("ligar")) c.setDeviceOn (id1);
                     else c.setDeviceOff (id1);
-
+                    estado.updateCasa(c, i-1);
                 }
                 case 3 -> {
                     int i=-1;
@@ -71,7 +71,10 @@ public class ControllerCasa {
                         }
                         if (m.equals("ligar")) c.setDivisonOn(d);
                         else c.setDivisonOff(d);
+                        estado.updateCasa(c, i-1);
                     }
+                    else System.out.println("Erro!");
+
                 }
                 case 4 -> {
                     System.out.println("Insira o NIF: ");
@@ -80,8 +83,8 @@ public class ControllerCasa {
                     System.out.println("Insira o nome do proprietário: ");
                     Scanner proprietario = new Scanner(System.in);
                     String prop = proprietario.next();
-                    Casa c1 = new Casa(prop, n);
-                    l.add(c1);
+                    Casa c = new Casa(prop, n);
+                    estado.addCasa(c);
                 }
                 case 5 -> {
                     int i = -1;
@@ -94,6 +97,7 @@ public class ControllerCasa {
                     System.out.println("Insira a divisão: ");
                     String d = scanner.next().toLowerCase();
                     c.addRoom(d);
+                    estado.updateCasa(c, i-1);
                 }
 
                 case 6 -> {
@@ -125,6 +129,7 @@ public class ControllerCasa {
                         assert s != null;
                         c.addSmartDevice(s);
                         c.addToRoom(d,s.getID());
+                        estado.updateCasa(c, i-1);
                     }
                 }
 
@@ -145,6 +150,7 @@ public class ControllerCasa {
                         default -> null;
                     };
                     c.setFornecedor(forn);
+                    estado.updateCasa(c, i-1);
                 }
                 /*
                 case 8 -> {

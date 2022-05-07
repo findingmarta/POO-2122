@@ -1,8 +1,7 @@
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Scanner;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ControllerSimulacao {
     public static void run(Estado estado) {
@@ -17,7 +16,7 @@ public class ControllerSimulacao {
             Scanner scanner = new Scanner (System.in);
             switch (opcao) {
                 case 1 -> {
-                    double diff = 0;
+                    double diff;
                     System.out.println ("Insira a data no formato dd/MM/yyyy:");
                     String s2 = scanner.next();
                     String dateFormat = "dd/MM/yyyy";
@@ -33,12 +32,13 @@ public class ControllerSimulacao {
                     LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
                     if (dAfter.isAfter (dBefore)) {
                         diff = ChronoUnit.DAYS.between (dBefore, dAfter);
-                        for (Casa c : estado.getCasas ()) {
+                        for (Casa c : estado.getCasas()) {
                             double precoFinal = c.consumoTotal () * diff;
                             Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal ());
                             c.getFatura().add(fatura);
                             Fornecedores f = c.getFornecedor ();
                             f.aumentaVolumeFaturacao (precoFinal);
+                            estado.updateCasa(c, estado.getCasas().indexOf(c));
                         }
                        // Estado.ordenaListCasa (estado.getCasas ());
                         estado.setData (s2);

@@ -1,24 +1,18 @@
-import java.io.Serializable;
 import java.util.*;
+import java.io.Serializable;
 import java.util.stream.Collectors;
-
-import static java.lang.Math.abs;
 
 /**
  * A CasaInteligente faz a gestao dos SmartDevices que existem e das
  * divisoes que existem na casa.
  */
 public class Casa implements Serializable {
-    //private List<SmartDevice> devices;
-   // private String morada;
     private Map<String, SmartDevice> devices;      // identificador -> SmartDevice
     private Map<String, HashSet<String>> divisoes; // Espaço -> Lista codigo dos devices
     private String proprietario;
     private String NIF;
     private Fornecedores fornecedor;
     private List<Faturas> faturas;
-
-
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -28,41 +22,47 @@ public class Casa implements Serializable {
         this.divisoes = new HashMap<>();
         this.proprietario = "";
         this.NIF = "";
+        this.fornecedor = null;
         this.faturas= new ArrayList<>();
     }
 
-    public Casa(Map<String, SmartDevice> devices, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
-        this.setDevices(devices);
-        this.setDivisoes(divisoes);
+    public Casa(Map<String, SmartDevice> d, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
+        this.proprietario = proprietario;
+        this.NIF = NIF;
+        this.divisoes = divisoes;
+        this.devices = new HashMap<>();
+        for (SmartDevice sd : d.values()){
+            this.devices.put(sd.getID(),sd.clone());           // ESTOU A POR O ID
+        }
+        this.fornecedor = null;
+        this.faturas= new ArrayList<>();
+    }
+
+    public Casa (String proprietario, String NIF) {       //Retirar depois
         this.setProprietario(proprietario);
         this.setNIF(NIF);
-        this.setFornecedor(fornecedor);
-        this.faturas= new ArrayList<>();
-    }
-
-    public Casa (String proprietario, String NIF) {
         this.devices = new HashMap<>();
         this.divisoes = new HashMap<>();
-        this.setProprietario(proprietario);
-        this.setNIF(NIF);
-        this.setFornecedor(fornecedor);
+        this.fornecedor = null;
+        this.faturas= new ArrayList<>();
+        //this.setFornecedor(fornecedor);
     }
 
     public Casa (String proprietario, String NIF, Fornecedores fornecedor) {
         this.devices = new HashMap<>();
         this.divisoes = new HashMap<>();
-        this.setProprietario(proprietario);
         this.setNIF(NIF);
+        this.setProprietario(proprietario);
         this.setFornecedor(fornecedor);
         this.faturas= new ArrayList<>();
     }
 
     public Casa(Casa umaCasa) {
+        this.NIF = umaCasa.getNIF();
         this.devices = umaCasa.getDevices();
         this.divisoes = umaCasa.getDivisoes();
-        this.proprietario = umaCasa.getProprietario();
-        this.NIF = umaCasa.getNIF();
         this.fornecedor = umaCasa.getFornecedor();
+        this.proprietario = umaCasa.getProprietario();
         this.faturas= umaCasa.getFatura();
     }
 
@@ -70,20 +70,6 @@ public class Casa implements Serializable {
     /**
      * Getters e Setters
      */
-    public Map<String, HashSet<String>> getDivisoes (){
-        return this.divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));     //FALTA CLONE
-    }
-
-    public void setDivisoes (Map<String, HashSet<String>> divisoes){
-        this.divisoes = divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)); //FALTA CLONE
-    }
-
-    public Map<String, SmartDevice> getDevices(){
-        return this.devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-    public void setDevices (Map<String, SmartDevice> devices){
-        this.devices = devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
     public String getProprietario (){
         return this.proprietario;
     }
@@ -101,35 +87,61 @@ public class Casa implements Serializable {
     }
 
     public Fornecedores getFornecedor(){
-        return this.fornecedor;          //CLONEEEE??
+        if (this.fornecedor != null) return this.fornecedor.clone();
+        return null;
     }
 
-    public void setFornecedor(Fornecedores fornecedor){
-        this.fornecedor = fornecedor;
+    public void setFornecedor(Fornecedores umFornecedor){
+        if (umFornecedor != null) this.fornecedor = umFornecedor.clone();
+        //else this.fornecedor = null;
     }
 
-    public String Stringfornecedor (Fornecedores fornecedor){
-        String forn= "";
-        if (fornecedor instanceof FornecJomar) forn = "Jomar";
-        else if (fornecedor instanceof FornecEDP) forn = "EDP";
-        else if (fornecedor instanceof FornecEndesa) forn = "Endesa";
-        return forn;
+    public Map<String, HashSet<String>> getDivisoes (){
+        return this.divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public void setDivisoes (Map<String, HashSet<String>> divisoes){
+        this.divisoes = divisoes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public Map<String, SmartDevice> getDevices(){
+        Map<String, SmartDevice> d = new HashMap<>();
+        for(String id : this.devices.keySet()){
+            d.put(id, this.devices.get(id).clone());
+        }
+        return d;
+        //return this.devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public void setDevices (Map<String, SmartDevice> d){
+        this.devices = new HashMap<>();
+        for (Map.Entry<String, SmartDevice> e : d.entrySet()){
+            devices.put(e.getKey(), e.getValue().clone());
+        }
+        //this.devices = devices.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public List<Faturas> getFatura() {
-        return this.faturas;
+        List<Faturas> fat = new ArrayList<>();
+        for (Faturas f : this.faturas){
+           fat.add(f.clone());
+        }
+        return fat;
     }
 
-    public void setFatura(List<Faturas> fatura) {
-        this.faturas = fatura;
+    public void setFatura(List<Faturas> nFaturas) {
+        this.faturas = new ArrayList<>();
+        for (Faturas f : nFaturas){
+            faturas.add(f.clone());
+        }
     }
 
     /**
-     * Metodo toString, equals e clone
+     * Metodo toString, equals, hascode e clone
      */
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("\n\u001B[36m Casa { \u001B[0m \n\n");
-        //sb.append("Dispositivos: ").append(devices).append('\n');
         Set<String> setOfKeys = divisoes.keySet();
         for (String key : setOfKeys) {
             sb.append("\u001B[1m").append(key).append("\u001B[0m -> Dispositivos: ");
@@ -141,20 +153,25 @@ public class Casa implements Serializable {
         }
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
-        sb.append("\u001B[1mFornecedor: \u001B[0m").append(Stringfornecedor(fornecedor)).append('\n');
+        sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor.Stringfornecedor(fornecedor)).append('\n');
         //sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Casa Casa = (Casa) o;
-        return Objects.equals(this.divisoes, Casa.divisoes) && Objects.equals(this.proprietario, Casa.getProprietario()) &&
-                Objects.equals(this.NIF, Casa.getNIF()) && Objects.equals(this.fornecedor, Casa.getFornecedor());
+        return  Objects.equals(this.devices, Casa.devices) &&
+                Objects.equals(this.divisoes, Casa.divisoes) &&
+                Objects.equals(this.proprietario, Casa.getProprietario()) &&
+                Objects.equals(this.NIF, Casa.getNIF()) &&
+                Objects.equals(this.fornecedor, Casa.getFornecedor());
     }
 
+    @Override
     public Casa clone() {
         return new Casa(this);
     }
@@ -162,68 +179,67 @@ public class Casa implements Serializable {
     /**
      * Metodos
      */
-    public void setDeviceOn( String sd) {
-        this.devices.get(sd).setOn(true);
+    public void setDeviceOn(String id) {
+        if(hasDevice(id)) this.devices.get(id).setOn(true);
     }
 
-    public void setDeviceOff(String sd) {
-        this.devices.get(sd).setOn(false);
+    public void setDeviceOff(String id) {
+        if(hasDevice(id)) this.devices.get(id).setOn(false);
     }
 
     public void setDivisonOn(String divisao) {
-        this.divisoes.get(divisao).forEach(this::setDeviceOn);
+        if (hasRoom(divisao) && !roomisEmpty(divisao))
+            this.divisoes.get(divisao).forEach(this::setDeviceOn);
     }
 
     public void setDivisonOff(String divisao) {
-        this.divisoes.get(divisao).forEach(this::setDeviceOff);
+        if (hasRoom(divisao) && !roomisEmpty(divisao))
+            this.divisoes.get(divisao).forEach(this::setDeviceOff);
     }
 
     public boolean hasRoom(String divisao) {
+        if(this.divisoes.isEmpty()) return false;
         return this.divisoes.keySet().stream().anyMatch(d -> d.equals(divisao));
     }
 
     public boolean roomisEmpty (String divisao) {
-        return this.divisoes.get(divisao).isEmpty();
+        if(this.divisoes.isEmpty()) return true;
+        if(!hasRoom(divisao)) return true;
+        return  this.divisoes.get(divisao).isEmpty();
     }
 
     public boolean roomHasDevice (String divisao, String id) {
-       return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.equals(id));
+        if(this.divisoes.isEmpty()) return false;
+        if(!hasRoom(divisao) || !hasDevice(id)) return false;
+        return this.divisoes.get(divisao).stream().anyMatch(sd -> sd.equals(id));
     }
 
     public void addRoom(String divisao) {
-        HashSet<String> id = new HashSet<>();
-        if(!hasRoom(divisao)) this.divisoes.put(divisao, id);
+        HashSet<String> ids = new HashSet<>();
+        if(!hasRoom(divisao)) this.divisoes.put(divisao, ids);
     }
 
     public void addToRoom (String divisao, String id) {
-        if(!roomHasDevice(divisao, id)) this.divisoes.get(divisao).add(id);
+        if(this.divisoes.isEmpty()) return;
+        if(hasRoom(divisao) && hasDevice(id) && !roomHasDevice(divisao,id))
+            this.divisoes.get(divisao).add(id);
     }
 
     public boolean hasDevice(String id){
+        if(this.devices.isEmpty()) return false;
         return this.devices.keySet().stream().anyMatch(sd-> sd.equals(id));
     }
 
     public SmartDevice getDevice(String id) {
-        if(hasDevice(id)) return this.devices.get(id);
+        if(hasDevice(id)) return this.devices.get(id).clone();
         return null;
     }
 
     public void addSmartDevice (SmartDevice sd){
-        int id = hashCode();
-        sd.setID(String.valueOf(id));
-        this.devices.put(String.valueOf(id),sd);
+        String id = (String.valueOf(sd.hashCode()));
+        sd.setID(id);
+        this.devices.put(id,sd.clone());
     }
-
-    @Override
-    public int hashCode() {
-        return abs(Objects.hash(devices, divisoes, proprietario, NIF, fornecedor)/1000000);
-    }  // VER MELHOR
-    /*
-    public void addDevices(String divisao, String id, SmartDevice devices) {
-        this.divisoes.get(divisao).add(id);
-        this.devices.put(id,devices);
-    }*/
-
 
     public double consumoTotal() {
         Set<String> setOfKeys = devices.keySet();
@@ -255,61 +271,4 @@ public class Casa implements Serializable {
             return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
         }
     }
-
-    /*
-    // FALTA METER ISTO NOS TESTES
-    public String estadoCasa() {
-        StringBuilder str = new StringBuilder("Casa-");
-        Set<String> setOfKeys = divisoes.keySet();
-        int i=1;
-        for (String key : setOfKeys) {
-            i++;
-            str.append(key).append("/").append(estadoListaSD(divisoes.get(key)));
-            if(i==setOfKeys.size())str.append(">");
-        }
-        return str + ";" + proprietario + ";" + NIF + ";\n";
-    }
-
-    public String estadoListaSD(List<SmartDevice> devices) {
-        StringBuilder str = new StringBuilder();
-        int i=1;
-        for(SmartDevice device : devices) {
-            str.append(estadoSD(device,i,devices.size()));
-            i++;
-        }
-        return str+"";
-    }
-
-    public String estadoSD (SmartDevice device, int i, int size){
-        String str = null;
-        switch (device.getClass().getSimpleName()) {
-            case "SmartBulb" -> {
-                SmartBulb sb = (SmartBulb) device;
-                str = "SmartBulb" + "," + sb.getID() + "," + sb.getOn() + "," +
-                        sb.getTone() + "," + sb.getDimensao();
-                if(i!=size) str = str + "<";
-            }
-            case "SmartSpeaker" -> {
-                SmartSpeaker ss = (SmartSpeaker) device;
-                str = "SmartSpeaker" + "," + ss.getID() + "," + ss.getOn() + "," +
-                        ss.getVolume() + "," + ss.getChannel() + "," + ss.getMarca();
-                if(i!=size) str = str + "<";
-            }
-
-            case "SmartCamera" ->{
-                SmartCamera sc = (SmartCamera) device;
-                str = "SmartCamera" + "," + sc.getID() + "," + sc.getOn() + "," +
-                        sc.getResolution() + "," + sc.getSize();
-                if(i!=size) str = str + "<";
-            }
-        }
-        return str;
-    }
-    /*
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(divisoes, devices, proprietario, NIF);
-    }*/
 }

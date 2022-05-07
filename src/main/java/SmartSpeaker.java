@@ -7,10 +7,9 @@ import java.util.Objects;
  * a regulação do seu nível de volume.
  */
 public class SmartSpeaker extends SmartDevice {
-    public static final int MAX = 20; //volume máximo
-
+    public static final int MAX = 100;
     private int volume;
-    private String channel; //rádio que estão a tocar
+    private String channel;
     private String marca;
 
     /**
@@ -25,50 +24,47 @@ public class SmartSpeaker extends SmartDevice {
 
     public SmartSpeaker(String id, boolean turn, int volume, String channel, String marca) {
         super(id, turn);
-        this.volume = volume;
+        if (volume>=0 && volume<=MAX) this.volume = volume;
+        else if (volume>MAX) this.volume = MAX;
+        else this.volume = 0;
         this.channel = channel;
         this.marca = marca;
     }
 
     public SmartSpeaker(boolean turn, int volume, String channel, String marca) {
         super(turn);
-        this.volume = volume;
+        if (volume>=0 && volume<=MAX) this.volume = volume;
+        else if (volume>MAX) this.volume = MAX;
+        else this.volume = 0;
         this.channel = channel;
-        this.marca = marca;
+        this.marca = marca;             //tirar??
     }
 
     public SmartSpeaker(int volume, String channel, String marca) {
-        this.volume = volume;
+        if (volume>=0 && volume<=MAX) this.volume = volume;
+        else if (volume>MAX) this.volume = MAX;
+        else this.volume = 0;
         this.channel = channel;
         this.marca = marca;
     }
 
     public SmartSpeaker(SmartSpeaker ss) {
+        super(ss);
         this.volume = ss.getVolume();
         this.channel = ss.getChannel();
         this.marca = ss.getMarca();
     }
 
-    /*
-    public SmartSpeaker(String s) {
-        // initialise instance variables
-        this.volume = 10;
-    }
-
-    public SmartSpeaker(String s, String s1, int i) {
-        // initialise instance variables
-        this.volume = 10;
-    }*/
-
     /**
      * Getters e Setters
      */
-    public int getVolume() {     // NAO ESQUECER DISTO
+    public int getVolume() {
         return this.volume;
     }
 
     public void setVolume(int volume) {
-        this.volume = volume;
+        if (volume>=0 && volume<=MAX) this.volume = volume;
+        else System.out.println("O valor "+ volume + " é inválido");
     }
 
     public String getChannel() {
@@ -90,11 +86,12 @@ public class SmartSpeaker extends SmartDevice {
     /**
      * Metodo toString, equals e clone
      */
+    @Override
     public String toString (){
         String estado;
         if (getOn()) estado = "ON";
         else estado = "OF";
-        final StringBuffer ss = new StringBuffer("\n SmarSpeaker (\u001B[36m").append(getID()).append("\u001B[0m");
+        final StringBuilder ss = new StringBuilder("\n SmarSpeaker (\u001B[36m").append(getID()).append("\u001B[0m");
         ss.append(",").append(estado).append("): ");
         ss.append("Marca-> ").append(marca).append("  ");
         ss.append("Channel-> ").append(channel).append("  ");
@@ -103,6 +100,7 @@ public class SmartSpeaker extends SmartDevice {
         return ss.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
@@ -112,22 +110,24 @@ public class SmartSpeaker extends SmartDevice {
                 this.channel.equals(ss.getChannel()) &&
                 this.marca.equals(ss.getMarca());
     }
-    /*return Objects.equals(this.getID(), ss.getID()) && Objects.equals(this.getOn(), ss.getOn()) &&
-                this.volume == ss.getVolume() &&
-                Objects.equals(this.channel, ss.getChannel()) &&
-                Objects.equals(this.marca, ss.getMarca());*/
 
+    @Override
     public SmartSpeaker clone (){
         return new SmartSpeaker(this);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), volume, channel, marca);
     }
 
     /**
      * Metodos
      */
     public double consumoEnergia(){
-        return  2 + (getVolume() + this.marca.length());
+        if(getVolume()==0 && getMarca().length()==0) return 0;
+        return  2 + (this.getVolume() + this.marca.length());
     }
-
 
     public void volumeUp() {
         if (this.volume<MAX) this.volume++;
