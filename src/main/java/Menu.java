@@ -25,10 +25,8 @@ public class Menu {
 
                  \u001B[1m 1) \u001B[0m Menu Casa.
                  \u001B[1m 2) \u001B[0m Menu Fornecedores.
-                 \u001B[1m 3) \u001B[0m Salvar Estado.
-                 \u001B[1m 4) \u001B[0m Carregar Estado.
-                 \u001B[1m 5) \u001B[0m Imissão de faturas.
-                 \u001B[1m 6) \u001B[0m Estatísticas.
+                 \u001B[1m 3) \u001B[0m Estado.
+                 \u001B[1m 4) \u001B[0m Simulação.
                  \u001B[1m 0) \u001B[0m Sair.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -59,30 +57,22 @@ public class Menu {
     }
 
 
-    public static void MenuEstado(){
-        String newFilePath = "src/main/java/Estado.obj";
-        Estado estado = new Estado();
+    public static int MenuEstado(){
         Menu.clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
-                \u001B[1m 1) \u001B[0m Ficheiro Original.
-                \u001B[1m 2) \u001B[0m Novo Ficheiro.
-                \u001B[1m 3) \u001B[0m Faturas.
+                
+                \u001B[1m           MENU ESTADO\u001B[0m
+                
+                \u001B[1m 1) \u001B[0m Carregar ficheiro Original.
+                \u001B[1m 2) \u001B[0m Carregar novo Ficheiro.
+                \u001B[1m 3) \u001B[0m Salvar Estado.
                 \u001B[1m 0) \u001B[0m Menu Inicial.
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
                 Selecione a opção pretendida:\s""";
         System.out.println(sb);
-
         Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
-        if (i==1) estado.loadEstado();
-        else if (i==2) {
-            try {
-                estado.loadEstadoObj(newFilePath);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        return scanner.nextInt();
     }
     public static int MenuCasa() {
         clearWindow();
@@ -110,6 +100,25 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+    public static int menuSimulacao() {
+        String sb = """
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                 \u001B[1m                   SIMULACAO \u001B[0m
+
+                \u001B[1m 1) \u001B[0m Emissão faturas
+                \u001B[1m 2) \u001B[0m Faturas
+                \u001B[1m 3) \u001B[0m Estatísticas
+
+                \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                Selecione a opção pretendida:\s""";
+
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
 
     public static int MenuListaCasas(List<Casa> l) {
         Menu.clearWindow();
@@ -171,91 +180,15 @@ public class Menu {
         return scanner.nextInt();
     }
 
+    /*
     public static void voltartoMenu (Estado estado) throws IOException {
         System.out.println("\n\u001B[1m Esta casa nao tem dispositivos.\u001B[0m\n ");
         System.out.println("Insira 0 para retornar ao MenuCasa. ");
         Scanner s = new Scanner(System.in);
         int s1 = s.nextInt();
         if (s1 == 0) Controller.menucasa1(estado);
-    }
+    }*/
 
-    public static void definirDispositivos(Estado estado, List<Casa> l) throws IOException {
-        int i=-1;
-            while(i < 0 || i> l.size()) {
-                System.out.println("Insira o índice da casa: ");
-                Scanner scanner = new Scanner(System.in);
-                i = scanner.nextInt();
-            }
-
-        Casa c = l.get(i - 1);
-
-        System.out.println("Insira o id: ");
-        Scanner id = new Scanner(System.in);
-        String id1 = id.next();
-
-        while (!(c.hasDevice(id1))) {
-            System.out.println("O id inserido nao existe, tente novamente: ");
-            id = new Scanner(System.in);
-            id1 = id.next();
-        }
-
-        System.out.println("Ligar ou Desligar? ");
-        Scanner modo = new Scanner(System.in);
-        String m = modo.next().toLowerCase();
-
-                    while(!m.equals("ligar") && !m.equals("desligar")){
-                        System.out.println("Ligar ou Desligar? ");
-                        modo = new Scanner(System.in);
-                        m = modo.next();
-                    }
-                    if (m.equals("ligar") ) {
-                        c.setDeviceOn(id1);
-                    } else {
-                        c.setDeviceOff(id1);
-                    }
-                    Controller.menucasa1(estado);
-
-        }
-
-    public static void definirDivisoes(Estado estado, List<Casa> l) throws IOException {
-        int i=-1;
-        while(i < 0 || i> l.size()) {
-            System.out.println("Insira o índice da casa: ");
-            Scanner scanner = new Scanner(System.in);
-            i = scanner.nextInt();
-        }
-        Casa c = l.get(i - 1);
-
-        if (!c.getDivisoes().isEmpty()) {
-            System.out.println("Insira a divisão: "); //verificar se a divsao existe
-            Scanner divisao = new Scanner(System.in);
-            String d = divisao.next();
-
-            while (!(c.hasRoom(d))) {
-                System.out.println(d);
-
-                System.out.println("A divisão inserida nao existe, tente novamente: ");
-                divisao = new Scanner(System.in);
-                d = divisao.next();
-            }
-            System.out.println("Ligar ou Desligar? ");
-            Scanner modo = new Scanner(System.in);
-            String m = modo.next().toLowerCase();
-            while (!m.equals("ligar") && !m.equals("desligar")) {
-                System.out.println("Ligar ou Desligar? ");
-                modo = new Scanner(System.in);
-                m = modo.next();
-            }
-            //Main.menucasa1(estado);
-            if (m.equals("ligar")) {
-                c.setDivisonOn(d);
-            } else {
-                c.setDivisonOff(d);
-            }
-            Controller.menucasa1(estado);
-        }
-        else Menu.voltartoMenu(estado);
-    }
 
 
     public static int EscolhaDispotivios() {
@@ -318,44 +251,6 @@ public class Menu {
         return null;
     }
 
-    public static void MenuDispositivos (Estado estado, List<Casa> l) throws IOException {
-        int i = -1;
-        while (i < 0 || i > l.size()) {
-            System.out.println("Insira o índice da casa: ");
-            Scanner scanner = new Scanner(System.in);
-            i = scanner.nextInt();
-        }
-        Casa c = l.get(i - 1);
-        if (!c.getDivisoes().isEmpty()) {
-
-            System.out.println("Insira a divisão: ");
-            Scanner divisao = new Scanner(System.in);
-            String d = divisao.next().toLowerCase();
-            while (!(c.hasRoom(d))) {
-                System.out.println("A divisão inserida nao existe, tente novamente: ");
-                divisao = new Scanner(System.in);
-                d = divisao.next().toLowerCase();
-            }
-
-            System.out.println("Off ou On: ");
-            Scanner estadoDevice = new Scanner(System.in);
-            String est = estadoDevice.next().toLowerCase();
-            while (!est.equals("on") && !est.equals("off")){
-                System.out.println("Off ou On: ");
-                estadoDevice = new Scanner(System.in);
-                est = estadoDevice.next().toLowerCase();
-            }
-            boolean turn;
-            turn = est.equals("on");
-
-            SmartDevice s = Menu.EscolhaDispositivos(turn);
-            assert s != null;
-            c.addSmartDevice(s);
-            c.addToRoom(d,s.getID());
-            Controller.menucasa1(estado);
-        }
-        else Menu.voltartoMenu(estado);
-    }
 
     public static boolean isDateValid(String strDate) {
         String dateFormat = "dd/MM/yyyy";
@@ -393,7 +288,7 @@ public class Menu {
     }
     */
 
-
+/*
     public static void emissaoFaturas (Estado estado) throws IOException {
 
         double diff = 0;
@@ -428,7 +323,8 @@ public class Menu {
         }
         else Menu.emissaoFaturas(estado);
 
-    }
+    }*/
+
     public static void erros (int i){
         StringBuilder sb = new StringBuilder();
         if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");

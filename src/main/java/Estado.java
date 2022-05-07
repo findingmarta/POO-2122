@@ -7,20 +7,20 @@ import java.io.*;
 public class Estado implements Serializable {
     private List<Casa> casas;
     private List<Fornecedores> fornecedores;
-    private LocalDate data;
+    private String data;
 
     //private TreeMap<Double, Integer> faturas;
 
     public Estado() {
         this.casas = new ArrayList<>();
         this.fornecedores = new ArrayList<>();
-        this.data= LocalDate.of(2018,01,01);
+        this.data= "01/01/2018";
     }
 
     public Estado(List<Casa> casas, List<Fornecedores> fornecedores) {
         this.casas = casas;
         this.fornecedores = fornecedores;
-        this.data= LocalDate.of(2018,01,01);
+        this.data= "01/01/2018";
     }
 
     public Estado(Estado umEstado) {
@@ -46,11 +46,11 @@ public class Estado implements Serializable {
         this.fornecedores = fornecedores;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -206,11 +206,12 @@ public class Estado implements Serializable {
         ois.close();
         return e;
     }*/
-    public static void ordenaListCasa(List<Casa> casas){
-
-        casas.sort(new Casa.faturaComparator());
+    public static void ordenaListConsumo(List<Casa> casas){
+            casas.sort(new Casa.ComparatorConsumo());
     }
-
+    public static void ordenaListGasto(List<Casa> casas){
+        casas.sort(new Casa.ComparatorGasto());
+    }
 
     public static void ordenaListFornecedores(List<Fornecedores> forn){
         forn.sort(new Fornecedores.fornecedoresComparator());
