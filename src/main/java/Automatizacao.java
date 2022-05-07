@@ -24,7 +24,7 @@ public class Automatizacao {
                     String nomeF = linhaPartida[2];
                     parseComandoF(linhaPartida[3], linhaPartida[4], nomeF);
                 }
-                default -> System.out.println("Linha inválida!");
+                default -> Menu.erros(15);
             }
         }
     }
@@ -34,7 +34,7 @@ public class Automatizacao {
             case "setOn" -> casa.getDevice(objeto).setOn(true);
             case "setOff" -> casa.getDevice(objeto).setOn(false);
             case "setDivisionOn", "setDivisionOff" -> casa.setDivisonOn(objeto);
-            default -> System.out.println("Linha inválida!");
+            default -> Menu.erros(15);
         }
     }
 
@@ -42,7 +42,7 @@ public class Automatizacao {
         if ("alterarValorDesconto".equals(comando)) {
             System.out.println("AAAA");
         } else {
-            System.out.println("Linha inválida!");
+            Menu.erros(15);
         }
     }
 }

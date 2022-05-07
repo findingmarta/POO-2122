@@ -12,6 +12,7 @@ public class ControllerSimulacao {
             int opcao = -1;
             while (opcao < 0 || opcao > 8) {
                 opcao = Menu.menuSimulacao ();
+                Menu.erros(1);
             }
             Scanner scanner = new Scanner (System.in);
             switch (opcao) {
@@ -22,7 +23,7 @@ public class ControllerSimulacao {
                     String dateFormat = "dd/MM/yyyy";
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
                     while (!(Menu.isDateValid (s2))) {
-                        System.out.println ("Insira a data no formato dd/MM/yyyy:");
+                        Menu.erros(11);
                         s2 = scanner.next ();
                     }
                     String s1= estado.getData();
@@ -47,6 +48,7 @@ public class ControllerSimulacao {
                 case 2 -> {
                     int escolha= -1,i=1;
                     while (escolha< 0 ||escolha> l.size()) {
+                        Menu.erros(1);
                         escolha= Menu.MenuListaCasas(l);
                     }
                     if (escolha== 0) break;

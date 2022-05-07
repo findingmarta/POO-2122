@@ -63,8 +63,8 @@ public class SmartSpeaker extends SmartDevice {
     }
 
     public void setVolume(int volume) {
-        if (volume>=0 && volume<=MAX) this.volume = volume;
-        else System.out.println("O valor "+ volume + " é inválido");
+        if (this.volume>=0 && this.volume<=MAX) this.volume = volume;
+        else Menu.erros(14);
     }
 
     public String getChannel() {
@@ -131,9 +131,11 @@ public class SmartSpeaker extends SmartDevice {
 
     public void volumeUp() {
         if (this.volume<MAX) this.volume++;
+            else Menu.erros(2);
     }
 
     public void volumeDown() {
         if (this.volume>0) this.volume--;
+            else Menu.erros(2);
     }
 }

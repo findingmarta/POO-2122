@@ -42,7 +42,7 @@ public abstract class Fornecedores implements Serializable {
     public void setVolumeFaturacao(double volumeFaturacao) {
         if(volumeFaturacao>=0) this.volumeFaturacao = volumeFaturacao;
         else {
-            System.out.println("Volume de faturação inválido!");
+            Menu.erros(19);
             this.volumeFaturacao = 0.0;
         }
     }

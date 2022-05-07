@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class SmartDevice_Test {
+public class SmartDeviceTest {
 
     @Test
     public void testSetOn() {

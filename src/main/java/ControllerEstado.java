@@ -10,6 +10,7 @@ public class ControllerEstado {
             int opcao = -1;
             while (opcao < 0 || opcao > 3) {
                 opcao = Menu.MenuEstado ();
+                Menu.erros(1);
             }
             String originalFilePath = "src/main/java/logs.txt";
             String newFilePath = "src/main/java/Estado.obj";
@@ -22,6 +23,7 @@ public class ControllerEstado {
                         estado.loadEstadoObj(newFilePath);
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
+                        Menu.erros(10);
                     }
                 }
                 case 3->{
@@ -29,6 +31,7 @@ public class ControllerEstado {
                         estado.saveEstado("src/main/java/Estado.obj");
                     } catch (IOException e) {
                         e.printStackTrace();
+                        Menu.erros(9);
                     }
                 }
                 case 0-> {

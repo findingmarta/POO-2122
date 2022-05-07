@@ -156,7 +156,7 @@ public class Estado implements Serializable {
                 }
                 case "SmartBulb" -> {
                     SmartBulb sb = parseSB(linhaPartida[1]);
-                    //if (divisao == null) System.out.println("Linha inválida.");
+                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
                     assert divisao != null;
                     sb.setOn(false);
@@ -165,6 +165,7 @@ public class Estado implements Serializable {
                 }
                 case "SmartSpeaker" -> {
                     SmartSpeaker ss = parseSS(linhaPartida[1]);
+                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
                     assert divisao != null;
                     ss.setOn(false);
@@ -173,6 +174,7 @@ public class Estado implements Serializable {
                 }
                 case "SmartCamera" -> {
                     SmartCamera sc = parseSC(linhaPartida[1]);
+                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
                     assert divisao != null;
                     sc.setOn(false);
@@ -199,7 +201,7 @@ public class Estado implements Serializable {
             case "EDP" -> fornec = new FornecEDP();
             case "Endesa" -> fornec = new FornecEndesa();
             case "Jomar" -> fornec = new FornecJomar();
-            default -> System.out.println("Linha inválida!");
+            default -> Menu.erros(15);
         }
         return fornec;
     }
@@ -211,7 +213,7 @@ public class Estado implements Serializable {
             case "Cold" -> sb.setTone(0);
             case "Warm" -> sb.setTone(2);
             case "Neutral" -> sb.setTone(1);
-            default -> System.out.println("Linha invalida.");
+            default -> Menu.erros(8);
         }
         sb.setDimensao(Double.parseDouble(dados[1]));
         return sb;

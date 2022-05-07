@@ -322,26 +322,39 @@ public class Menu {
 
     }*/
 
+    public static final String RESET = "\033[0m";
+    public static final String CYAN_BRIGHT = "\033[0;96m";
+
+
     public static void erros (int i){
         StringBuilder sb = new StringBuilder();
-        if (i==1) sb.append("     Ficheiro não encontrado     ").append("\n");
-        else if (i==2) sb.append("     Dados inválidos     ").append("\n");
-        else if (i==3) sb.append("     Erro ao ler o ficheiro     ").append("\n");
-
-        else if (i==4) sb.append("     Estado não foi guardado     ").append("\n");
-        else if (i==5) sb.append("     Estruturas de dados não foram lidas     ").append("\n");
-        else if (i==6) sb.append("     Código inválido    ").append("\n");
-        else if (i==7) sb.append("     Data inválida    ").append("\n");
-        else if (i==8) sb.append("     Estado não foi carregado     ").append("\n");
+        if (i==1) sb.append(CYAN_BRIGHT).append("***** Opção inserida inválida *****").append(RESET).append("\n");
+        else if (i==2) sb.append(CYAN_BRIGHT).append("***** Dados inseridos são inválidos *****").append(RESET).append("\n");
+        else if (i==3) sb.append(CYAN_BRIGHT).append("***** Não foi possível ler o ficheiro *****").append(RESET).append("\n");
+        else if (i==4) sb.append(CYAN_BRIGHT).append("***** Divisão já existente *****").append(RESET).append("\n");
+        else if (i==5) sb.append(CYAN_BRIGHT).append("***** Dispositivo já existente nesta divisão (com o mesmo id) *****").append(RESET).append("\n");
+        else if (i==6) sb.append(CYAN_BRIGHT).append("***** Dispositivo não existe *****").append(RESET).append("\n");
+        else if (i==7) sb.append(CYAN_BRIGHT).append("***** Fornecedor inserido não existe *****").append(RESET).append("\n");
+        else if (i==8) sb.append(CYAN_BRIGHT).append("***** Tom inserido inválido *****").append(RESET).append("\n");
+        else if (i==9) sb.append(CYAN_BRIGHT).append("***** Estado não foi guardado *****").append(RESET).append("\n");
+        else if (i==10) sb.append(CYAN_BRIGHT).append("***** Estado não foi carregado *****").append(RESET).append("\n");
+        else if (i==11) sb.append(CYAN_BRIGHT).append("***** Data no formato inválido (dd/MM/yyyy) *****").append(RESET).append("\n");
+        else if (i==12) sb.append(CYAN_BRIGHT).append("***** Índice da casa inválido *****").append(RESET).append("\n");
+        else if (i==13) sb.append(CYAN_BRIGHT).append("***** Divisão não existe *****").append(RESET).append("\n");
+        else if (i==14) sb.append(CYAN_BRIGHT).append("***** Volume inserido é inválido *****").append(RESET).append("\n");
+        else if (i==15) sb.append(CYAN_BRIGHT).append("***** Linha do ficheiro inválida *****").append(RESET).append("\n");
+        else if (i==16) sb.append(CYAN_BRIGHT).append("***** Dispositivo não existe nesta divisão *****").append(RESET).append("\n");
+        else if (i==17) sb.append(CYAN_BRIGHT).append("***** Divisão não existe nesta casa *****").append(RESET).append("\n");
+        else if (i==18) sb.append(CYAN_BRIGHT).append("***** Divisão inválida *****").append(RESET).append("\n");
+        else if (i==19) sb.append(CYAN_BRIGHT).append("***** Volume de faturação inválido *****").append(RESET).append("\n");
 
         System.out.print(sb.toString());
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         clearWindow();
     }
+
     /*
-
-
     public static int MenuFornecedores() {
         clearWindow();
         String sb = """

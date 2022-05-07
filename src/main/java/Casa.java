@@ -217,12 +217,14 @@ public class Casa implements Serializable {
     public void addRoom(String divisao) {
         HashSet<String> ids = new HashSet<>();
         if(!hasRoom(divisao)) this.divisoes.put(divisao, ids);
+        else Menu.erros(4);
     }
 
     public void addToRoom (String divisao, String id) {
         if(this.divisoes.isEmpty()) return;
         if(hasRoom(divisao) && hasDevice(id) && !roomHasDevice(divisao,id))
             this.divisoes.get(divisao).add(id);
+        else Menu.erros(5);
     }
 
     public boolean hasDevice(String id){
@@ -232,7 +234,9 @@ public class Casa implements Serializable {
 
     public SmartDevice getDevice(String id) {
         if(hasDevice(id)) return this.devices.get(id).clone();
-        return null;
+        else{
+            Menu.erros(6);
+            return null;}
     }
 
     public void addSmartDevice (SmartDevice sd){

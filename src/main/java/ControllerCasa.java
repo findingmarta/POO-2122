@@ -10,6 +10,7 @@ public class ControllerCasa {
             int opcao = -1;
             while (opcao < 0 || opcao > 8) {
                 opcao = Menu.MenuCasa();
+                Menu.erros(1);
             }
             Scanner scanner = new Scanner(System.in);
             switch (opcao) {
@@ -26,13 +27,14 @@ public class ControllerCasa {
                     while (i < 0 || i > l.size ()) {
                         System.out.println ("Insira o índice da casa: ");
                         i = scanner.nextInt ();
+                        Menu.erros(12);
                     }
 
                     Casa c = l.get (i - 1);
                     System.out.println ("Insira o id: ");
                     String id1 = scanner.next ();
                     while (!(c.hasDevice (id1))) {
-                        System.out.println ("O id inserido nao existe, tente novamente: ");
+                        Menu.erros(16);
                         id1 = scanner.next ();
                     }
 
@@ -42,6 +44,7 @@ public class ControllerCasa {
                     while (!m.equals ("ligar") && !m.equals ("desligar")) {
                         System.out.println ("Ligar ou Desligar? ");
                         m = scanner.next ();
+                        Menu.erros(2);
                     }
                     if (m.equals ("ligar")) c.setDeviceOn (id1);
                     else c.setDeviceOff (id1);
@@ -52,21 +55,24 @@ public class ControllerCasa {
                     while(i < 0 || i> l.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
+                        Menu.erros(12);
                     }
                     Casa c = l.get(i - 1);
 
                     if (!c.getDivisoes().isEmpty()) {
                         System.out.println("Insira a divisão: "); //verificar se a divsao existe
+                        Menu.erros(18);
                         String d = scanner.next();
 
                         while (!(c.hasRoom(d))) {
-                            System.out.println("A divisão inserida nao existe, tente novamente: ");
+                            Menu.erros(17);
                             d = scanner.next();
                         }
                         System.out.println("Ligar ou Desligar? ");
                         String m = scanner.next().toLowerCase();
                         while (!m.equals("ligar") && !m.equals("desligar")) {
                             System.out.println("Ligar ou Desligar? ");
+                            Menu.erros(2);
                             m = scanner.next();
                         }
                         if (m.equals("ligar")) c.setDivisonOn(d);
@@ -91,6 +97,7 @@ public class ControllerCasa {
                     while (i < 0 || i > l.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
+                        Menu.erros(12);
                     }
                     Casa c = l.get(i - 1);
 
@@ -105,6 +112,7 @@ public class ControllerCasa {
                     while (i < 0 || i > l.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
+                        Menu.erros(12);
                     }
                     Casa c = l.get(i - 1);
                     if (!c.getDivisoes().isEmpty()) {
@@ -112,7 +120,7 @@ public class ControllerCasa {
                         System.out.println("Insira a divisão: ");
                         String d = scanner.next().toLowerCase();
                         while (!(c.hasRoom(d))) {
-                            System.out.println("A divisão inserida nao existe, tente novamente: ");
+                            Menu.erros(17);
                             d = scanner.next().toLowerCase();
                         }
 
@@ -120,6 +128,7 @@ public class ControllerCasa {
                         String est = scanner.next().toLowerCase();
                         while (!est.equals("on") && !est.equals("off")){
                             System.out.println("Off ou On: ");
+                            Menu.erros(2);
                             est = scanner.next().toLowerCase();
                         }
                         boolean turn;
@@ -138,6 +147,7 @@ public class ControllerCasa {
                     while (i < 0 || i > l.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
+                        Menu.erros(12);
                     }
                     Casa c = l.get(i - 1);
 
@@ -147,7 +157,7 @@ public class ControllerCasa {
                         case "edp" -> new FornecEDP();
                         case "endesa" -> new FornecEndesa();
                         case "jomar" -> new FornecJomar();
-                        default -> null;
+                        default -> null; // Menu.erros(7)
                     };
                     c.setFornecedor(forn);
                     estado.updateCasa(c, i-1);
