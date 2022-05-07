@@ -273,15 +273,21 @@ public class Estado implements Serializable {
         return e;
     }*/
     public static void ordenaListConsumo(List<Casa> casas){
-            casas.sort(new Casa.ComparatorConsumo());
+        casas.sort(new Casa.ComparatorConsumo());
     }
-    public static void ordenaListGasto(List<Casa> casas){
+
+    public Casa ordenaListGasto(List<Casa> casas){
         casas.sort(new Casa.ComparatorGasto());
+        int index = casas.size()-1;
+        Casa c = casas.get(index).clone();
+        this.updateCasa(c, index);
+        return c;
     }
 
     public static void ordenaListFornecedores(List<Fornecedores> forn){
         forn.sort(new Fornecedores.fornecedoresComparator());
     }
+
 /*
     /*
     public void saveFaturas(String file) throws IOException {

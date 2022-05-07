@@ -71,6 +71,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+
     public static int MenuCasa() {
         clearWindow();
         String sb = """

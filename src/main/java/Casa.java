@@ -275,4 +275,5 @@ public class Casa implements Serializable {
             return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
         }
     }
+
 }
