@@ -15,8 +15,8 @@ public class ControllerEstatistica {
             }
             switch (opcao) {
                 case 1 -> {
-                    Estado.ordenaListGasto(l);
-                    System.out.println (l.get (l.size ()-1));
+                    Casa c = estado.ordenaListGasto(l);
+                    System.out.println (c);
                     int i = scanner.nextInt ();
                     while (i != 0) {
                         i = scanner.nextInt ();
