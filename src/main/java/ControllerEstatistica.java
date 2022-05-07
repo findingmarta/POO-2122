@@ -12,14 +12,13 @@ public class ControllerEstatistica {
             int opcao = -1;
             while (opcao < 0 || opcao > 5) {
                 opcao = Menu.MenuEstatistica ();
-                Menu.erros(1);
             }
             switch (opcao) {
                 case 1 -> {
                     Casa c = estado.ordenaListGasto(l);
                     System.out.println (c);
                     int i = scanner.nextInt ();
-                    while (i != 0) { //Menu.erros(2)
+                    while (i != 0) {
                         i = scanner.nextInt ();
                     }
                 }
@@ -56,7 +55,7 @@ public class ControllerEstatistica {
                 case 4 -> {
                     Estado.ordenaListConsumo(l);
                     int i = -1;
-                    while (i < 0 || i > l.size ()) { //Menu.erros(1)
+                    while (i < 0 || i > l.size ()) {
                         i = Menu.MenuListaCasas (l);
                     }
                     if (i == 0) break;

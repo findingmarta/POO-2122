@@ -212,6 +212,8 @@ public class Menu {
         int disp = -1;
         while (disp < 0 || disp > 3) {
             disp = Menu.EscolhaDispotivios();
+            if (disp < 0 || disp > 3) Menu.erros(1);
+
         }
         switch (disp) {
             case 1-> {
@@ -339,15 +341,16 @@ public class Menu {
         else if (i==8) sb.append(CYAN_BRIGHT).append("***** Tom inserido inválido *****").append(RESET).append("\n");
         else if (i==9) sb.append(CYAN_BRIGHT).append("***** Estado não foi guardado *****").append(RESET).append("\n");
         else if (i==10) sb.append(CYAN_BRIGHT).append("***** Estado não foi carregado *****").append(RESET).append("\n");
-        else if (i==11) sb.append(CYAN_BRIGHT).append("***** Data no formato inválido (dd/MM/yyyy) *****").append(RESET).append("\n");
+        else if (i==11) sb.append(CYAN_BRIGHT).append("***** Data no formato inválido *****").append(RESET).append("\n");
         else if (i==12) sb.append(CYAN_BRIGHT).append("***** Índice da casa inválido *****").append(RESET).append("\n");
         else if (i==13) sb.append(CYAN_BRIGHT).append("***** Divisão não existe *****").append(RESET).append("\n");
         else if (i==14) sb.append(CYAN_BRIGHT).append("***** Volume inserido é inválido *****").append(RESET).append("\n");
         else if (i==15) sb.append(CYAN_BRIGHT).append("***** Linha do ficheiro inválida *****").append(RESET).append("\n");
-        else if (i==16) sb.append(CYAN_BRIGHT).append("***** Dispositivo não existe nesta divisão *****").append(RESET).append("\n");
+        else if (i==16) sb.append(CYAN_BRIGHT).append("***** Dispositivo não existe nesta divisão *****").append(RESET).append("\n"); //nop
         else if (i==17) sb.append(CYAN_BRIGHT).append("***** Divisão não existe nesta casa *****").append(RESET).append("\n");
         else if (i==18) sb.append(CYAN_BRIGHT).append("***** Divisão inválida *****").append(RESET).append("\n");
         else if (i==19) sb.append(CYAN_BRIGHT).append("***** Volume de faturação inválido *****").append(RESET).append("\n");
+        else if (i==20) sb.append(CYAN_BRIGHT).append("***** Não foi possível ligar/desligar todos os dispositivos da divisão *****").append(RESET).append("\n");
 
         System.out.print(sb.toString());
         Scanner scanner = new Scanner(System.in);

@@ -224,7 +224,7 @@ public class Casa implements Serializable {
         if(this.divisoes.isEmpty()) return;
         if(hasRoom(divisao) && hasDevice(id) && !roomHasDevice(divisao,id))
             this.divisoes.get(divisao).add(id);
-        else Menu.erros(5);
+      //else Menu.erros(5);
     }
 
     public boolean hasDevice(String id){

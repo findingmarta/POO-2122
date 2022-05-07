@@ -10,7 +10,6 @@ public class ControllerEstado {
             int opcao = -1;
             while (opcao < 0 || opcao > 3) {
                 opcao = Menu.MenuEstado ();
-                Menu.erros(1);
             }
             String originalFilePath = "src/main/java/logs.txt";
             String newFilePath = "src/main/java/Estado.obj";
