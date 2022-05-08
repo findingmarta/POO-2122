@@ -4,14 +4,16 @@ import java.util.Comparator;
 public abstract class Fornecedores implements Serializable {
     private double valorBase = 0.148;
     private double imposto = 0.60;
-    private double volumeFaturacao;
+    private double volumeFaturacao = 0.0;
 
     /**
      * Construtores
      */
-    public Fornecedores (){
-        this.volumeFaturacao = 0.0;   // ????
+
+
+    public Fornecedores() {
     }
+
 
     public Fornecedores (double volumeFaturacao){
         this.volumeFaturacao = volumeFaturacao;
@@ -52,8 +54,8 @@ public abstract class Fornecedores implements Serializable {
      */
     @Override
     public String toString() {
-        return  "\nValor Base=" + valorBase +
-                "\nImposto=" + imposto +
+        return  "\nValor Base= " + valorBase +
+                "\nImposto= " + imposto +
                 "\nFaturação= " + volumeFaturacao;
     }
 

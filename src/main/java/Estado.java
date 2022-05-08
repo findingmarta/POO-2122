@@ -136,7 +136,7 @@ public class Estado implements Serializable {
         int index;
         if (f instanceof FornecEDP) {
             index = this.fornecedores.indexOf(f);
-            System.out.println(index);
+            //System.out.println(index);
             Fornecedores forn = this.fornecedores.get(index);
             forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
         }

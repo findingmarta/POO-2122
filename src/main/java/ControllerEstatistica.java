@@ -24,7 +24,12 @@ public class ControllerEstatistica {
                 }
                 case 2 -> {
                     Fornecedores forn = estado.ordenaListFornecedores (f);
-                    System.out.println ("Fornecedor: " + forn.Stringfornecedor(forn) + forn);
+                    String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +
+                                "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
+                                "Fornecedor= " + forn.Stringfornecedor(forn) + forn +
+                                "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
+                                "Selecione a opção pretendida:\s";
+                    System.out.println(sb);
                     int i = scanner.nextInt ();
                     while (i != 0) {
                         i = scanner.nextInt ();

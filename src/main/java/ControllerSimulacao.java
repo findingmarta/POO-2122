@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,7 +22,7 @@ public class ControllerSimulacao {
                     String s2 = scanner.next();
                     //String dateFormat = "dd/MM/yyyy";
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
-                    while (!(Menu.isDateValid (s2))) {
+                    while (!(ControllerSimulacao.isDateValid (s2))) {
                         Menu.erros(11);
                         System.out.println ("Insira a data no formato dd/MM/yyyy:");
                         s2 = scanner.next ();
@@ -65,6 +66,18 @@ public class ControllerSimulacao {
                     Menu.clearWindow();
                 }
             }
+        }
+    }
+
+    public static boolean isDateValid(String strDate) {
+        String dateFormat = "dd/MM/yyyy";
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
         }
     }
 }

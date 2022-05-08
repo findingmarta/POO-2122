@@ -163,7 +163,7 @@ public class ControllerCasa {
                         boolean turn;
                         turn = est.equals("on");
 
-                        SmartDevice s = Menu.EscolhaDispositivos(turn);
+                        SmartDevice s = ControllerCasa.EscolhaDispositivos(turn);
                         assert s != null;
                         c.addSmartDevice(s);
                         c.addToRoom(d,s.getID());
@@ -176,6 +176,48 @@ public class ControllerCasa {
                 }
             }
         }
+    }
+    public static SmartDevice EscolhaDispositivos (boolean turn){
+        int disp = -1;
+        while (disp < 0 || disp > 3) {
+            disp = Menu.EscolhaDispotivios();
+            if (disp < 0 || disp > 3) Menu.erros(1);
+
+        }
+        switch (disp) {
+            case 1-> {
+                System.out.println("Insira o tone (1,2 ou 3): ");
+                Scanner tone = new Scanner(System.in);
+                int t = tone.nextInt();
+                System.out.println("Insira a dimensão: ");
+                Scanner dimensao = new Scanner(System.in);
+                double di = dimensao.nextDouble();
+                return new SmartBulb(turn,t,di);
+            }
+            case 2-> {
+                System.out.println("Insira a resolução: ");
+                Scanner resolucao = new Scanner(System.in);
+                double r = resolucao.nextDouble();
+                System.out.println("Insira o tamanho da imagem: ");
+                Scanner size = new Scanner(System.in);
+                double s = size.nextDouble();
+                return new SmartCamera(turn,r,s);
+            }
+            case 3-> {
+                System.out.println("Insira a marca: ");
+                Scanner marca = new Scanner(System.in);
+                String m = marca.next();
+                System.out.println("Insira a rádio : ");
+                Scanner radio = new Scanner(System.in);
+                String r = radio.next();
+                System.out.println("Insira o volume : ");
+                Scanner volume = new Scanner(System.in);
+                int v = volume.nextInt();
+                return new SmartSpeaker(turn,v,r,m);
+            }
+
+        }
+        return null;
     }
 
 }
