@@ -1,7 +1,6 @@
 public class Controller {
-    public static void run() {
+    public static void run() throws InterruptedException {
         Estado estado = new Estado();
-        //boolean errorMessage = false;
 
         while (true) {
             int opcao = -1;
@@ -11,9 +10,7 @@ public class Controller {
                // case 2-> ControllerFornecedores.run(estado);
                 case 3-> ControllerEstado.run(estado);
                 case 4-> ControllerSimulacao.run (estado);
-                case 0-> {
-                    System.exit (0);
-                }
+                case 0-> System.exit (0);
             }
         }
     }

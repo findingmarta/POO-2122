@@ -19,7 +19,7 @@ public class ControllerSimulacao {
                     double diff;
                     System.out.println ("Insira a data no formato dd/MM/yyyy:");
                     String s2 = scanner.next();
-                    String dateFormat = "dd/MM/yyyy";
+                    //String dateFormat = "dd/MM/yyyy";
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
                     while (!(Menu.isDateValid (s2))) {
                         Menu.erros(11);
@@ -27,21 +27,23 @@ public class ControllerSimulacao {
                         s2 = scanner.next ();
                     }
                     String s1= estado.getData();
-                    System.out.println (s2);
-                    System.out.println (s1);
                     LocalDate dBefore = LocalDate.parse (s1, dateTimeFormatter);
                     LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
                     if (dAfter.isAfter (dBefore)) {
                         diff = ChronoUnit.DAYS.between (dBefore, dAfter);
                         for (Casa c : estado.getCasas()) {
-                            double precoFinal = c.consumoTotal () * diff;
+                            double precoFinal = c.consumoTotal() * diff;
                             Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal ());
-                            c.getFatura().add(fatura);
-                            Fornecedores f = c.getFornecedor ();
-                            f.aumentaVolumeFaturacao (precoFinal);
-                            estado.updateCasa(c, estado.getCasas().indexOf(c));
+                            List<Faturas> faturasL = c.getFatura();
+                            faturasL.add(fatura.clone());
+                            c.setFatura(faturasL);
+                            estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
+
+                            Fornecedores f = c.getFornecedor();
+                            estado.updateFornecedor(f, precoFinal); //por causa da faturacao
+                            //f.aumentaVolumeFaturacao (precoFinal);
                         }
-                       // Estado.ordenaListCasa (estado.getCasas ());
+                        // Estado.ordenaListCasa (estado.getCasas ());
                         estado.setData (s2);
                     }
                 }

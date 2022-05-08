@@ -8,6 +8,7 @@ public class ControllerEstatistica {
         boolean exit = false;
         while (!exit) {
             List<Casa> l = estado.getCasas ();
+            List<Fornecedores> f = estado.getFornecedores ();
             Scanner scanner = new Scanner (System.in);
             int opcao = -1;
             while (opcao < 0 || opcao > 5) {
@@ -16,19 +17,20 @@ public class ControllerEstatistica {
             switch (opcao) {
                 case 1 -> {
                     Casa c = estado.ordenaListGasto(l);
-                    System.out.println (c);
+                    System.out.println(c);
+
                     int i = scanner.nextInt ();
                     while (i != 0) {
                         i = scanner.nextInt ();
                     }
                 }
                 case 2 -> {
-                    List<Fornecedores> f = estado.getFornecedores ();
-                    Estado.ordenaListFornecedores (f);
+                    Fornecedores forn = estado.ordenaListFornecedores (f);
                     //Fornecedores forn = (f.get ((f.size ()) - 1));
-                    for (Fornecedores forn : f) {
-                        String Stringforn = forn.Stringfornecedor (forn);
-                        System.out.println ("Fornecedor: " + Stringforn + forn.toString ());
+                    System.out.println ("Fornecedor: " + forn.Stringfornecedor(forn) + forn.toString ());
+
+                    for (Fornecedores forne : f) {
+                        String Stringforn = forne.Stringfornecedor (forne);
                         int i = scanner.nextInt ();
                     }
                 }
@@ -61,7 +63,6 @@ public class ControllerEstatistica {
                     if (i == 0) break;
                     int a = Menu.MenuCasaInfo (opcao - 1, l);
                     if (a == 0) break;
-
                 }
                 case 0 -> {
                     exit = true;

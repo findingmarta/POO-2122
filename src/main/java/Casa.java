@@ -26,7 +26,7 @@ public class Casa implements Serializable {
         this.faturas= new ArrayList<>();
     }
 
-    public Casa(Map<String, SmartDevice> d, Map<String, HashSet<String>> divisoes, String proprietario, String NIF) {
+    public Casa(Map<String, SmartDevice> d, Map<String, HashSet<String>> divisoes, String proprietario, String NIF, Fornecedores fornecedor) {
         this.proprietario = proprietario;
         this.NIF = NIF;
         this.divisoes = divisoes;
@@ -34,27 +34,17 @@ public class Casa implements Serializable {
         for (SmartDevice sd : d.values()){
             this.devices.put(sd.getID(),sd.clone());           // ESTOU A POR O ID
         }
-        this.fornecedor = null;
+        this.fornecedor = fornecedor.clone();
         this.faturas= new ArrayList<>();
-    }
-
-    public Casa (String proprietario, String NIF) {       //Retirar depois
-        this.setProprietario(proprietario);
-        this.setNIF(NIF);
-        this.devices = new HashMap<>();
-        this.divisoes = new HashMap<>();
-        this.fornecedor = null;
-        this.faturas= new ArrayList<>();
-        //this.setFornecedor(fornecedor);
     }
 
     public Casa (String proprietario, String NIF, Fornecedores fornecedor) {
         this.devices = new HashMap<>();
         this.divisoes = new HashMap<>();
+        this.faturas= new ArrayList<>();
         this.setNIF(NIF);
         this.setProprietario(proprietario);
         this.setFornecedor(fornecedor);
-        this.faturas= new ArrayList<>();
     }
 
     public Casa(Casa umaCasa) {
@@ -205,7 +195,7 @@ public class Casa implements Serializable {
     public boolean roomisEmpty (String divisao) {
         if(this.divisoes.isEmpty()) return true;
         if(!hasRoom(divisao)) return true;
-        return  this.divisoes.get(divisao).isEmpty();
+        return this.divisoes.get(divisao).isEmpty();
     }
 
     public boolean roomHasDevice (String divisao, String id) {
@@ -272,6 +262,8 @@ public class Casa implements Serializable {
         public int compare(Casa c1, Casa c2) {
             List<Faturas> listfaturas = c1.getFatura();
             List<Faturas> listfaturas2 = c2.getFatura();
+            System.out.println(listfaturas);
+            System.out.println(listfaturas2);
             return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
         }
     }

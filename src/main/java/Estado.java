@@ -128,12 +128,13 @@ public class Estado implements Serializable {
         casa.setFatura(c.getFatura());
     }
 
-    /*public void updateFornecedor (Fornecedores f){
-        Fornecedores fornecedor = this.fornecedores.get(index);
-        fornecedor.setVolumeFaturacao(f.getVolumeFaturacao());
-    }*/
+    public void updateFornecedor (Fornecedores f, double precoFinal){
+        f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal);
+    }
 
     public void loadEstado(String file) {
+        this.casas.clear();
+        this.fornecedores.clear();
         List<String> linhas = lerFicheiro(file);
         Fornecedores f;
         Casa c = null;
@@ -264,7 +265,7 @@ public class Estado implements Serializable {
         this.fornecedores = e.fornecedores;
         return e;
     }
- /*
+    /*
     public  List<Casa> loadFaturasObj(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -279,13 +280,13 @@ public class Estado implements Serializable {
     public Casa ordenaListGasto(List<Casa> casas){
         casas.sort(new Casa.ComparatorGasto());
         int index = casas.size()-1;
-        Casa c = casas.get(index).clone();
-        this.updateCasa(c, index);
-        return c;
+        return casas.get(index).clone();
     }
 
-    public static void ordenaListFornecedores(List<Fornecedores> forn){
+    public Fornecedores ordenaListFornecedores(List<Fornecedores> forn){
         forn.sort(new Fornecedores.fornecedoresComparator());
+        int index = forn.size()-1;
+        return forn.get(index).clone();
     }
 
 /*

@@ -207,11 +207,20 @@ public class EstadoTest {
         }
     }
 
-    @Test   //carregar primeiro o estado
-    public void testLoadEstadoObj(){
+    @Test
+    public void testLoadEstadoObj() {
         Estado estadoObj = new Estado();
         Estado estadoTxt = new Estado();
+
+        estadoObj.loadEstado("src/main/java/logs.txt");
+        try {
+            estadoObj.saveEstado("src/main/java/Estado.obj");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         estadoTxt.loadEstado("src/main/java/logs.txt");
+
         try {
             estadoObj = estadoObj.loadEstadoObj("src/main/java/Estado.obj");
         } catch (IOException | ClassNotFoundException e) {

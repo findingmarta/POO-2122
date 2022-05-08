@@ -52,8 +52,7 @@ public abstract class Fornecedores implements Serializable {
      */
     @Override
     public String toString() {
-        return "Fornecedores: \n" +
-                "Valor_base=" + valorBase +
+        return  "Valor_base=" + valorBase +
                 "\nImposto=" + imposto +
                 "\nFaturação: " + volumeFaturacao;
     }

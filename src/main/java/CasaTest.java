@@ -66,7 +66,8 @@ public class CasaTest {
      */
     @Test
     public void testContructor() {
-        Casa umaCasa = new Casa(devices,divisoes,"Manel", "24131313");
+        Fornecedores fornecedor = new FornecEndesa();
+        Casa umaCasa = new Casa(devices,divisoes,"Manel", "24131313", fornecedor);
         Casa casa = new Casa();
         assertEquals("",casa.getProprietario());
         assertEquals("",casa.getNIF());
@@ -74,13 +75,14 @@ public class CasaTest {
         assertTrue(casa.getDivisoes().isEmpty());
         assertNull(casa.getFornecedor());
 
-        casa = new Casa(devices, divisoes, "Jose Antonio", "241019876");
+        casa = new Casa(devices, divisoes, "Jose Antonio", "241019876", fornecedor);
         assertEquals("Jose Antonio",casa.getProprietario());
         assertEquals("241019876",casa.getNIF());
         assertEquals(devices, casa.getDevices());
         assertEquals(divisoes,casa.getDivisoes());
+        assertEquals(fornecedor, casa.getFornecedor());
 
-        Fornecedores fornecedor = new FornecEDP();
+        fornecedor = new FornecEDP();
         casa = new Casa("Marco", "11111", fornecedor);
         assertEquals("Marco",casa.getProprietario());
         assertEquals("11111",casa.getNIF());
@@ -99,9 +101,10 @@ public class CasaTest {
      */
     @Test
     public void testGetProprietario() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertEquals("", casa.getProprietario());
-        casa = new Casa(devices, divisoes, "Maria", "21645889");
+        casa = new Casa(devices, divisoes, "Maria", "21645889", fornecedor);
         assertEquals("Maria", casa.getProprietario());
         casa = new Casa("Raquel Oliveira", "64485889", new FornecEDP());
         assertEquals("Raquel Oliveira", casa.getProprietario());
@@ -120,9 +123,10 @@ public class CasaTest {
 
     @Test
     public void testGetNIF() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertEquals("", casa.getNIF());
-        casa = new Casa(devices, divisoes, "Maria", "21645889");
+        casa = new Casa(devices, divisoes, "Maria", "21645889",fornecedor);
         assertEquals("21645889", casa.getNIF());
         casa = new Casa("Raquel Oliveira", "64485889", new FornecEDP());
         assertEquals("64485889", casa.getNIF());
@@ -168,19 +172,21 @@ public class CasaTest {
 
     @Test
     public void testGetDivisoes() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertTrue(casa.getDivisoes().isEmpty());
-        casa = new Casa(devices,divisoes, "Maria", "871564897");
+        casa = new Casa(devices,divisoes, "Maria", "871564897",fornecedor);
         assertTrue(mapEquals(divisoes,casa.getDivisoes()));
     }
 
     @Test
     public void testSetDivisoes() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         casa.setDivisoes(divisoes);
         assertTrue(mapEquals(divisoes, casa.getDivisoes()));
 
-        casa = new Casa(devices, divisoes2, "Ana", "22222222");
+        casa = new Casa(devices, divisoes2, "Ana", "22222222", fornecedor);
         assertTrue(mapEquals(divisoes2,casa.getDivisoes()));
         casa.setDivisoes(divisoes);
         assertTrue(mapEquals (divisoes,casa.getDivisoes()));
@@ -188,20 +194,22 @@ public class CasaTest {
 
     @Test
     public void testGetDevices() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertTrue(casa.getDevices().isEmpty());
 
-        casa = new Casa(devices2,divisoes2, "Maria", "871564897");
+        casa = new Casa(devices2,divisoes2, "Maria", "871564897",fornecedor);
         assertEquals(devices2,casa.getDevices());
     }
 
     @Test
     public void testSetDevices() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         casa.setDevices(devices);
         assertEquals(devices, casa.getDevices());
 
-        casa = new Casa(devices2, divisoes2, "Ana", "22222222");
+        casa = new Casa(devices2, divisoes2, "Ana", "22222222",fornecedor);
         assertEquals(devices2,casa.getDevices());
         casa.setDevices(devices);
         assertEquals(devices,casa.getDevices());
@@ -212,14 +220,15 @@ public class CasaTest {
      */
     @Test
     public void testSetDeviceOn() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         casa.setDeviceOn("123");
 
-        casa = new Casa(devices, divisoes, "Carlos", "9856461");
+        casa = new Casa(devices, divisoes, "Carlos", "9856461",fornecedor);
         casa.setDeviceOn("12342");
         assertTrue(casa.getDevice("12342").getOn());
 
-        casa = new Casa(devices2,divisoes, "João Pedro", "6849816");
+        casa = new Casa(devices2,divisoes, "João Pedro", "6849816",fornecedor);
         casa.setDeviceOn("");
         casa.setDeviceOn("12342");
         casa.setDeviceOn("2222");
@@ -228,14 +237,15 @@ public class CasaTest {
 
     @Test
     public void testSetDeviceOff() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         casa.setDeviceOff("123");
 
-        casa = new Casa(devices, divisoes, "Carlos", "9856461");
+        casa = new Casa(devices, divisoes, "Carlos", "9856461",fornecedor);
         casa.setDeviceOff("12342");
         assertFalse(casa.getDevice("12342").getOn());
 
-        casa = new Casa(devices2,divisoes, "João Pedro", "6849816");
+        casa = new Casa(devices2,divisoes, "João Pedro", "6849816",fornecedor);
         casa.setDeviceOff("");
         casa.setDeviceOff("12342");
         casa.setDeviceOff("2222");
@@ -244,17 +254,18 @@ public class CasaTest {
 
     @Test
     public void testSetDivisonOn() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Sala";
         Casa casa = new Casa();
         casa.setDivisonOn(divisao);
 
         Map <String, HashSet<String>> emptyDivisions = new HashMap<>();
         emptyDivisions.put(divisao, new HashSet<>());
-        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798");
+        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         casa.setDivisonOn("Quarto");
         casa.setDivisonOn(divisao);
 
-        casa = new Casa(devices, divisoes, "Carlota", "9879798");
+        casa = new Casa(devices, divisoes, "Carlota", "9879798",fornecedor);
         HashSet<String> ids = casa.getDivisoes().get(divisao);
         casa.setDivisonOn(divisao);
         for(String id : ids){
@@ -265,17 +276,18 @@ public class CasaTest {
 
     @Test
     public void testSetDivisonOff() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Cozinha";
         Casa casa = new Casa();
         casa.setDivisonOff(divisao);
 
         Map <String, HashSet<String>> emptyDivisions = new HashMap<>();
         emptyDivisions.put(divisao, new HashSet<>());
-        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798");
+        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         casa.setDivisonOff("Quarto");
         casa.setDivisonOff(divisao);
 
-        casa = new Casa(devices, divisoes, "Carlota", "9879798");
+        casa = new Casa(devices, divisoes, "Carlota", "9879798",fornecedor);
         HashSet<String> ids = casa.getDivisoes().get(divisao);
         casa.setDivisonOff(divisao);
         for(String id : ids){
@@ -286,40 +298,43 @@ public class CasaTest {
 
     @Test
     public void testHasRoom() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Sala";
         Casa casa = new Casa();
         assertFalse(casa.hasRoom(divisao));
 
         Map <String, HashSet<String>> emptyDivisions = new HashMap<>();
         emptyDivisions.put(divisao, new HashSet<>());
-        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798");
+        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         assertTrue(casa.hasRoom(divisao));
         assertFalse(casa.hasRoom("Jardim"));
     }
 
     @Test
     public void testRoomIsEmpty() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Cozinha";
         Casa casa = new Casa();
         assertTrue(casa.roomisEmpty(divisao));
 
         Map <String, HashSet<String>> emptyDivisions = new HashMap<>();
         emptyDivisions.put(divisao, new HashSet<>());
-        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798");
+        casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         assertTrue(casa.roomisEmpty(divisao));
         assertTrue(casa.roomisEmpty("Jardim"));
 
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         assertFalse(casa.roomisEmpty(divisao));
     }
 
     @Test
     public void testRoomHasDevice() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Sala";
         Casa casa = new Casa();
         assertFalse(casa.roomHasDevice(divisao, "12342"));
 
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         assertFalse(casa.roomHasDevice("Jardim", "12342"));
         assertFalse(casa.roomHasDevice(divisao, "0000"));
         assertTrue(casa.roomHasDevice(divisao, "12342"));
@@ -327,13 +342,14 @@ public class CasaTest {
 
     @Test
     public void testAddRoom() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "WC";
         Casa casa = new Casa();
         casa.addRoom(divisao);
         assertTrue(casa.hasRoom(divisao));
         assertTrue(casa.getDivisoes().get(divisao).isEmpty());
 
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         casa.addRoom("Sala");
         assertTrue(casa.hasRoom("Sala"));
         assertFalse(casa.getDivisoes().get("Sala").isEmpty());
@@ -345,13 +361,14 @@ public class CasaTest {
 
     @Test
     public void testAddToRoom() {
+        Fornecedores fornecedor = new FornecEndesa();
         String divisao = "Sala";
         Casa casa = new Casa();
         casa.addToRoom(divisao,"999");
         assertTrue(casa.getDivisoes().isEmpty());
 
         SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         casa.addSmartDevice(sd);
         casa.addToRoom(divisao,sd.getID());
         assertTrue(casa.roomHasDevice(divisao, sd.getID()));
@@ -359,23 +376,25 @@ public class CasaTest {
 
     @Test
     public void testHasDevice() {
+        Fornecedores fornecedor = new FornecEndesa();
         SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
         Casa casa = new Casa();
         assertFalse(casa.hasDevice("1234"));
         casa.addSmartDevice(sd);
         assertTrue(casa.hasDevice("1075883924"));
 
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         assertFalse(casa.hasDevice("00000"));
         assertTrue(casa.hasDevice("12342"));
     }
 
     @Test
     public void testGetDevice() {
+        Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertNull(casa.getDevice("123456789"));
 
-        casa = new Casa(devices, divisoes, "Mario", "7965464");
+        casa = new Casa(devices, divisoes, "Mario", "7965464",fornecedor);
         SmartDevice sd = new SmartBulb("123456789", false, SmartBulb.WARM, 2.0);
         assertEquals(sd,casa.getDevice(sd.getID()));
 
@@ -387,13 +406,14 @@ public class CasaTest {
 
     @Test
     public void testAddSmartDevice (){
+        Fornecedores fornecedor = new FornecEndesa();
         SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
         Casa casa = new Casa();
         casa.addSmartDevice(sd);
         assertEquals(sd, casa.getDevice(sd.getID()));
 
         SmartDevice ss = new SmartSpeaker(false,30, "Comercial", "Marshall");
-        casa = new Casa(devices, divisoes, "Maria", "11111111");
+        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         casa.addSmartDevice(ss);
         assertEquals(ss, casa.getDevice(ss.getID()));
 
