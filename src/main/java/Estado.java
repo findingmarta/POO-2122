@@ -129,7 +129,18 @@ public class Estado implements Serializable {
     }
 
     public void updateFornecedor (Fornecedores f, double precoFinal){
-        f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal);
+        if (f instanceof FornecEDP) {
+            Fornecedores forn = this.fornecedores.get(0);
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
+        }
+        else if (f instanceof FornecEndesa) {
+            Fornecedores forn = this.fornecedores.get(1);
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
+        }
+        else if (f instanceof FornecJomar) {
+            Fornecedores forn = this.fornecedores.get(2);
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
+        }
     }
 
     public void loadEstado(String file) {
@@ -148,7 +159,10 @@ public class Estado implements Serializable {
                 }
                 case "Fornecedor" -> {
                     f = parseF(linhaPartida[1]);
-                    this.fornecedores.add(f);
+                    if (f instanceof FornecEDP) this.fornecedores.add(0,f);
+                    else if (f instanceof FornecEndesa) this.fornecedores.add(1,f);
+                    else if (f instanceof FornecJomar) this.fornecedores.add(2,f);
+                    else System.out.println("Erro!");
                 }
                 case "Divisao" -> {
                     divisao = linhaPartida[1];
@@ -196,7 +210,6 @@ public class Estado implements Serializable {
     }
 
     private static Fornecedores parseF(String linhaPartida){
-        //String[] dados = linhaPartida.split(",");
         Fornecedores fornec = null;
         switch (linhaPartida) {
             case "EDP" -> fornec = new FornecEDP();

@@ -157,7 +157,7 @@ public class Menu {
         for (int i = 0; i < l.size(); i++) {
         String nif = l.get(i).getDataInicial();
         String prop = l.get(i).getDataFinal();
-        sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m Casa").append(i + 1).append(" -> Data Inicial: ").append(nif).append("  Data Final: ").append(prop).append("\n");
+        sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m").append("Data Inicial: ").append(nif).append("  Data Final: ").append(prop).append("\n");
     }
         sb.append(" \u001B[1m 0) \u001B[0m Menu Casa\n");
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
@@ -352,10 +352,10 @@ public class Menu {
         else if (i==19) sb.append(CYAN_BRIGHT).append("***** Volume de faturação inválido *****").append(RESET).append("\n");
         else if (i==20) sb.append(CYAN_BRIGHT).append("***** Não foi possível ligar/desligar todos os dispositivos da divisão *****").append(RESET).append("\n");
 
-        System.out.print(sb.toString());
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        clearWindow();
+        System.out.print(sb);
+        //Scanner scanner = new Scanner(System.in);
+        //scanner.nextLine();
+        //clearWindow();
     }
 
     /*

@@ -26,12 +26,10 @@ public class ControllerEstatistica {
                 }
                 case 2 -> {
                     Fornecedores forn = estado.ordenaListFornecedores (f);
-                    //Fornecedores forn = (f.get ((f.size ()) - 1));
-                    System.out.println ("Fornecedor: " + forn.Stringfornecedor(forn) + forn.toString ());
-
-                    for (Fornecedores forne : f) {
-                        String Stringforn = forne.Stringfornecedor (forne);
-                        int i = scanner.nextInt ();
+                    System.out.println ("Fornecedor: " + forn.Stringfornecedor(forn) + forn);
+                    int i = scanner.nextInt ();
+                    while (i != 0) {
+                        i = scanner.nextInt ();
                     }
                 }
                 case 3 -> {
