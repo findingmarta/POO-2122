@@ -85,9 +85,6 @@ public class Menu {
                 \u001B[1m 4) \u001B[0m Criar casa.
                 \u001B[1m 5) \u001B[0m Adicionar divisões.
                 \u001B[1m 6) \u001B[0m Adicionar dispositivos.
-                \u001B[1m 7) \u001B[0m Adicionar fornecedor.
-                \u001B[1m 8) \u001B[0m Consumo total de uma casa.
-                \u001B[1m 9) \u001B[0m Casa que mais gastou num determinado período.
                 \u001B[1m 0) \u001B[0m Menu Inicial.
 
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
@@ -104,9 +101,10 @@ public class Menu {
 
                  \u001B[1m                   SIMULACAO \u001B[0m
 
-                \u001B[1m 1) \u001B[0m Emissão faturas
-                \u001B[1m 2) \u001B[0m Faturas
-                \u001B[1m 3) \u001B[0m Estatísticas
+                \u001B[1m 1) \u001B[0m Emissão faturas.
+                \u001B[1m 2) \u001B[0m Faturas.
+                \u001B[1m 3) \u001B[0m Estatísticas.
+                \u001B[1m 0) \u001B[0m Voltar atrás.
 
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
 

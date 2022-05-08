@@ -12,7 +12,7 @@ public class Estado implements Serializable {
 
     public Estado() {
         this.casas = new ArrayList<>();
-        this.fornecedores = new ArrayList<>();
+        this.fornecedores = new ArrayList<>(3);
         this.data= "01/01/2018";
     }
 
@@ -21,7 +21,7 @@ public class Estado implements Serializable {
         for (Casa c : nCasas){
             this.casas.add(c.clone());
         }
-        this.fornecedores = new ArrayList<>();
+        this.fornecedores = new ArrayList<>(3);
         for (Fornecedores f : nFornecedores){
             this.fornecedores.add(f.clone());
         }
@@ -129,16 +129,25 @@ public class Estado implements Serializable {
     }
 
     public void updateFornecedor (Fornecedores f, double precoFinal){
+       /* List<Fornecedores> newFornecedores = new ArrayList<>();
+        if (f instanceof FornecEDP) newFornecedores.add(0,f);
+        else if (f instanceof FornecEndesa) newFornecedores.add(1,f);
+*/
+        int index;
         if (f instanceof FornecEDP) {
-            Fornecedores forn = this.fornecedores.get(0);
+            index = this.fornecedores.indexOf(f);
+            System.out.println(index);
+            Fornecedores forn = this.fornecedores.get(index);
             forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
         }
         else if (f instanceof FornecEndesa) {
-            Fornecedores forn = this.fornecedores.get(1);
+            index = this.fornecedores.indexOf(f);
+            Fornecedores forn = this.fornecedores.get(index);
             forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
         }
         else if (f instanceof FornecJomar) {
-            Fornecedores forn = this.fornecedores.get(2);
+            index = this.fornecedores.indexOf(f);
+            Fornecedores forn = this.fornecedores.get(index);
             forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
         }
     }
@@ -159,10 +168,7 @@ public class Estado implements Serializable {
                 }
                 case "Fornecedor" -> {
                     f = parseF(linhaPartida[1]);
-                    if (f instanceof FornecEDP) this.fornecedores.add(0,f);
-                    else if (f instanceof FornecEndesa) this.fornecedores.add(1,f);
-                    else if (f instanceof FornecJomar) this.fornecedores.add(2,f);
-                    else System.out.println("Erro!");
+                    this.fornecedores.add(f);
                 }
                 case "Divisao" -> {
                     divisao = linhaPartida[1];

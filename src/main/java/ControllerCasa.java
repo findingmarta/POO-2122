@@ -115,12 +115,13 @@ public class ControllerCasa {
                 }
                 case 5 -> {  //não está a verificar o lowercase da divisao
                     int i = -1;
-                    while (i < 0 || i > l.size()) {
+                    List<Casa> lista = estado.getCasas();
+                    while (i < 0 || i > lista.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
-                        if (i < 0 || i> l.size()) Menu.erros(12);
+                        if (i < 0 || i> lista.size()) Menu.erros(12);
                     }
-                    Casa c = l.get(i - 1);
+                    Casa c = lista.get(i - 1);
 
                     System.out.println("Insira a divisão: ");
                     String d = scanner.next();
@@ -135,12 +136,13 @@ public class ControllerCasa {
                 }
                 case 6 -> {
                     int i = -1;
-                    while (i < 0 || i > l.size()) {
+                    List<Casa> lista = estado.getCasas();
+                    while (i < 0 || i > lista.size()) {
                         System.out.println("Insira o índice da casa: ");
                         i = scanner.nextInt();
-                        if (i < 0 || i> l.size()) Menu.erros(12);
+                        if (i < 0 || i> lista.size()) Menu.erros(12);
                     }
-                    Casa c = l.get(i - 1);
+                    Casa c = lista.get(i - 1);
                     if (!c.getDivisoes().isEmpty()) {
 
                         System.out.println("Insira a divisão: ");
@@ -168,44 +170,6 @@ public class ControllerCasa {
                         estado.updateCasa(c, i-1);
                     }
                 }
-                case 7 -> {
-                    int i = -1;
-                    while (i < 0 || i > l.size()) {
-                        System.out.println("Insira o índice da casa: ");
-                        i = scanner.nextInt();
-                        if (i < 0 || i> l.size()) Menu.erros(12);
-                    }
-                    Casa c = l.get(i - 1);
-
-                    System.out.println("Insira o fornecedor: ");
-                    String d = scanner.next().toLowerCase();
-                    Fornecedores forn = switch (d) {
-                        case "edp" -> new FornecEDP();
-                        case "endesa" -> new FornecEndesa();
-                        case "jomar" -> new FornecJomar();
-                        default -> null;  //Menu.erros(7);
-                    };
-                    c.setFornecedor(forn);
-                    estado.updateCasa(c, i-1);
-                }
-                /*
-                case 8 -> {
-                    int i = -1;
-                    while (i < 0 || i > l.size()) {
-                        System.out.println("Insira o índice da casa: ");
-                        i = scanner.nextInt();
-                    }
-                    Casa c = l.get(i - 1);
-                    double precoFinal = c.consumoTotal();
-                    System.out.println("\nPreço Final : " + precoFinal);
-                    System.out.println("\nInsira 0 para retornar ao MenuCasa. ");
-                    int s1 = scanner.nextInt();
-                    if (s1 == 0) Controller.menucasa1(estado);
-
-
-                }*/
-                //List<Casa> ListCasa = Menu.listCasas();
-                //ListCasa.add(scanner, nome, nif);
                 case 0 -> {
                     exit = true;
                     Menu.clearWindow();

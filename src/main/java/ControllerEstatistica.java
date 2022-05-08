@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ControllerEstatistica {
     public static void run(Estado estado) {
@@ -42,7 +40,6 @@ public class ControllerEstatistica {
                             else Menu.erros(7);
 
                         }
-
                     int i = -1;
                     while (i < 0 || i > casas.size ()) {
                         i = Menu.MenuListaCasas (casas);
@@ -50,7 +47,6 @@ public class ControllerEstatistica {
                     //if (i == 0) Controller.menuinicial (estado);
                     // int a = Menu.FaturaInfo(opcao-1, casas);
                     // if (a==0) Controller.menuEstatistica(estado);
-
                 }
                 case 4 -> {
                     Estado.ordenaListConsumo(l);
