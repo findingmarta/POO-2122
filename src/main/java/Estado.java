@@ -9,12 +9,12 @@ public class Estado implements Serializable {
     private String data;
 
     //private TreeMap<Double, Integer> faturas;
-
+/*
     public Estado() {
         this.casas = new ArrayList<>();
         this.fornecedores = new ArrayList<>(3);
         this.data= "01/01/2018";
-    }
+    }*/
 
     public Estado(List<Casa> nCasas, List<Fornecedores> nFornecedores) {
         this.casas = new ArrayList<>();

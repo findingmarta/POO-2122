@@ -60,7 +60,7 @@ public class ControllerEstatistica {
                         i = Menu.MenuListaCasas (l);
                     }
                     if (i == 0) break;
-                    int a = Menu.MenuCasaInfo (opcao - 1, l);
+                    int a = Menu.MenuCasaInfo (i- 1, l);
                     if (a == 0) break;
                 }
                 case 0 -> {

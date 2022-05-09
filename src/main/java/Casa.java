@@ -253,7 +253,7 @@ public class Casa implements Serializable {
         public int compare(Casa c1, Casa c2) {
             List<Faturas> listfaturas = c1.getFatura();
             List<Faturas> listfaturas2 = c2.getFatura();
-            return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
+            return -Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
         }
     }
 
