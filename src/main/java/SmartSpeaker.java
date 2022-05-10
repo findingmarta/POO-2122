@@ -31,16 +31,16 @@ public class SmartSpeaker extends SmartDevice {
         this.marca = marca;
     }
 
-    public SmartSpeaker(boolean turn, int volume, String channel, String marca) {
+    /*public SmartSpeaker(boolean turn, int volume, String channel, String marca) {
         super(turn);
         if (volume>=0 && volume<=MAX) this.volume = volume;
         else if (volume>MAX) this.volume = MAX;
         else this.volume = 0;
         this.channel = channel;
         this.marca = marca;             //tirar??
-    }
+    }*/
 
-    public SmartSpeaker(int volume, String channel, String marca) {
+    public SmartSpeaker(int volume, String channel, String marca) {   //para os testes
         if (volume>=0 && volume<=MAX) this.volume = volume;
         else if (volume>MAX) this.volume = MAX;
         else this.volume = 0;

@@ -195,7 +195,7 @@ public class FornecedoresTest {
         sb = new SmartBulb(-2, -3);
         assertEquals(5.754240, Math.round(fornecEDP.PrecoDiarioPorDispositivo(sb)*scale)/scale);
 
-        SmartSpeaker ss = new SmartSpeaker(5,"RUM", "JBL");
+        SmartSpeaker ss = new SmartSpeaker("123", true,5,"RUM", "JBL");
         assertEquals(24.93504,Math.round(fornecEDP.PrecoDiarioPorDispositivo(ss)*scale)/scale);
         ss = new SmartSpeaker();
         assertEquals(5.754240, Math.round(fornecEDP.PrecoDiarioPorDispositivo(ss)*scale)/scale);

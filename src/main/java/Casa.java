@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
  * divisoes que existem na casa.
  */
 public class Casa implements Serializable {
-    private Map<String, SmartDevice> devices;      // identificador -> SmartDevice
-    private Map<String, HashSet<String>> divisoes; // Espaço -> Lista codigo dos devices
+    private Map<String, SmartDevice> devices;
+    private Map<String, HashSet<String>> divisoes;
     private String proprietario;
     private String NIF;
     private Fornecedores fornecedor;
@@ -32,7 +32,7 @@ public class Casa implements Serializable {
         this.divisoes = divisoes;
         this.devices = new HashMap<>();
         for (SmartDevice sd : d.values()){
-            this.devices.put(sd.getID(),sd.clone());           // ESTOU A POR O ID
+            this.devices.put(sd.getID(),sd.clone());
         }
         this.fornecedor = fornecedor.clone();
         this.faturas= new ArrayList<>();
@@ -230,15 +230,22 @@ public class Casa implements Serializable {
     }
 
     public void addSmartDevice (SmartDevice sd){
-        String id = (String.valueOf(sd.hashCode()));
-        sd.setID(id);
-        this.devices.put(id,sd.clone());
+        if(!sd.getID().equals("") && this.devices.keySet().stream().noneMatch(id -> id.equals(sd.getID()))) this.devices.put(sd.getID(), sd.clone());
+        else System.out.println("ID repetido ou inválido!");
     }
 
     public double consumoTotal() {
+        //formulaStrategy strategy;
         Set<String> setOfKeys = devices.keySet();
         Fornecedores forn = getFornecedor();
         double contador = 0;
+
+        /*switch (formula){
+            case "formula1" -> strategy = new formula1();
+            case "formula2" -> strategy = new formula2();
+            case "formula3" -> strategy = new formula3();
+        }*/
+
         for (String key : setOfKeys) {
             SmartDevice s = this.getDevice(key);
             if (s.getOn()) contador += forn.PrecoDiarioPorDispositivo(s);

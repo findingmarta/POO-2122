@@ -16,11 +16,11 @@ public class smartCameraTest {
         assertEquals(1080.0, smartCamera.getResolution());
         assertEquals(200.30, smartCamera.getSize());
 
-        smartCamera = new SmartCamera(false, 720.0,480.0);
+        /*smartCamera = new SmartCamera(false, 720.0,480.0);
         assertEquals("",smartCamera.getID());
         assertFalse(smartCamera.getOn());
         assertEquals(720.0, smartCamera.getResolution());
-        assertEquals(480.0, smartCamera.getSize());
+        assertEquals(480.0, smartCamera.getSize());*/
 
         smartCamera = new SmartCamera(7020.0,4800.0);
         assertEquals("",smartCamera.getID());

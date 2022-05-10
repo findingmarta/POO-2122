@@ -1,21 +1,27 @@
 import java.util.*;
 
 public class ControllerCasa {
-    public static void run(Estado estado) throws InterruptedException {
+    public static void run(Estado estado) {
         List<Casa> l = estado.getCasas();
-        Menu.clearWindow ();
         boolean exit = false;
+
+        Menu.clearWindow ();
         while (!exit) {
             int opcao = -1;
             while (opcao < 0 || opcao > 8) {
+                //Menu.erros(1);
+                //Thread.sleep(1000);
                 opcao = Menu.MenuCasa();
             }
+
             Scanner scanner = new Scanner(System.in);
             switch (opcao) {
-                case 1 -> { //se meter letras como opcao dá erro, talvez resulte se tirar o nextInt e meter só next
+                case 1 -> {                              //se meter letras como opcao dá erro, talvez resulte se tirar o nextInt e meter só next
                     List<Casa> lista = estado.getCasas();
                     int escolha = -1;
+
                     while (escolha < 0 || escolha > lista.size()) {
+                        //Menu.erros(12);
                         escolha = Menu.MenuListaCasas(lista);
                     }
                     if(escolha==0) break;
@@ -85,7 +91,6 @@ public class ControllerCasa {
                     else {
                         Menu.erros(20);
                         System.out.println("Erro! A casa não tem divisões.");
-                        Thread.sleep(2000);
                     }
                 }
                 case 4 -> {
@@ -93,27 +98,24 @@ public class ControllerCasa {
                     Scanner scan = new Scanner(System.in);
                     String nif = scan.next();
 
-                    System.out.println("Insira o nome do proprietário: ");
+                    System.out.println("Insira o nome do proprietário: ");   // SE EU METER +1 NOME DÁ ERRO
                     String proprietario = scan.next();
 
-                    System.out.println("Insira o nome do fornecedor: ");
                     Fornecedores fornecedor = null;
+                    System.out.println("Insira o nome do fornecedor: ");
                     String forn = scan.next();
                     switch (forn) {
                         case "EDP" -> fornecedor = new FornecEDP();
                         case "Endesa" -> fornecedor = new FornecEndesa();
                         case "Jomar" -> fornecedor = new FornecJomar();
-                        default -> {
-                            System.out.println("Fornecedor inválido! Casa não será criada.");
-                            Thread.sleep(2000);
-                        }
+                        default -> System.out.println("Fornecedor inválido! Casa não será criada.");
                     }
                     if(fornecedor!=null){
                         Casa c = new Casa(proprietario, nif, fornecedor);
                         estado.addCasa(c);
                     }
                 }
-                case 5 -> {  //não está a verificar o lowercase da divisao
+                case 5 -> {                                         //não está a verificar o lowercase da divisao
                     int i = -1;
                     List<Casa> lista = estado.getCasas();
                     while (i < 0 || i > lista.size()) {
@@ -129,10 +131,7 @@ public class ControllerCasa {
                         c.addRoom(d);
                         estado.updateCasa(c, i-1);
                     }
-                    else {
-                        System.out.println("A divisão já existe! ");
-                        Thread.sleep(1000);
-                    }
+                    else System.out.println("A divisão já existe! ");
                 }
                 case 6 -> {
                     int i = -1;
@@ -163,7 +162,15 @@ public class ControllerCasa {
                         boolean turn;
                         turn = est.equals("on");
 
-                        SmartDevice s = ControllerCasa.EscolhaDispositivos(turn);
+                        System.out.println("Insira o ID: ");
+                        String id = scanner.next();
+                        while (!onlyDigits(id,id.length())){
+                            //Menu.erros(2);
+                            System.out.println("Insira o ID: ");
+                            id = scanner.next();
+                        }
+
+                        SmartDevice s = ControllerCasa.EscolhaDispositivos(id,turn);
                         assert s != null;
                         c.addSmartDevice(s);
                         c.addToRoom(d,s.getID());
@@ -177,7 +184,8 @@ public class ControllerCasa {
             }
         }
     }
-    public static SmartDevice EscolhaDispositivos (boolean turn){
+
+    public static SmartDevice EscolhaDispositivos (String id,boolean turn){
         int disp = -1;
         while (disp < 0 || disp > 3) {
             disp = Menu.EscolhaDispotivios();
@@ -192,7 +200,7 @@ public class ControllerCasa {
                 System.out.println("Insira a dimensão: ");
                 Scanner dimensao = new Scanner(System.in);
                 double di = dimensao.nextDouble();
-                return new SmartBulb(turn,t,di);
+                return new SmartBulb(id,turn,t,di);
             }
             case 2-> {
                 System.out.println("Insira a resolução: ");
@@ -201,7 +209,7 @@ public class ControllerCasa {
                 System.out.println("Insira o tamanho da imagem: ");
                 Scanner size = new Scanner(System.in);
                 double s = size.nextDouble();
-                return new SmartCamera(turn,r,s);
+                return new SmartCamera(id,turn,r,s);
             }
             case 3-> {
                 System.out.println("Insira a marca: ");
@@ -213,11 +221,17 @@ public class ControllerCasa {
                 System.out.println("Insira o volume : ");
                 Scanner volume = new Scanner(System.in);
                 int v = volume.nextInt();
-                return new SmartSpeaker(turn,v,r,m);
+                return new SmartSpeaker(id,turn,v,r,m);
             }
-
         }
         return null;
+    }
+
+    public static boolean onlyDigits(String str, int n) {
+        for (int i = 0; i < n; i++) {
+            if (!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
     }
 
 }

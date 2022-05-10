@@ -5,7 +5,6 @@ import java.util.*;
 
 
 public class Menu {
-
     //Tentar encontrar outra forma mais elegante
     public static void clearWindow() {
         for (int i = 0; i < 100; i++) {
@@ -13,7 +12,8 @@ public class Menu {
         }
     }
 
-    public static int MenuInicial() {
+    public static int MenuInicial() throws InterruptedException {
+        //Thread.sleep(2000);
         clearWindow();
         String sb = """
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -115,7 +115,7 @@ public class Menu {
                  \u001B[1m           FORNECEDORES \u001B[0m
 
                  \u001B[1m 1) \u001B[0m Info fornecedores.
-                 \u001B[1m 2) \u001B[0m Outras coisas
+                 \u001B[1m 2) \u001B[0m Modificar formula.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -181,7 +181,8 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
 }
-    public static int FaturaInfo(int i, List<Faturas> l) {
+    public static int FaturaInfo(int i, List<Faturas> l) throws InterruptedException {
+        //Thread.sleep(2000);
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
                 " \u001B[1m                   FATURA INFO \u001B[0m\n\n" +
@@ -242,8 +243,5 @@ public class Menu {
         else if (i==20) sb.append(CYAN_BRIGHT).append("***** Não foi possível ligar/desligar todos os dispositivos da divisão *****").append(RESET).append("\n");
 
         System.out.print(sb);
-        //Scanner scanner = new Scanner(System.in);
-        //scanner.nextLine();
-        //clearWindow();
     }
     }

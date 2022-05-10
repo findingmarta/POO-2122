@@ -367,21 +367,21 @@ public class CasaTest {
         casa.addToRoom(divisao,"999");
         assertTrue(casa.getDivisoes().isEmpty());
 
-        SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
+        SmartDevice sd = new SmartBulb("9998",false,SmartBulb.NEUTRAL, 2.0);
         casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         casa.addSmartDevice(sd);
         casa.addToRoom(divisao,sd.getID());
-        assertTrue(casa.roomHasDevice(divisao, sd.getID()));
+        assertTrue(casa.roomHasDevice(divisao, "9998"));
     }
 
     @Test
     public void testHasDevice() {
         Fornecedores fornecedor = new FornecEndesa();
-        SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
+        SmartDevice sd = new SmartBulb("54321", true,SmartBulb.NEUTRAL, 2.0);
         Casa casa = new Casa();
         assertFalse(casa.hasDevice("1234"));
         casa.addSmartDevice(sd);
-        assertTrue(casa.hasDevice("1075883924"));
+        assertTrue(casa.hasDevice("54321"));
 
         casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
         assertFalse(casa.hasDevice("00000"));
@@ -407,22 +407,45 @@ public class CasaTest {
     @Test
     public void testAddSmartDevice (){
         Fornecedores fornecedor = new FornecEndesa();
-        SmartDevice sd = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
-        Casa casa = new Casa();
-        casa.addSmartDevice(sd);
-        assertEquals(sd, casa.getDevice(sd.getID()));
+        Casa casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
 
-        SmartDevice ss = new SmartSpeaker(false,30, "Comercial", "Marshall");
-        casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
-        casa.addSmartDevice(ss);
-        assertEquals(ss, casa.getDevice(ss.getID()));
+        SmartDevice sd1 = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
+        casa.addSmartDevice(sd1);
+        assertEquals(devices, casa.getDevices());
+        assertEquals(3, casa.getDevices().size());
 
-        SmartDevice ss2 = new SmartSpeaker(false,15, "RFM", "Marshall");
-        casa.addSmartDevice(ss2);
-        assertNotEquals(ss, casa.getDevice(ss2.getID()));
-        assertEquals(ss2, casa.getDevice(ss2.getID()));
-        casa.addSmartDevice(ss2);
-        assertEquals(ss2, casa.getDevice(ss2.getID()));
-        assertEquals(ss2, casa.getDevice(ss2.getID()));
+        SmartDevice sd2 = new SmartCamera("123", true, 1080, 720);
+        casa.addSmartDevice(sd2);
+        assertEquals(sd2, casa.getDevice("123"));
+        assertEquals(4, casa.getDevices().size());
+
+        SmartDevice sd3 = new SmartSpeaker("",false,30, "Comercial", "Marshall");
+        casa.addSmartDevice(sd3);
+        assertNull(casa.getDevice(""));
+        assertEquals(4, casa.getDevices().size());
+
+        SmartDevice sd4 = new SmartSpeaker("321",false,15, "RFM", "Marshall");
+        SmartDevice sd5 = new SmartSpeaker("321",true,15, "RFM", "Marshall");
+        SmartDevice sd6 = new SmartBulb("321",false,1, 32.12);
+        SmartDevice sd7 = new SmartCamera("321",false, 2160, 1080);
+        casa.addSmartDevice(sd4);
+        assertEquals(sd4, casa.getDevice("321"));
+        assertEquals(5, casa.getDevices().size());
+
+        casa.addSmartDevice(sd5);
+        assertNotEquals(sd5, casa.getDevice("321"));
+        assertEquals(5, casa.getDevices().size());
+
+        casa.addSmartDevice(sd6);
+        assertNotEquals(sd6, casa.getDevice("321"));
+        assertEquals(5, casa.getDevices().size());
+
+        casa.addSmartDevice(sd7);
+        assertNotEquals(sd7, casa.getDevice("321"));
+        assertEquals(5, casa.getDevices().size());
+
+        casa.addSmartDevice(sd4);
+        assertEquals(sd4, casa.getDevice("321"));
+        assertEquals(5, casa.getDevices().size());
     }
 }

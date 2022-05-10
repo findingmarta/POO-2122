@@ -22,7 +22,14 @@ public class Automatizacao {
                 }
                 case "Fornecedor" -> {
                     String nomeF = linhaPartida[2];
-                    parseComandoF(linhaPartida[3], linhaPartida[4], nomeF);
+                    Fornecedores fornecedor = null;
+                    switch (nomeF) {
+                        case "EDP" -> fornecedor = new FornecEDP();
+                        case "Endesa" -> fornecedor = new FornecEndesa();
+                        case "Jomar" -> fornecedor = new FornecJomar();
+                        default -> Menu.erros(7);
+                    }
+                    parseComandoF(linhaPartida[3], linhaPartida[4], fornecedor);
                 }
                 default -> Menu.erros(15);
             }
@@ -33,16 +40,25 @@ public class Automatizacao {
         switch (comando) {
             case "setOn" -> casa.getDevice(objeto).setOn(true);
             case "setOff" -> casa.getDevice(objeto).setOn(false);
-            case "setDivisionOn", "setDivisionOff" -> casa.setDivisonOn(objeto);
+            case "setDivisionOn" -> casa.setDivisonOn(objeto);
+            case "setDivisionOff" -> casa.setDivisonOff(objeto);
+            case "mudarFornecedor" -> {
+                switch (objeto) {
+                    case "EDP" -> casa.setFornecedor(new FornecEDP());
+                    case "Endesa" -> casa.setFornecedor(new FornecEndesa());
+                    case "Jomar" -> casa.setFornecedor(new FornecJomar());
+                    default -> Menu.erros(7);
+                }
+            }
             default -> Menu.erros(15);
         }
     }
 
-    private static void parseComandoF(String comando, String objeto, String nomeF){
-        if ("alterarValorDesconto".equals(comando)) {
-            System.out.println("AAAA");
-        } else {
-            Menu.erros(15);
+    private static void parseComandoF(String comando, String objeto, Fornecedores fornecedor){
+        switch (comando){
+            case "alteraValorDesconto" -> System.out.println("Do something!");
+            case "alteraFormula" -> System.out.println("Do something again!");
+            default -> Menu.erros(15);
         }
     }
 }

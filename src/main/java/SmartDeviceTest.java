@@ -20,4 +20,12 @@ public class SmartDeviceTest {
         smartDev1.setID("b1");
         assertEquals("b1",smartDev1.getID());
     }
+
+    /*@Test
+    public void testOnlyDigits() {
+        SmartDevice sd1 = new SmartCamera("12345",true,213,435);
+        assertTrue(sd1.onlyDigits(sd1.getID(), sd1.getID().length()));
+        SmartDevice sd2 = new SmartCamera("123a45",true,213,435);
+        assertFalse(sd2.onlyDigits(sd2.getID(), sd2.getID().length()));
+    }*/
 }

@@ -4,3 +4,4 @@
 2022.04.10,Casa,1,setDivisionOff,Jardim 1
 2022.04.11,Casa,2,mudarFornecedor,EDP
 2022.04.12,Fornecedor,Endesa,alterarValorDesconto, 123.99
+2022.04.12,Fornecedor,EDP,alterarFormula, f1

@@ -9,12 +9,12 @@ public class Estado implements Serializable {
     private String data;
 
     //private TreeMap<Double, Integer> faturas;
-/*
+
     public Estado() {
         this.casas = new ArrayList<>();
         this.fornecedores = new ArrayList<>(3);
         this.data= "01/01/2018";
-    }*/
+    }
 
     public Estado(List<Casa> nCasas, List<Fornecedores> nFornecedores) {
         this.casas = new ArrayList<>();
@@ -129,14 +129,9 @@ public class Estado implements Serializable {
     }
 
     public void updateFornecedor (Fornecedores f, double precoFinal){
-       /* List<Fornecedores> newFornecedores = new ArrayList<>();
-        if (f instanceof FornecEDP) newFornecedores.add(0,f);
-        else if (f instanceof FornecEndesa) newFornecedores.add(1,f);
-*/
         int index;
         if (f instanceof FornecEDP) {
             index = this.fornecedores.indexOf(f);
-            //System.out.println(index);
             Fornecedores forn = this.fornecedores.get(index);
             forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
         }
@@ -229,30 +224,33 @@ public class Estado implements Serializable {
     private static SmartBulb parseSB(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartBulb sb = new SmartBulb();
-        switch (dados[0]) {
+        sb.setID(dados[0]);
+        switch (dados[1]) {
             case "Cold" -> sb.setTone(0);
             case "Warm" -> sb.setTone(2);
             case "Neutral" -> sb.setTone(1);
             default -> Menu.erros(8);
         }
-        sb.setDimensao(Double.parseDouble(dados[1]));
+        sb.setDimensao(Double.parseDouble(dados[2]));
         return sb;
     }
 
     private static SmartSpeaker parseSS(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartSpeaker ss = new SmartSpeaker();
-        ss.setVolume(Integer.parseInt(dados[0]));
-        ss.setChannel(dados[1]);
-        ss.setMarca(dados[2]);
+        ss.setID(dados[0]);
+        ss.setVolume(Integer.parseInt(dados[1]));
+        ss.setChannel(dados[2]);
+        ss.setMarca(dados[3]);
         return ss;
     }
 
     private static SmartCamera parseSC(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         SmartCamera sc = new SmartCamera();
-        sc.setResolution(Double.parseDouble(dados[0]));
-        sc.setSize(Double.parseDouble(dados[1]));
+        sc.setID(dados[0]);
+        sc.setResolution(Double.parseDouble(dados[1]));
+        sc.setSize(Double.parseDouble(dados[2]));
         return sc;
     }
 
@@ -273,7 +271,6 @@ public class Estado implements Serializable {
         oos.flush();
         oos.close();
     }
-
 
     public Estado loadEstadoObj(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);

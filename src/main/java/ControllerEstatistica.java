@@ -1,9 +1,11 @@
 import java.util.*;
 
 public class ControllerEstatistica {
-    public static void run(Estado estado) {
+    public static void run(Estado estado) throws InterruptedException {
+
         Menu.clearWindow ();
         boolean exit = false;
+
         while (!exit) {
             List<Casa> l = estado.getCasas ();
             List<Fornecedores> f = estado.getFornecedores ();
@@ -66,6 +68,7 @@ public class ControllerEstatistica {
                 case 0 -> {
                     exit = true;
                     Menu.clearWindow();
+                    //Thread.sleep(2000);
                 }
             }
         }

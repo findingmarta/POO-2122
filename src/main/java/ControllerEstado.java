@@ -1,11 +1,11 @@
 import java.io.IOException;
 
 public class ControllerEstado {
-    public static void run(Estado estado) {
+    public static void run(Estado estado) throws InterruptedException {
         String originalFilePath = "src/main/java/logs.txt";
         String newFilePath = "src/main/java/Estado.obj";
-        Menu.clearWindow ();
         boolean exit = false;
+        Menu.clearWindow ();
 
         while (!exit) {
             int opcao = -1;
@@ -33,6 +33,7 @@ public class ControllerEstado {
                 case 0-> {
                     exit = true;
                     Menu.clearWindow ();
+                    //Thread.sleep(2000);
                 }
             }
         }

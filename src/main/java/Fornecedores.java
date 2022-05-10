@@ -5,6 +5,7 @@ public abstract class Fornecedores implements Serializable {
     private double valorBase = 0.148;
     private double imposto = 0.60;
     private double volumeFaturacao = 0.0;
+    //private String formula;
 
     /**
      * Construtores
@@ -12,6 +13,8 @@ public abstract class Fornecedores implements Serializable {
 
 
     public Fornecedores() {
+        //this.volumeFaturacao = 0.0;
+        //this.formula = "";
     }
 
 
@@ -19,10 +22,15 @@ public abstract class Fornecedores implements Serializable {
         this.volumeFaturacao = volumeFaturacao;
     }
 
+    public Fornecedores (String formula){
+        //this.formula = formula;
+    }
+
     public Fornecedores (Fornecedores umFornecedor){
         this.volumeFaturacao = umFornecedor.getVolumeFaturacao();
         this.valorBase = umFornecedor.getValorBase();
         this.imposto = umFornecedor.getImposto();
+        //this.formula = umFornecedor.getFormula();
     }
 
     /**
@@ -36,6 +44,14 @@ public abstract class Fornecedores implements Serializable {
     public double getImposto() {
         return this.imposto;
     }
+
+    /*public String getFormula() {
+        return this.formula;
+    }
+
+    public void setFormula(String formula) {
+         this.formula = formula;
+    }*/
 
     public double getVolumeFaturacao() {
         return this.volumeFaturacao;

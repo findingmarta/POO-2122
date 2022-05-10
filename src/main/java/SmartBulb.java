@@ -27,11 +27,11 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = dimensao;
     }
 
-    public SmartBulb(boolean turn, int tone, double dimensao) {
+    /*public SmartBulb(boolean turn, int tone, double dimensao) {
         super(turn);
         this.tone = tone;
         this.dimensao = dimensao;
-    }
+    }*/
 
     public SmartBulb(int tone, double dimensao) {
         //this.tone = tone;
@@ -40,11 +40,11 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = dimensao;
     }
 
-    public SmartBulb(String id) {
+    /*public SmartBulb(String id) {
         super(id);
         this.tone = NEUTRAL;
         this.dimensao = 0.0;
-    }
+    }*/
 
     public SmartBulb (SmartBulb sb)  {
         super(sb);

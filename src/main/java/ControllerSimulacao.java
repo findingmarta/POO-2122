@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ControllerSimulacao {
-    public static void run(Estado estado) {
+    public static void run(Estado estado) throws InterruptedException {
         boolean exit = false;
+
         while (!exit) {
-            Menu.clearWindow ();
             List<Casa> l = estado.getCasas ();
+            Menu.clearWindow ();
             int opcao = -1;
             while (opcao < 0 || opcao > 8) {
                 opcao = Menu.menuSimulacao ();
@@ -33,8 +34,11 @@ public class ControllerSimulacao {
                     if (dAfter.isAfter (dBefore)) {
                         diff = ChronoUnit.DAYS.between (dBefore, dAfter);
                         for (Casa c : estado.getCasas()) {
+                            //String formula = c.getFornecedor().getFormula();
                             double precoFinal = c.consumoTotal() * diff;
+                            //double precoFinal = c.consumoTotal(formula) * diff;
                             Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal ());
+                            //Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal (formula));
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
@@ -64,6 +68,7 @@ public class ControllerSimulacao {
                 case 0->{
                     exit = true;
                     Menu.clearWindow();
+                    //Thread.sleep(2000);
                 }
             }
         }

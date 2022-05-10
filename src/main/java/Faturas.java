@@ -14,7 +14,7 @@ public class Faturas implements Serializable {
         this.consumo = 0.0;
     }
 
-    public Faturas( double fatura, String dataInicial, String  dataFinal, double consumo) {
+    public Faturas(double fatura, String dataInicial, String  dataFinal, double consumo) {
         this.fatura = fatura;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
@@ -51,7 +51,6 @@ public class Faturas implements Serializable {
     public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
-
 
     public double getConsumo() {
         return consumo;

@@ -20,6 +20,7 @@ public class ControllerFornecedores {
                         StringBuilder sb = new StringBuilder ("\n\u001B[1m \u001B[36m___________\u001B[0m");
                         sb.append ("FORNECEDOR ").append (j).append ("\u001B[1m \u001B[36m___________\u001B[0m\n");
                         sb.append ("\nFornecedor: ").append (forn.Stringfornecedor (forn)).append (forn);
+                        //sb.append ("\nFormula: ").append (forn.Stringfornecedor (forn)).append (forn);
                         System.out.println (sb);
                         j++;
                     }
@@ -30,10 +31,13 @@ public class ControllerFornecedores {
                         i = scanner.nextInt ();
                     }
                 }
-                    case 0 -> {
-                        Menu.clearWindow ();
-                        exit=true;
-                    }
+ /*modificar*/  case 3 ->{
+
+                }
+                case 0 -> {
+                    Menu.clearWindow ();
+                    exit=true;
+                }
             }
         }
     }
