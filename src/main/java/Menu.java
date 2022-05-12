@@ -5,6 +5,7 @@ import java.util.*;
 
 
 public class Menu {
+
     //Tentar encontrar outra forma mais elegante
     public static void clearWindow() {
         for (int i = 0; i < 100; i++) {
@@ -22,7 +23,7 @@ public class Menu {
 
                  \u001B[1m 1) \u001B[0m Estado.
                  \u001B[1m 2) \u001B[0m Menu Casa.
-                 \u001B[1m 3) \u001B[0m Menu Fornecedores.
+                 \u001B[1m 3) \u001B[0m Lista Fornecedores.
                  \u001B[1m 4) \u001B[0m Simulação.
                  \u001B[1m 0) \u001B[0m Sair.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -47,6 +48,7 @@ public class Menu {
                 \u001B[1m 4) \u001B[0m Criar casa.
                 \u001B[1m 5) \u001B[0m Adicionar divisões.
                 \u001B[1m 6) \u001B[0m Adicionar dispositivos.
+                \u001B[1m 7) \u001B[0m Alterar fornecedor.
                 \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
 
@@ -106,7 +108,7 @@ public class Menu {
 
 
 
-
+/*
     public static int menuFornecedores() {
         clearWindow();
         String sb = """
@@ -115,7 +117,7 @@ public class Menu {
                  \u001B[1m           FORNECEDORES \u001B[0m
 
                  \u001B[1m 1) \u001B[0m Info fornecedores.
-                 \u001B[1m 2) \u001B[0m Modificar formula.
+                 \u001B[1m 2) \u001B[0m Outras coisas
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -123,7 +125,7 @@ public class Menu {
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
-    }
+    }*/
 
 
     public static int MenuEstado(){
@@ -203,9 +205,10 @@ public class Menu {
                  \u001B[1m           MENU ESTATÍSTICAS \u001B[0m
 
                  \u001B[1m 1) \u001B[0m Casa com maior gasto.
-                 \u001B[1m 2) \u001B[0m Fornecedor com maior volume de facturação.
+                 \u001B[1m 2) \u001B[0m Fornecedor com maior volume de facturação.          
                  \u001B[1m 3) \u001B[0m Faturas emitidas por um fornecedor.
-                 \u001B[1m 4) \u001B[0m Top x consumidores.
+                 \u001B[1m 4) \u001B[0m Top consumidores.
+                 \u001B[1m 5) \u001B[0m Fornecedor com maior volume de facturação num determinado intervalo.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 

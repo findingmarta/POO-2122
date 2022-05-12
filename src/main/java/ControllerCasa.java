@@ -1,8 +1,9 @@
 import java.util.*;
 
 public class ControllerCasa {
-    public static void run(Estado estado) {
+    public static void run(Estado estado) throws InterruptedException {
         List<Casa> l = estado.getCasas();
+        Menu.clearWindow ();
         boolean exit = false;
 
         Menu.clearWindow ();
@@ -16,7 +17,7 @@ public class ControllerCasa {
 
             Scanner scanner = new Scanner(System.in);
             switch (opcao) {
-                case 1 -> {                              //se meter letras como opcao dá erro, talvez resulte se tirar o nextInt e meter só next
+                case 1 -> { //se meter letras como opcao dá erro, talvez resulte se tirar o nextInt e meter só next
                     List<Casa> lista = estado.getCasas();
                     int escolha = -1;
 
@@ -91,6 +92,7 @@ public class ControllerCasa {
                     else {
                         Menu.erros(20);
                         System.out.println("Erro! A casa não tem divisões.");
+                        Thread.sleep(2000);
                     }
                 }
                 case 4 -> {
@@ -101,14 +103,17 @@ public class ControllerCasa {
                     System.out.println("Insira o nome do proprietário: ");   // SE EU METER +1 NOME DÁ ERRO
                     String proprietario = scan.next();
 
-                    Fornecedores fornecedor = null;
                     System.out.println("Insira o nome do fornecedor: ");
+                    Fornecedores fornecedor = null;
                     String forn = scan.next();
                     switch (forn) {
                         case "EDP" -> fornecedor = new FornecEDP();
                         case "Endesa" -> fornecedor = new FornecEndesa();
                         case "Jomar" -> fornecedor = new FornecJomar();
-                        default -> System.out.println("Fornecedor inválido! Casa não será criada.");
+                        default -> {
+                            System.out.println("Fornecedor inválido! Casa não será criada.");
+                            Thread.sleep(2000);
+                        }
                     }
                     if(fornecedor!=null){
                         Casa c = new Casa(proprietario, nif, fornecedor);
@@ -131,7 +136,10 @@ public class ControllerCasa {
                         c.addRoom(d);
                         estado.updateCasa(c, i-1);
                     }
-                    else System.out.println("A divisão já existe! ");
+                    else {
+                        System.out.println("A divisão já existe! ");
+                        Thread.sleep(1000);
+                    }
                 }
                 case 6 -> {
                     int i = -1;
@@ -176,6 +184,26 @@ public class ControllerCasa {
                         c.addToRoom(d,s.getID());
                         estado.updateCasa(c, i-1);
                     }
+                }
+                case 7 -> {
+                    System.out.println("Insira o indice da casa: ");
+                    int i = scanner.nextInt();
+
+                    System.out.println("Insira o nome do fornecedor: ");
+                    Fornecedores fornecedor = null;
+                    String forn = scanner.next();
+                    switch (forn) {
+                        case "EDP" -> fornecedor = new FornecEDP();
+                        case "Endesa" -> fornecedor = new FornecEndesa();
+                        case "Jomar" -> fornecedor = new FornecJomar();
+                        default -> {
+                            System.out.println("Fornecedor inválido! Casa não será criada.");
+                            Thread.sleep(3000);
+                        }
+                    }
+                    Casa c = l.get(i-1);
+                    c.setFornecedor(fornecedor);
+                    estado.updateCasa(c, i-1);
                 }
                 case 0 -> {
                     exit = true;
@@ -223,6 +251,7 @@ public class ControllerCasa {
                 int v = volume.nextInt();
                 return new SmartSpeaker(id,turn,v,r,m);
             }
+
         }
         return null;
     }

@@ -279,6 +279,7 @@ public class Estado implements Serializable {
         ois.close();
         this.casas = e.casas;
         this.fornecedores = e.fornecedores;
+        this.data = e.data;
         return e;
     }
     /*

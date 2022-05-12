@@ -1,4 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static java.lang.Math.max;
 
 public class ControllerEstatistica {
     public static void run(Estado estado) throws InterruptedException {
@@ -65,6 +69,64 @@ public class ControllerEstatistica {
                     int a = Menu.MenuCasaInfo (i- 1, l);
                     if (a == 0) break;
                 }
+                case 5 ->{
+                    
+                    int edp=0,jomar = 0,endesa = 0;
+                    Fornecedores forn = null;
+                    
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
+
+                    System.out.println ("Insira a data inicial no formato dd/MM/yyyy:");
+                    String s1 = scanner.next();
+
+                    System.out.println ("Insira a data final no formato dd/MM/yyyy:");
+                    String s2 = scanner.next();
+
+                    while (!(ControllerSimulacao.isDateValid (s1)) && !(ControllerSimulacao.isDateValid (s2))) {
+                        Menu.erros(11);
+                        System.out.println ("Insira a data inicial no formato dd/MM/yyyy:");
+                        s1 = scanner.next();
+                        System.out.println ("Insira a data final no formato dd/MM/yyyy:");
+                        s2 = scanner.next();
+                    }
+                    LocalDate dBefore = LocalDate.parse (s1, dateTimeFormatter);
+                    LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
+                    for ( Casa c : l){
+                        List<Faturas> faturas = c.getFatura();
+                        for ( Faturas fatura : faturas){
+                            LocalDate data = LocalDate.parse (fatura.getDataFinal(), dateTimeFormatter);
+                            if (data.isAfter(dBefore)) {
+                                if (c.getFornecedor() instanceof FornecJomar) {
+                                    jomar+=fatura.getFatura();
+                                    //forn = c.getFornecedor();
+                                }
+                                else if (c.getFornecedor() instanceof FornecEDP) {
+                                    edp+=fatura.getFatura();
+                                   // forn = c.getFornecedor();
+                                }
+                                else if (c.getFornecedor() instanceof FornecEndesa) {
+                                    endesa+=fatura.getFatura();
+                                    //forn = c.getFornecedor();
+                                }
+                            }
+                        }
+                    }
+                    int max = max(max(jomar,edp),endesa);
+                    
+                    String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +
+                            "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
+                            "Fornecedor= " +
+                            "\nFaturação= " + max +
+                            "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
+                            "Selecione a opção pretendida:\s";
+                    System.out.println(sb);
+                    int i = scanner.nextInt ();
+                    while (i != 0) {
+                        i = scanner.nextInt ();
+                    }
+                    
+                    
+                }
                 case 0 -> {
                     exit = true;
                     Menu.clearWindow();
@@ -74,3 +136,4 @@ public class ControllerEstatistica {
         }
     }
 }
+
