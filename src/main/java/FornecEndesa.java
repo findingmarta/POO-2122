@@ -12,6 +12,10 @@ public class FornecEndesa extends Fornecedores{
         super(volumeFaturacao);
     }
 
+    public FornecEndesa(String formula) {
+        super(formula);
+    }
+
     public FornecEndesa(FornecEndesa umFornecedor) {
         super(umFornecedor);
     }

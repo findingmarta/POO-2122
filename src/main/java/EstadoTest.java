@@ -180,8 +180,8 @@ public class EstadoTest {
     @Test
     public void testLerFicheiro(){
         List<String> lines = Estado.lerFicheiro("src/main/java/logs.txt");
-        assertEquals("Fornecedor:EDP", lines.get(0));
-        assertEquals("Fornecedor:Jomar", lines.get(1));
+        assertEquals("Fornecedor:EDP,formula2", lines.get(0));
+        assertEquals("Fornecedor:Jomar,formula1", lines.get(1));
         assertEquals("Casa:Joao Pedro Malheiro da Costa,707666276,EDP", lines.get(3));
         assertEquals("Divisao:Sala de Jantar", lines.get(4));
     }

@@ -5,32 +5,29 @@ public abstract class Fornecedores implements Serializable {
     private double valorBase = 0.148;
     private double imposto = 0.60;
     private double volumeFaturacao = 0.0;
-    //private String formula;
+    private String formula;
 
     /**
      * Construtores
      */
-
-
     public Fornecedores() {
         //this.volumeFaturacao = 0.0;
-        //this.formula = "";
+        this.formula = "";
     }
-
 
     public Fornecedores (double volumeFaturacao){
         this.volumeFaturacao = volumeFaturacao;
     }
 
     public Fornecedores (String formula){
-        //this.formula = formula;
+        this.formula = formula;
     }
 
     public Fornecedores (Fornecedores umFornecedor){
         this.volumeFaturacao = umFornecedor.getVolumeFaturacao();
         this.valorBase = umFornecedor.getValorBase();
         this.imposto = umFornecedor.getImposto();
-        //this.formula = umFornecedor.getFormula();
+        this.formula = umFornecedor.getFormula();
     }
 
     /**
@@ -45,13 +42,13 @@ public abstract class Fornecedores implements Serializable {
         return this.imposto;
     }
 
-    /*public String getFormula() {
+    public String getFormula() {
         return this.formula;
     }
 
     public void setFormula(String formula) {
          this.formula = formula;
-    }*/
+    }
 
     public double getVolumeFaturacao() {
         return this.volumeFaturacao;
@@ -72,7 +69,8 @@ public abstract class Fornecedores implements Serializable {
     public String toString() {
         return  "\nValor Base= " + valorBase +
                 "\nImposto= " + imposto +
-                "\nFaturação= " + volumeFaturacao;
+                "\nFaturação= " + volumeFaturacao +
+                "\nFórmula= " + formula;
     }
 
     @Override
@@ -94,7 +92,7 @@ public abstract class Fornecedores implements Serializable {
     /**
      * Metodos
      */
-    public abstract double PrecoDiarioPorDispositivo (SmartDevice sd);
+    //public abstract double PrecoDiarioPorDispositivo (SmartDevice sd);
 
     public void aumentaVolumeFaturacao(double volumeFaturacao) {        //pode ser negativo???
         setVolumeFaturacao(this.volumeFaturacao += volumeFaturacao);

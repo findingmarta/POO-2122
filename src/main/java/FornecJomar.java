@@ -12,6 +12,10 @@ public class FornecJomar extends Fornecedores{
         super(volumeFaturacao);
     }
 
+    public FornecJomar(String formula) {
+        super(formula);
+    }
+
     public FornecJomar(FornecJomar umFornecedor) {
         super(umFornecedor);
     }

@@ -25,6 +25,7 @@ public class Menu {
                  \u001B[1m 2) \u001B[0m Menu Casa.
                  \u001B[1m 3) \u001B[0m Lista Fornecedores.
                  \u001B[1m 4) \u001B[0m Simulação.
+                 \u001B[1m 5) \u001B[0m Automatização.
                  \u001B[1m 0) \u001B[0m Sair.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -106,9 +107,6 @@ public class Menu {
         return scanner.nextInt();
     }
 
-
-
-/*
     public static int menuFornecedores() {
         clearWindow();
         String sb = """
@@ -117,7 +115,7 @@ public class Menu {
                  \u001B[1m           FORNECEDORES \u001B[0m
 
                  \u001B[1m 1) \u001B[0m Info fornecedores.
-                 \u001B[1m 2) \u001B[0m Outras coisas
+                 \u001B[1m 2) \u001B[0m Modificar fórmula.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
@@ -125,7 +123,7 @@ public class Menu {
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
-    }*/
+    }
 
 
     public static int MenuEstado(){
@@ -244,6 +242,7 @@ public class Menu {
         else if (i==18) sb.append(CYAN_BRIGHT).append("***** Divisão inválida *****").append(RESET).append("\n");
         else if (i==19) sb.append(CYAN_BRIGHT).append("***** Volume de faturação inválido *****").append(RESET).append("\n");
         else if (i==20) sb.append(CYAN_BRIGHT).append("***** Não foi possível ligar/desligar todos os dispositivos da divisão *****").append(RESET).append("\n");
+        else if (i==21) sb.append(CYAN_BRIGHT).append("***** Fórmula não existe! *****").append(RESET).append("\n");
 
         System.out.print(sb);
     }

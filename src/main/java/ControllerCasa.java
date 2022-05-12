@@ -107,9 +107,9 @@ public class ControllerCasa {
                     Fornecedores fornecedor = null;
                     String forn = scan.next();
                     switch (forn) {
-                        case "EDP" -> fornecedor = new FornecEDP();
-                        case "Endesa" -> fornecedor = new FornecEndesa();
-                        case "Jomar" -> fornecedor = new FornecJomar();
+                        case "EDP" -> fornecedor = estado.getFornecedores().get(0);
+                        case "Endesa" -> fornecedor = estado.getFornecedores().get(2);
+                        case "Jomar" -> fornecedor = estado.getFornecedores().get(1);
                         default -> {
                             System.out.println("Fornecedor inválido! Casa não será criada.");
                             Thread.sleep(2000);

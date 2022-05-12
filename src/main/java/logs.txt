@@ -1,6 +1,6 @@
-Fornecedor:EDP
-Fornecedor:Jomar
-Fornecedor:Endesa
+Fornecedor:EDP,formula2
+Fornecedor:Jomar,formula1
+Fornecedor:Endesa,formula3
 Casa:Joao Pedro Malheiro da Costa,707666276,EDP
 Divisao:Sala de Jantar
 SmartBulb:7906985,Neutral,60.0

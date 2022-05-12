@@ -117,7 +117,8 @@ public class SmartBulb extends SmartDevice {
      */
     public double consumoEnergia(){
         if(getDimensao()<=0) return 0;
-        return 1 + this.tone + this.dimensao;
+        //return 1 + this.tone + this.dimensao;
+        return 1;
     }
 }
 

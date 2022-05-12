@@ -109,13 +109,15 @@ public class Estado implements Serializable {
         return faturas;
     }*/
 
-
-
     /**
      * Metodos
      */
     public void addCasa (Casa c){
         this.casas.add(c.clone());
+    }
+
+    public void updateCasas (Fornecedores f){
+        this.casas.stream().filter(casa -> casa.getFornecedor().equals(f)).forEach(casa -> casa.setFornecedor(f));
     }
 
     public void updateCasa (Casa c, int index){
@@ -128,23 +130,29 @@ public class Estado implements Serializable {
         casa.setFatura(c.getFatura());
     }
 
-    public void updateFornecedor (Fornecedores f, double precoFinal){
-        int index;
+    public void updateFornecedor (Fornecedores f){
+        int index = this.fornecedores.indexOf(f);
+        Fornecedores forn = this.fornecedores.get(index);
+        forn.setVolumeFaturacao(f.getVolumeFaturacao());
+        forn.setFormula(f.getFormula());
+        /*int index;
         if (f instanceof FornecEDP) {
             index = this.fornecedores.indexOf(f);
             Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
         }
         else if (f instanceof FornecEndesa) {
             index = this.fornecedores.indexOf(f);
             Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
+            forn.setFormula(f.getFormula());
         }
         else if (f instanceof FornecJomar) {
             index = this.fornecedores.indexOf(f);
             Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao() + precoFinal);
-        }
+            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
+        }*/
+        //assert forn != null;*/
     }
 
     public void loadEstado(String file) {
@@ -202,22 +210,31 @@ public class Estado implements Serializable {
         }
     }
 
-    private static Casa parseC(String linhaPartida){
+    private Casa parseC(String linhaPartida){
         String[] dados = linhaPartida.split(",");
         String proprietario = dados[0];
         String NIF = dados[1];
-        Fornecedores fornecedor = parseF(dados[2]);
+        Fornecedores fornecedor = null;
+        switch (dados[2]) {
+            case "EDP" -> fornecedor = this.fornecedores.get(0);
+            case "Endesa" -> fornecedor = this.fornecedores.get(2);    //VER MELHOR
+            case "Jomar" -> fornecedor = this.fornecedores.get(1);
+            default -> Menu.erros(15);
+        }
         return new Casa(proprietario,NIF,fornecedor);
     }
 
     private static Fornecedores parseF(String linhaPartida){
+        String[] dados = linhaPartida.split(",");
         Fornecedores fornec = null;
-        switch (linhaPartida) {
+        switch (dados[0]) {
             case "EDP" -> fornec = new FornecEDP();
             case "Endesa" -> fornec = new FornecEndesa();
             case "Jomar" -> fornec = new FornecJomar();
             default -> Menu.erros(15);
         }
+        assert fornec != null;
+        fornec.setFormula(dados[1]);
         return fornec;
     }
 

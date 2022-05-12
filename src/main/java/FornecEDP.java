@@ -12,6 +12,10 @@ public class FornecEDP extends Fornecedores{
         super(volumeFaturacao);
     }
 
+    public FornecEDP(String formula) {
+        super(formula);
+    }
+
     public FornecEDP(FornecEDP umFornecedor) {
         super(umFornecedor);
     }

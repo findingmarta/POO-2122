@@ -1,7 +1,6 @@
-2022.04.10,Casa,1,setOn,12345
-2022.04.10,Casa,1,setDivisionOn,Sala
-2022.04.10,Casa,2,setOff,32144
-2022.04.10,Casa,1,setDivisionOff,Jardim 1
-2022.04.11,Casa,2,mudarFornecedor,EDP
-2022.04.12,Fornecedor,Endesa,alterarValorDesconto, 123.99
-2022.04.12,Fornecedor,EDP,alterarFormula, f1
+10/04/2022,Casa,180,setOn,3029296
+10/04/2022,Casa,66,setDivisionOn,Cozinha
+10/04/2022,Casa,66,setOff,484148
+10/04/2022,Casa,66,setDivisionOff,Escritorio
+11/04/2022,Casa,66,mudarFornecedor,Endesa
+12/04/2022,Fornecedor,EDP,alterarFormula,formula1

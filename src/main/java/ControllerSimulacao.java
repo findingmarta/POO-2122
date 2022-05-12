@@ -21,32 +21,44 @@ public class ControllerSimulacao {
                     double diff;
                     System.out.println ("Insira a data no formato dd/MM/yyyy:");
                     String s2 = scanner.next();
-                    //String dateFormat = "dd/MM/yyyy";
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
+
                     while (!(ControllerSimulacao.isDateValid (s2))) {
                         Menu.erros(11);
                         System.out.println ("Insira a data no formato dd/MM/yyyy:");
                         s2 = scanner.next ();
                     }
+
                     String s1= estado.getData();
                     LocalDate dBefore = LocalDate.parse (s1, dateTimeFormatter);
                     LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
+
                     if (dAfter.isAfter (dBefore)) {
                         diff = ChronoUnit.DAYS.between (dBefore, dAfter);
+
                         for (Casa c : estado.getCasas()) {
-                            //String formula = c.getFornecedor().getFormula();
-                            double precoFinal = c.consumoTotal() * diff;
-                            //double precoFinal = c.consumoTotal(formula) * diff;
-                            Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal ());
-                            //Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal (formula));
+                            String formula = c.getFornecedor().getFormula();
+                            //double precoFinal = c.consumoTotal() * diff;
+                            double precoFinal = c.consumoTotal(formula) * diff;
+                            //Faturas fatura = new Faturas (precoFinal,s1, s2, preco);
+                            Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal(formula));
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
                             estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
 
-                            Fornecedores f = c.getFornecedor();
-                            estado.updateFornecedor(f, precoFinal); //por causa da faturacao
-                            //f.aumentaVolumeFaturacao (precoFinal);
+                            /*if(c.getProprietario().equals("Marta Isabel da Silva e Sa")){
+                                System.out.println(c);
+                                System.out.println(estado.getCasas().get(estado.getCasas().indexOf(c)));
+                            }*/
+
+                                Fornecedores f = c.getFornecedor();
+                                f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal);
+                                c.setFornecedor(f);
+                                estado.updateFornecedor(f); //por causa da faturacao
+                                estado.updateCasa(c, estado.getCasas().indexOf(c));
+                                //f.aumentaVolumeFaturacao (precoFinal);
+
                         }
                         // Estado.ordenaListCasa (estado.getCasas ());
                         estado.setData (s2);
@@ -75,8 +87,6 @@ public class ControllerSimulacao {
     }
 
     public static boolean isDateValid(String strDate) {
-        String dateFormat = "dd/MM/yyyy";
-
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);

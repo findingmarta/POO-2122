@@ -106,6 +106,7 @@ public class SmartCamera extends SmartDevice {
      */
     public double consumoEnergia(){
         if(getResolution()==0 || getSize()==0) return 0;
-        return 3 + (this.resolution * this.size);
+        //return 3 + (this.resolution * this.size);
+        return 100;
     }
 }

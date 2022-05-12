@@ -9,7 +9,8 @@ public class Controller {
                 case 1->ControllerEstado.run(estado);
                 case 2-> ControllerCasa.run(estado);
                 case 3-> ControllerFornecedores.run(estado);
-                case 4-> ControllerSimulacao.run (estado);
+                case 4-> ControllerSimulacao.run(estado);
+                case 5-> ControllerAutomatizacao.run(estado);
                 case 0-> System.exit (0);
             }
         }

@@ -126,7 +126,8 @@ public class SmartSpeaker extends SmartDevice {
      */
     public double consumoEnergia(){
         if(getVolume()==0 && getMarca().length()==0) return 0;
-        return  2 + (this.getVolume() + this.marca.length());
+        //return  2 + (this.getVolume() + this.marca.length());
+        return  20;
     }
 
     public void volumeUp() {

@@ -181,7 +181,7 @@ public class FornecedoresTest {
         for(int i=0; i<3; i++) fornecJomar.aumentaVolumeFaturacao(-2);
         assertEquals(0.0, fornecJomar.getVolumeFaturacao());
     }
-
+    /*
     @Test
     public void testPrecoDiarioPorDispositivo_EDP(){
         double scale = 1000000d;
@@ -272,5 +272,5 @@ public class FornecedoresTest {
         sc = new SmartCamera(1080, -3);
         assertEquals(0.0, Math.round(fornecJomar.PrecoDiarioPorDispositivo(sc)*scale)/scale);
 
-    }
+    }*/
 }

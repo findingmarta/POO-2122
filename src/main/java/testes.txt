@@ -1,3 +1,6 @@
+Fornecedor:EDP,formula2
+Fornecedor:Jomar,formula1
+Fornecedor:Endesa,formula3
 Casa:Marta Isabel da Silva e Sa,842037533,EDP
 Divisao:Escritorio
 SmartBulb:6549099,Neutral,0.21

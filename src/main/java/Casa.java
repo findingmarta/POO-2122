@@ -144,7 +144,8 @@ public class Casa implements Serializable {
         sb.append("\u001B[1mProprietario: \u001B[0m").append(proprietario).append('\n');
         sb.append("\u001B[1mNIF: \u001B[0m").append(NIF).append('\n');
         sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor.Stringfornecedor(fornecedor)).append('\n');
-        //sb.append("\u001B[1mFatura: \u001B[0m").append(fatura).append('\n');
+        sb.append("\u001B[1mFormula: \u001B[0m").append(fornecedor.getFormula()).append('\n');
+        sb.append("\u001B[1mVolume: \u001B[0m").append(fornecedor.getVolumeFaturacao()).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }
@@ -234,28 +235,34 @@ public class Casa implements Serializable {
         else System.out.println("ID repetido ou inválido!");
     }
 
-    public double consumoTotal() {
-        //formulaStrategy strategy;
+    public double consumoTotal(String formula) {
         Set<String> setOfKeys = devices.keySet();
-        Fornecedores forn = getFornecedor();
+        //Fornecedores forn = getFornecedor();
         double contador = 0;
 
-        /*switch (formula){
+        formulaStrategy strategy = null;
+        switch (formula){
             case "formula1" -> strategy = new formula1();
             case "formula2" -> strategy = new formula2();
             case "formula3" -> strategy = new formula3();
-        }*/
-
+        }
         for (String key : setOfKeys) {
+            SmartDevice s = this.getDevice(key);
+            if (s.getOn()) {
+                assert strategy != null;
+                contador += strategy.formula(s);
+            }
+        }
+        return contador;
+
+        /*for (String key : setOfKeys) {
             SmartDevice s = this.getDevice(key);
             if (s.getOn()) contador += forn.PrecoDiarioPorDispositivo(s);
             else contador += 0;
-        }
-        return contador;
+        }*/
     }
 
-
-        public static class ComparatorConsumo implements Comparator<Casa> {
+    public static class ComparatorConsumo implements Comparator<Casa> {
         @Override
         public int compare(Casa c1, Casa c2) {
             List<Faturas> listfaturas = c1.getFatura();
@@ -269,8 +276,8 @@ public class Casa implements Serializable {
         public int compare(Casa c1, Casa c2) {
             List<Faturas> listfaturas = c1.getFatura();
             List<Faturas> listfaturas2 = c2.getFatura();
-            System.out.println(listfaturas);
-            System.out.println(listfaturas2);
+            //System.out.println(listfaturas);
+            //System.out.println(listfaturas2);
             return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
         }
     }
