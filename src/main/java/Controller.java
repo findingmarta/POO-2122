@@ -9,8 +9,22 @@ public class Controller {
                 case 1->ControllerEstado.run(estado);
                 case 2-> ControllerCasa.run(estado);
                 case 3-> ControllerFornecedores.run(estado);
-                case 4-> ControllerSimulacao.run(estado);
-                case 5-> ControllerAutomatizacao.run(estado);
+                case 4-> {
+                    if(!estado.getCasas().isEmpty() && !estado.getFornecedores().isEmpty())
+                        ControllerSimulacao.run(estado);
+                    else {
+                        Menu.erros(23);
+                        Thread.sleep(2000);
+                    }
+                }
+                case 5-> {
+                    if(!estado.getCasas().isEmpty() && !estado.getFornecedores().isEmpty())
+                        ControllerAutomatizacao.run(estado);
+                    else {
+                        Menu.erros(23);
+                        Thread.sleep(2000);
+                    }
+                }
                 case 0-> System.exit (0);
             }
         }

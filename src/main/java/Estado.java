@@ -216,11 +216,12 @@ public class Estado implements Serializable {
         String NIF = dados[1];
         Fornecedores fornecedor = null;
         switch (dados[2]) {
-            case "EDP" -> fornecedor = this.fornecedores.get(0);
-            case "Endesa" -> fornecedor = this.fornecedores.get(2);    //VER MELHOR
-            case "Jomar" -> fornecedor = this.fornecedores.get(1);
+            case "EDP" -> fornecedor = new FornecEDP();
+            case "Endesa" -> fornecedor = new FornecEndesa();
+            case "Jomar" -> fornecedor = new FornecJomar();
             default -> Menu.erros(15);
         }
+        fornecedor = this.getFornecedores().get(this.getFornecedores().indexOf(fornecedor));
         return new Casa(proprietario,NIF,fornecedor);
     }
 
@@ -299,22 +300,17 @@ public class Estado implements Serializable {
         this.data = e.data;
         return e;
     }
-    /*
-    public  List<Casa> loadFaturasObj(String file) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        List<Casa> e = (List<Casa>) ois.readObject();
-        ois.close();
-        return e;
-    }*/
+
     public static void ordenaListConsumo(List<Casa> casas){
         casas.sort(new Casa.ComparatorConsumo());
     }
 
     public Casa ordenaListGasto(List<Casa> casas){
-        casas.sort(new Casa.ComparatorGasto());
-        int index = casas.size()-1;
-        return casas.get(index).clone();
+        //casas.sort(new Casa.ComparatorGasto());
+        //int index = casas.size()-1;
+
+        casas.sort(new Casa.ComparatorConsumo());
+        return casas.get(0).clone();
     }
 
     public Fornecedores ordenaListFornecedores(List<Fornecedores> forn){
@@ -322,14 +318,4 @@ public class Estado implements Serializable {
         int index = forn.size()-1;
         return forn.get(index).clone();
     }
-
-/*
-    /*
-    public void saveFaturas(String file) throws IOException {
-        FileOutputStream fos =  new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.getFaturas());
-        oos.flush();
-        oos.close();
-    }*/
 }

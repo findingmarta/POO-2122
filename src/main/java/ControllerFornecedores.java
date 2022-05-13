@@ -32,6 +32,7 @@ public class ControllerFornecedores {
                 }
                 case 2 ->{
                     List<Fornecedores> fornecedores = estado.getFornecedores();
+                    Fornecedores forn = null;
 
                     System.out.println("Insira o nome do fornecedor: ");
                     Scanner scan = new Scanner(System.in);
@@ -42,31 +43,17 @@ public class ControllerFornecedores {
                     if(formula.equals("formula1") || formula.equals("formula2") || formula.equals("formula3")){
                         switch (nomeF) {
                             //case "EDP" -> fornecedor = new FornecEDP(formula);
-                            case "EDP" -> {
-                                Fornecedores forn = new FornecEDP();
-                                forn = fornecedores.get(fornecedores.indexOf(forn));
-                                forn.setFormula(formula);
-                                estado.updateFornecedor(forn);
-                                estado.updateCasas(forn);
-                            }
-                            case "Endesa" -> {
-                                Fornecedores forn = new FornecEndesa();
-                                forn = fornecedores.get(fornecedores.indexOf(forn));
-                                forn.setFormula(formula);
-                                estado.updateFornecedor(forn);
-                                estado.updateCasas(forn);
-                            }
-                            case "Jomar" -> {
-                                Fornecedores forn = new FornecJomar();
-                                forn = fornecedores.get(fornecedores.indexOf(forn));
-                                forn.setFormula(formula);
-                                estado.updateFornecedor(forn);
-                                estado.updateCasas(forn);
-                            }
+                            case "EDP" -> forn = new FornecEDP();
+                            case "Endesa" -> forn = new FornecEndesa();
+                            case "Jomar" -> forn = new FornecJomar();
                             default -> Menu.erros(7);
                         }
                     }
                     else Menu.erros(21);
+                    forn = fornecedores.get(fornecedores.indexOf(forn));
+                    forn.setFormula(formula);
+                    estado.updateFornecedor(forn);
+                    estado.updateCasas(forn);
                 }
                 case 0 -> {
                     Menu.clearWindow ();

@@ -23,7 +23,7 @@ public class Menu {
 
                  \u001B[1m 1) \u001B[0m Estado.
                  \u001B[1m 2) \u001B[0m Menu Casa.
-                 \u001B[1m 3) \u001B[0m Lista Fornecedores.
+                 \u001B[1m 3) \u001B[0m Menu Fornecedores.
                  \u001B[1m 4) \u001B[0m Simulação.
                  \u001B[1m 5) \u001B[0m Automatização.
                  \u001B[1m 0) \u001B[0m Sair.
@@ -202,10 +202,10 @@ public class Menu {
 
                  \u001B[1m           MENU ESTATÍSTICAS \u001B[0m
 
-                 \u001B[1m 1) \u001B[0m Casa com maior gasto.
+                 \u001B[1m 1) \u001B[0m Casa com maior gasto no período máximo.
                  \u001B[1m 2) \u001B[0m Fornecedor com maior volume de facturação.          
-                 \u001B[1m 3) \u001B[0m Faturas emitidas por um fornecedor.
-                 \u001B[1m 4) \u001B[0m Top consumidores.
+                 \u001B[1m 3) \u001B[0m Faturas emitidas por um fornecedor no estado atual.
+                 \u001B[1m 4) \u001B[0m Top consumidores durante um determinado período.
                  \u001B[1m 5) \u001B[0m Fornecedor com maior volume de facturação num determinado intervalo.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -243,6 +243,9 @@ public class Menu {
         else if (i==19) sb.append(CYAN_BRIGHT).append("***** Volume de faturação inválido *****").append(RESET).append("\n");
         else if (i==20) sb.append(CYAN_BRIGHT).append("***** Não foi possível ligar/desligar todos os dispositivos da divisão *****").append(RESET).append("\n");
         else if (i==21) sb.append(CYAN_BRIGHT).append("***** Fórmula não existe! *****").append(RESET).append("\n");
+        else if (i==22) sb.append(CYAN_BRIGHT).append("*****  Não existem faturas emitidas! *****").append(RESET).append("\n");
+        else if (i==23) sb.append(CYAN_BRIGHT).append("*****  Não existem casas nem fornecedores! *****").append(RESET).append("\n");
+        else if (i==24) sb.append(CYAN_BRIGHT).append("*****  A data não é posterior à data atual! *****").append(RESET).append("\n");
 
         System.out.print(sb);
     }

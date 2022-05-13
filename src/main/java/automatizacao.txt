@@ -4,3 +4,9 @@
 10/04/2022,Casa,66,setDivisionOff,Escritorio
 11/04/2022,Casa,66,mudarFornecedor,Endesa
 12/04/2022,Fornecedor,EDP,alterarFormula,formula1
+10/04/2017,Casa,180,setOn,3029296
+10/04/2017,Casa,66,setDivisionOn,Cozinha
+10/04/2017,Casa,66,setOff,484148
+10/04/2022,Casa,66,setDivisionOn,Escritorio
+11/04/2017,Casa,66,mudarFornecedor,Endesa
+12/04/2017,Fornecedor,EDP,alterarFormula,formula1

@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Automatizacao {
-    public static void parseFile(String file, Estado estado) {
+    public static void parseFile(String file, Estado estado) throws InterruptedException {
         List<String> linhas = Estado.lerFicheiro(file);
         List<Casa> casas = estado.getCasas();
         List<Fornecedores> fornecedores = estado.getFornecedores();
@@ -13,27 +13,36 @@ public class Automatizacao {
             String[] linhaPartida = linha.split(",");
             LocalDate dataFutura = LocalDate.parse(linhaPartida[0], dateTimeFormatter);
 
-            switch (linhaPartida[1]) {
-                case "Casa" -> {
-                    int indice = Integer.parseInt(linhaPartida[2]) - 1;
-                    Casa casa = casas.get(indice);
-                    parseComandoC(linhaPartida[3], linhaPartida[4], casa,fornecedores);
-                    estado.updateCasa(casa, indice);
-                }
-                case "Fornecedor" -> {
-                    String nomeF = linhaPartida[2];
-                    Fornecedores fornecedor = null;
-                    switch (nomeF) {
-                        case "EDP" -> fornecedor = fornecedores.get(0);
-                        case "Endesa" -> fornecedor = fornecedores.get(2);
-                        case "Jomar" -> fornecedor = fornecedores.get(1);
-                        default -> Menu.erros(7);
+            if (dataFutura.isAfter(LocalDate.parse(estado.getData(),dateTimeFormatter))) {
+                switch (linhaPartida[1]) {
+                    case "Casa" -> {
+                        int indice = Integer.parseInt(linhaPartida[2]) - 1;
+                        Casa casa = casas.get(indice);
+                        parseComandoC(linhaPartida[3], linhaPartida[4], casa, fornecedores);
+                        estado.updateCasa(casa, indice);
                     }
-                    parseComandoF(linhaPartida[3], linhaPartida[4], fornecedor);
-                    estado.updateFornecedor(fornecedor);
-                    estado.updateCasas(fornecedor);
+                    case "Fornecedor" -> {
+                        String nomeF = linhaPartida[2];
+                        Fornecedores fornecedor = null;
+                        switch (nomeF) {
+                            case "EDP" -> fornecedor = new FornecEDP();
+                            case "Endesa" -> fornecedor = new FornecEndesa();
+                            case "Jomar" -> fornecedor = new FornecJomar();
+                            default -> Menu.erros(7);
+                        }
+                        fornecedor = fornecedores.get(fornecedores.indexOf(fornecedor));
+                        parseComandoF(linhaPartida[3], linhaPartida[4], fornecedor);
+                        estado.updateFornecedor(fornecedor);
+                        estado.updateCasas(fornecedor);
+                    }
+                    default -> Menu.erros(15);
                 }
-                default -> Menu.erros(15);
+            }
+            else {
+                Menu.erros(15);
+                Menu.erros(24);
+                System.out.println("Data atual: "+estado.getData());
+                Thread.sleep(100);
             }
         }
     }

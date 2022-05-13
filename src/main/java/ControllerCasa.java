@@ -186,23 +186,25 @@ public class ControllerCasa {
                     }
                 }
                 case 7 -> {
+                    List<Fornecedores> fornecedores = estado.getFornecedores();
                     System.out.println("Insira o indice da casa: ");
                     int i = scanner.nextInt();
 
                     System.out.println("Insira o nome do fornecedor: ");
-                    Fornecedores fornecedor = null;
-                    String forn = scanner.next();
-                    switch (forn) {
-                        case "EDP" -> fornecedor = new FornecEDP();
-                        case "Endesa" -> fornecedor = new FornecEndesa();
-                        case "Jomar" -> fornecedor = new FornecJomar();
+                    Fornecedores forn = null;
+                    String f = scanner.next();
+                    switch (f) {
+                        case "EDP" -> forn = new FornecEDP();
+                        case "Endesa" -> forn = new FornecEndesa();
+                        case "Jomar" -> forn = new FornecJomar();
                         default -> {
                             System.out.println("Fornecedor inválido! Casa não será criada.");
                             Thread.sleep(3000);
                         }
                     }
+                    forn = fornecedores.get(fornecedores.indexOf(forn));
                     Casa c = l.get(i-1);
-                    c.setFornecedor(fornecedor);
+                    c.setFornecedor(forn);
                     estado.updateCasa(c, i-1);
                 }
                 case 0 -> {

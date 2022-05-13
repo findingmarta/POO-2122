@@ -56,10 +56,7 @@ public abstract class Fornecedores implements Serializable {
 
     public void setVolumeFaturacao(double volumeFaturacao) {
         if(volumeFaturacao>=0) this.volumeFaturacao = volumeFaturacao;
-        else {
-            Menu.erros(19);
-            this.volumeFaturacao = 0.0;
-        }
+        else Menu.erros(19);
     }
 
     /**
@@ -94,8 +91,9 @@ public abstract class Fornecedores implements Serializable {
      */
     //public abstract double PrecoDiarioPorDispositivo (SmartDevice sd);
 
-    public void aumentaVolumeFaturacao(double volumeFaturacao) {        //pode ser negativo???
-        setVolumeFaturacao(this.volumeFaturacao += volumeFaturacao);
+    public void aumentaVolumeFaturacao(double volumeFaturacao) {
+        if(volumeFaturacao >= 0) setVolumeFaturacao(this.volumeFaturacao += volumeFaturacao);
+        else Menu.erros(19);
     }
 
     public String Stringfornecedor (Fornecedores fornecedor){
