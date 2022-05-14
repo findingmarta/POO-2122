@@ -140,5 +140,6 @@ public class smartSpeakerTest {
 
         smartSpeaker = new SmartSpeaker();
         assertEquals(0, smartSpeaker.consumoEnergia());
+        //assertEquals(0, smartSpeaker.consumoEnergiaPorDispositivo());
     }
 }

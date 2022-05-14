@@ -121,4 +121,3 @@ public class SmartBulb extends SmartDevice {
         return 1;
     }
 }
-

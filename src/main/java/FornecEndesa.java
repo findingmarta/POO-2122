@@ -24,9 +24,4 @@ public class FornecEndesa extends Fornecedores{
     public Fornecedores clone() {
         return new FornecEndesa(this);
     }
-
-    public double PrecoDiarioPorDispositivo(SmartDevice sd){
-        double consumo = sd.consumoEnergia();
-        return this.getValorBase()*consumo*(this.getImposto()+1)*0.9*24;
-    }
 }

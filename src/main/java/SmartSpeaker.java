@@ -132,11 +132,11 @@ public class SmartSpeaker extends SmartDevice {
 
     public void volumeUp() {
         if (this.volume<MAX) this.volume++;
-            else Menu.erros(2);
+        else Menu.erros(2);
     }
 
     public void volumeDown() {
         if (this.volume>0) this.volume--;
-            else Menu.erros(2);
+        else Menu.erros(2);
     }
 }

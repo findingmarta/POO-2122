@@ -108,6 +108,7 @@ public class smartCameraTest {
 
         smartCamera = new SmartCamera("56498",true,140.2,60.0);
         assertEquals(8415, smartCamera.consumoEnergia());
+        //assertEquals(8415, smartCamera.consumoEnergiaPorDispositivo());
     }
 
 }

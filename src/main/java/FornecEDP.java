@@ -24,9 +24,4 @@ public class FornecEDP extends Fornecedores{
     public Fornecedores clone() {
         return new FornecEDP(this);
     }
-
-    public double PrecoDiarioPorDispositivo(SmartDevice sd){
-        double consumo = sd.consumoEnergia();
-        return this.getValorBase()*(consumo+3)*this.getImposto()*0.9*24;
-    }  //e se o consumo for 0??
 }

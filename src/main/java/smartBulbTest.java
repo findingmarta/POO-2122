@@ -135,6 +135,7 @@ public class smartBulbTest {
 
         smartBulb = new SmartBulb("1325", true,SmartBulb.WARM, 78.1);
         assertEquals(81.1, smartBulb.consumoEnergia());
+        //assertEquals(81.1, smartBulb.consumoEnergiaPorDispositivo());
     }
 
 }

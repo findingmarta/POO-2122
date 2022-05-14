@@ -39,21 +39,26 @@ public class ControllerSimulacao {
                         for (Casa c : estado.getCasas()) {
                             String formula = c.getFornecedor().getFormula();
                             double precoFinal = c.consumoTotal(formula) * diff;
-                            Faturas fatura = new Faturas (precoFinal,s1, s2, c.consumoTotal(formula));
+
+                            double consumoTotal=0;
+                            for(SmartDevice sd : c.getDevices().values()){
+                               if(sd.getOn()) consumoTotal+=sd.consumoEnergia();
+                            }
+
+                            Faturas fatura = new Faturas (precoFinal,s1, s2, consumoTotal);
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
 
-                            //if(c.getProprietario().equals("Marta Isabel da Silva e Sa") || c.getProprietario().equals("Artur Carneiro Neto de Nobrega Luis")) {
-                            //Fornecedores f = c.getFornecedor();
                             Fornecedores f = estado.getFornecedores().get(estado.getFornecedores().indexOf(c.getFornecedor()));
                             f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal + c.getCustoInstalacao());
-                            c.setCustoInstalacao (0);
+                            fatura.setFatura(c.getCustoInstalacao());
+                            c.setCustoInstalacao(0);
 
                             estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
                             estado.updateFornecedor(f); //por causa da faturacao
                             estado.updateCasas(f);
-                           // System.out.println(estado.getFornecedores());
+                            // System.out.println(estado.getFornecedores());
                         }
                         // Estado.ordenaListCasa (estado.getCasas ());
                         estado.setData(s2);

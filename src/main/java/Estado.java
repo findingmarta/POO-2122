@@ -136,24 +136,6 @@ public class Estado implements Serializable {
         Fornecedores forn = this.fornecedores.get(index);
         forn.setVolumeFaturacao(f.getVolumeFaturacao());
         forn.setFormula(f.getFormula());
-        /*int index;
-        if (f instanceof FornecEDP) {
-            index = this.fornecedores.indexOf(f);
-            Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
-        }
-        else if (f instanceof FornecEndesa) {
-            index = this.fornecedores.indexOf(f);
-            Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
-            forn.setFormula(f.getFormula());
-        }
-        else if (f instanceof FornecJomar) {
-            index = this.fornecedores.indexOf(f);
-            Fornecedores forn = this.fornecedores.get(index);
-            forn.setVolumeFaturacao(forn.getVolumeFaturacao());
-        }*/
-        //assert forn != null;*/
     }
 
     public void loadEstado(String file) {
@@ -307,10 +289,8 @@ public class Estado implements Serializable {
     }
 
     public Casa ordenaListGasto(List<Casa> casas){
-        //casas.sort(new Casa.ComparatorGasto());
-        //int index = casas.size()-1;
-
-        casas.sort(new Casa.ComparatorConsumo());
+        casas.sort(new Casa.ComparatorGasto());
+        //casas.sort(new Casa.ComparatorConsumo());
         return casas.get(0).clone();
     }
 

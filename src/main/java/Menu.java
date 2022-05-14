@@ -171,18 +171,18 @@ public class Menu {
         sb.append(" \u001B[1m             LISTAS DE FATURAS \u001B[0m\n\n");
         List<Faturas> l = c.getFatura();
         for (int i = 0; i < l.size(); i++) {
-        String nif = l.get(i).getDataInicial();
-        String prop = l.get(i).getDataFinal();
-        sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m").append("Data Inicial: ").append(nif).append("  Data Final: ").append(prop).append("\n");
-    }
+            String nif = l.get(i).getDataInicial();
+            String prop = l.get(i).getDataFinal();
+            sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m").append("Data Inicial: ").append(nif).append("  Data Final: ").append(prop).append("\n");
+        }
         sb.append(" \u001B[1m 0) \u001B[0m Voltar atrás\n");
 
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
-}
-    public static int FaturaInfo(int i, List<Faturas> l) throws InterruptedException {
+    }
+    public static int FaturaInfo(int i, List<Faturas> l) {
         //Thread.sleep(2000);
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
@@ -267,4 +267,4 @@ public class Menu {
 
         System.out.print(sb);
     }
-    }
+}

@@ -47,7 +47,7 @@ public abstract class Fornecedores implements Serializable {
     }
 
     public void setFormula(String formula) {
-         this.formula = formula;
+        this.formula = formula;
     }
 
     public double getVolumeFaturacao() {

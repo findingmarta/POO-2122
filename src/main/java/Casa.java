@@ -117,7 +117,7 @@ public class Casa implements Serializable {
     public List<Faturas> getFatura() {
         List<Faturas> fat = new ArrayList<>();
         for (Faturas f : this.faturas){
-           fat.add(f.clone());
+            fat.add(f.clone());
         }
         return fat;
     }
@@ -227,7 +227,7 @@ public class Casa implements Serializable {
         if(this.divisoes.isEmpty()) return;
         if(hasRoom(divisao) && hasDevice(id) && !roomHasDevice(divisao,id))
             this.divisoes.get(divisao).add(id);
-      //else Menu.erros(5);
+        //else Menu.erros(5);
     }
 
     public boolean hasDevice(String id){
@@ -284,18 +284,18 @@ public class Casa implements Serializable {
         }
     }
 
-    /*public static class ComparatorGasto implements Comparator<Casa> {
+    public static class ComparatorGasto implements Comparator<Casa> {
         @Override
         public int compare(Casa c1, Casa c2) {
             if(c1.getFatura()!=null && c2.getFatura()!=null){
                 List<Faturas> listfaturas = c1.getFatura();
                 List<Faturas> listfaturas2 = c2.getFatura();
-                return Double.compare(listfaturas.get((listfaturas.size())-1).getConsumo(), listfaturas2.get((listfaturas2.size())-1).getConsumo());
+                return -Double.compare(listfaturas.get((listfaturas.size())-1).getFatura(), listfaturas2.get((listfaturas2.size())-1).getFatura());
             }
             else {
                 Menu.erros(22);
                 return -1;
             }
         }
-    }*/
+    }
 }

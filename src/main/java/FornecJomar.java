@@ -24,9 +24,4 @@ public class FornecJomar extends Fornecedores{
     public Fornecedores clone() {
         return new FornecJomar(this);
     }
-
-    public double PrecoDiarioPorDispositivo(SmartDevice sd){
-        double consumo = sd.consumoEnergia();
-        return (this.getValorBase()+20)*consumo*(this.getImposto()+0.5)*24;
-    }
 }

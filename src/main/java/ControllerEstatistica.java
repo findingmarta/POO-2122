@@ -31,10 +31,10 @@ public class ControllerEstatistica {
                 case 2 -> {
                     Fornecedores forn = estado.ordenaListFornecedores (f);
                     String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +
-                                "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
-                                "Fornecedor= " + forn.Stringfornecedor(forn) + forn +
-                                "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
-                                "Selecione a opção pretendida:\s";
+                            "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
+                            "Fornecedor= " + forn.Stringfornecedor(forn) + forn +
+                            "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
+                            "Selecione a opção pretendida:\s";
                     System.out.println(sb);
                     int i = scanner.nextInt ();
                     while (i != 0) {
@@ -48,9 +48,9 @@ public class ControllerEstatistica {
                     for (Casa c : l) {
                         if ((d.equals (c.getFornecedor().Stringfornecedor (c.getFornecedor ()).toLowerCase ())))
                             casas.add(c.clone());
-                            else Menu.erros(7);
+                        else Menu.erros(7);
 
-                        }
+                    }
                     int i = -1;
                     while (i < 0 || i > casas.size ()) {
                         i = Menu.MenuListaCasas (casas);
@@ -150,4 +150,3 @@ public class ControllerEstatistica {
         }
     }
 }
-

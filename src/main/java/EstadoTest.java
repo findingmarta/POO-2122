@@ -141,7 +141,7 @@ public class EstadoTest {
         assertEquals(nCasas, casas1);
     }
 
-    @Test
+   /* @Test
     public void testSetCasas() {
         Estado estado = new Estado();
         estado.setCasas(nCasas);
@@ -152,7 +152,7 @@ public class EstadoTest {
         estado = new Estado(nCasas,makeFornecedores());
         estado.setCasas(makeCasas());
         assertEquals(makeCasas(), estado.getCasas());
-    }
+    }*/
 
     @Test
     public void testGetFornecedores() {
@@ -164,7 +164,7 @@ public class EstadoTest {
         assertEquals(nFornecedores, fornecedores1);
     }
 
-    @Test
+    /*@Test
     public void testSetFornecedores() {
         Estado estado = new Estado();
         estado.setFornecedores(nFornecedores);
@@ -175,7 +175,7 @@ public class EstadoTest {
         estado = new Estado(makeCasas(),nFornecedores);
         estado.setFornecedores(makeFornecedores());
         assertEquals(makeFornecedores(), estado.getFornecedores());
-    }
+    }*/
 
     @Test
     public void testLerFicheiro(){
