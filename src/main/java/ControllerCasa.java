@@ -182,6 +182,8 @@ public class ControllerCasa {
                         assert s != null;
                         c.addSmartDevice(s);
                         c.addToRoom(d,s.getID());
+                        c.setCustoInstalacao (10);
+                       // System.out.println (c.getCustoInstalacao ());
                         estado.updateCasa(c, i-1);
                     }
                 }

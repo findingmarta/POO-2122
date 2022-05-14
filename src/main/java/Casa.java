@@ -13,6 +13,7 @@ public class Casa implements Serializable {
     private String NIF;
     private Fornecedores fornecedor;
     private List<Faturas> faturas;
+    private double custoInstalacao;
 
     /**
      * Constructor for objects of class CasaInteligente
@@ -24,6 +25,7 @@ public class Casa implements Serializable {
         this.NIF = "";
         this.fornecedor = null;
         this.faturas= new ArrayList<>();
+        this.custoInstalacao = 0.0;
     }
 
     public Casa(Map<String, SmartDevice> d, Map<String, HashSet<String>> divisoes, String proprietario, String NIF, Fornecedores fornecedor) {
@@ -54,6 +56,7 @@ public class Casa implements Serializable {
         this.fornecedor = umaCasa.getFornecedor();
         this.proprietario = umaCasa.getProprietario();
         this.faturas= umaCasa.getFatura();
+        this.custoInstalacao = umaCasa.getCustoInstalacao();
     }
 
 
@@ -126,6 +129,14 @@ public class Casa implements Serializable {
         }
     }
 
+    public double getCustoInstalacao() {
+        return this.custoInstalacao;
+    }
+
+    public void setCustoInstalacao(double custoInstalacao) {
+        this.custoInstalacao = custoInstalacao;
+    }
+
     /**
      * Metodo toString, equals, hascode e clone
      */
@@ -146,6 +157,7 @@ public class Casa implements Serializable {
         sb.append("\u001B[1mFornecedor: \u001B[0m").append(fornecedor.Stringfornecedor(fornecedor)).append('\n');
         sb.append("\u001B[1mFormula: \u001B[0m").append(fornecedor.getFormula()).append('\n');
         sb.append("\u001B[1mVolume: \u001B[0m").append(fornecedor.getVolumeFaturacao()).append('\n');
+        sb.append("\u001B[1mCusto Instalação: \u001B[0m").append(custoInstalacao).append('\n');
         sb.append("\n\u001B[36m } \u001B[0m");
         return sb.toString();
     }

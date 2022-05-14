@@ -60,10 +60,14 @@ public class ControllerEstatistica {
                     // if (a==0) Controller.menuEstatistica(estado);
                 }
                 case 4 -> {
+                    System.out.println ("Insira o x: ");
+                    int x = scanner.nextInt ();
+
                     Estado.ordenaListConsumo(l);
+
                     int i = -1;
-                    while (i < 0 || i > l.size ()) {
-                        i = Menu.MenuListaCasas (l);
+                    while (i < 0 || i > x) {
+                        i = Menu.MenuListaX (l, x);
                     }
                     if (i == 0) break;
                     int a = Menu.MenuCasaInfo (i- 1, l);
@@ -71,8 +75,8 @@ public class ControllerEstatistica {
                 }
                 case 5 ->{
                     
-                    int edp=0,jomar = 0,endesa = 0;
-                    Fornecedores forn = null;
+                    int edp=0,jomar = 0,endesa = 0, max =0;
+                    String forn = "";
                     
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
 
@@ -94,29 +98,39 @@ public class ControllerEstatistica {
                     for ( Casa c : l){
                         List<Faturas> faturas = c.getFatura();
                         for ( Faturas fatura : faturas){
-                            LocalDate data = LocalDate.parse (fatura.getDataFinal(), dateTimeFormatter);
-                            if (data.isAfter(dBefore)) {
+                            LocalDate datai = LocalDate.parse (fatura.getDataInicial (), dateTimeFormatter);
+                            LocalDate dataf = LocalDate.parse (fatura.getDataFinal(), dateTimeFormatter);
+                            if (datai.isAfter(dBefore) && dataf.isBefore (dAfter)) {
                                 if (c.getFornecedor() instanceof FornecJomar) {
                                     jomar+=fatura.getFatura();
-                                    //forn = c.getFornecedor();
+                                    if ( jomar > max) {
+                                        max= jomar;
+                                        forn = "Jomar";
+                                    }
                                 }
                                 else if (c.getFornecedor() instanceof FornecEDP) {
                                     edp+=fatura.getFatura();
-                                   // forn = c.getFornecedor();
+                                    if ( edp > max) {
+                                        max= jomar;
+                                        forn = "EDP";
+                                    }
                                 }
                                 else if (c.getFornecedor() instanceof FornecEndesa) {
                                     endesa+=fatura.getFatura();
-                                    //forn = c.getFornecedor();
+                                    if ( endesa > max) {
+                                        max= jomar;
+                                        forn = "Endesa";
+                                    }
                                 }
                             }
                         }
                     }
-                    int max = max(max(jomar,edp),endesa);
+                    //int max = max(max(jomar,edp),endesa);
                     
                     String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +
                             "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
-                            "Fornecedor= " +
-                            "\nFaturação= " + max +
+                            "Fornecedor= " + forn +
+                            "\nFaturação= " + max  +
                             "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
                             "Selecione a opção pretendida:\s";
                     System.out.println(sb);

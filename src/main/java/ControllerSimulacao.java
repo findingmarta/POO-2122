@@ -43,13 +43,14 @@ public class ControllerSimulacao {
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
-                            estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
 
                             //if(c.getProprietario().equals("Marta Isabel da Silva e Sa") || c.getProprietario().equals("Artur Carneiro Neto de Nobrega Luis")) {
                             //Fornecedores f = c.getFornecedor();
                             Fornecedores f = estado.getFornecedores().get(estado.getFornecedores().indexOf(c.getFornecedor()));
-                            f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal);
+                            f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal + c.getCustoInstalacao());
+                            c.setCustoInstalacao (0);
 
+                            estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
                             estado.updateFornecedor(f); //por causa da faturacao
                             estado.updateCasas(f);
                            // System.out.println(estado.getFornecedores());

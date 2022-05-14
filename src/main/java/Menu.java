@@ -75,6 +75,7 @@ public class Menu {
         return scanner.nextInt();
     }
 
+
     public static int MenuCasaInfo(int i, List<Casa> l) {
         clearWindow();
         String sb = "\u001B[1m \u001B[36m_________________________________________________________\u001B[0m \n\n" +
@@ -205,7 +206,7 @@ public class Menu {
                  \u001B[1m 1) \u001B[0m Casa com maior gasto no período máximo.
                  \u001B[1m 2) \u001B[0m Fornecedor com maior volume de facturação.          
                  \u001B[1m 3) \u001B[0m Faturas emitidas por um fornecedor no estado atual.
-                 \u001B[1m 4) \u001B[0m Top consumidores durante um determinado período.
+                 \u001B[1m 4) \u001B[0m Top x consumidores durante um determinado período.
                  \u001B[1m 5) \u001B[0m Fornecedor com maior volume de facturação num determinado intervalo.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
@@ -215,6 +216,23 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+
+    public static int MenuListaX(List<Casa> l, int x) {
+        Menu.clearWindow();
+        StringBuilder sb = new StringBuilder("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
+        sb.append(" \u001B[1m             LISTAS DE CASAS \u001B[0m\n\n");
+        for (int i = 0; i < x && i < l.size (); i++) {
+            String nif = l.get(i).getNIF();
+            String prop = l.get(i).getProprietario();
+            sb.append("  \u001B[1m").append(i + 1).append(") \u001B[0m Casa").append(i + 1).append(" -> NIF: ").append(nif).append("  Proprietário: ").append(prop).append("\n");
+        }
+        sb.append(" \u001B[1m 0) \u001B[0m Voltar atrás.\n");
+        sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
 
     public static final String RESET = "\033[0m";
     public static final String CYAN_BRIGHT = "\033[0;96m";

@@ -128,6 +128,7 @@ public class Estado implements Serializable {
         casa.setDivisoes(c.getDivisoes());
         casa.setFornecedor(c.getFornecedor());
         casa.setFatura(c.getFatura());
+        casa.setCustoInstalacao (c.getCustoInstalacao ());
     }
 
     public void updateFornecedor (Fornecedores f){
