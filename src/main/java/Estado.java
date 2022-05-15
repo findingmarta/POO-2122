@@ -128,7 +128,7 @@ public class Estado implements Serializable {
         casa.setDivisoes(c.getDivisoes());
         casa.setFornecedor(c.getFornecedor());
         casa.setFatura(c.getFatura());
-        casa.setCustoInstalacao (c.getCustoInstalacao ());
+        casa.setCustoInstalacao (c.getCustoInstalacao());
     }
 
     public void updateFornecedor (Fornecedores f){
@@ -137,6 +137,7 @@ public class Estado implements Serializable {
         forn.setVolumeFaturacao(f.getVolumeFaturacao());
         forn.setFormula(f.getFormula());
     }
+
 
     public void loadEstado(String file) {
         this.casas.clear();

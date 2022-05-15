@@ -32,7 +32,16 @@ public class Menu {
                  Selecione a opção pretendida:\s""";
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
+
+    }
+    public static boolean onlyDigits(String str, int n) {
+        for (int i = 0; i < n; i++) {
+            if (!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
     }
 
 
@@ -57,7 +66,9 @@ public class Menu {
 
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
     public static int MenuListaCasas(List<Casa> l) {
         Menu.clearWindow();
@@ -72,7 +83,9 @@ public class Menu {
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
 
@@ -86,7 +99,9 @@ public class Menu {
 
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
     public static int EscolhaDispotivios() {
@@ -105,7 +120,9 @@ public class Menu {
 
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
     public static int menuFornecedores() {
@@ -123,7 +140,9 @@ public class Menu {
                  Selecione a opção pretendida:\s""";
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
 
@@ -143,7 +162,9 @@ public class Menu {
                  Selecione a opção pretendida:\s""";
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
 
@@ -163,7 +184,9 @@ public class Menu {
 
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
     public static int faturaList( Casa c) {
         Menu.clearWindow();
@@ -180,7 +203,9 @@ public class Menu {
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
     public static int FaturaInfo(int i, List<Faturas> l) {
         //Thread.sleep(2000);
@@ -193,7 +218,9 @@ public class Menu {
 
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
     public static int MenuEstatistica() {
@@ -214,7 +241,9 @@ public class Menu {
                  \nSelecione a opção pretendida:\s""";
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
     public static int MenuListaX(List<Casa> l, int x) {
@@ -230,7 +259,9 @@ public class Menu {
         sb.append("\u001B[1m \u001B[36m___________________________________________________\u001B[0m \n\n");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String s = scanner.next ();
+        if (ControllerCasa.onlyDigits (s, s.length ()) ) return Integer.parseInt (s);
+        else return -1;
     }
 
 

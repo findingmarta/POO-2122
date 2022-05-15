@@ -298,4 +298,5 @@ public class Casa implements Serializable {
             }
         }
     }
+
 }

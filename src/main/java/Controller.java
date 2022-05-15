@@ -14,7 +14,7 @@ public class Controller {
                         ControllerSimulacao.run(estado);
                     else {
                         Menu.erros(23);
-                        Thread.sleep(2000);
+                        Thread.sleep(3000);
                     }
                 }
                 case 5-> {
@@ -22,10 +22,11 @@ public class Controller {
                         ControllerAutomatizacao.run(estado);
                     else {
                         Menu.erros(23);
-                        Thread.sleep(2000);
+                        Thread.sleep(3000);
                     }
                 }
                 case 0-> System.exit (0);
+                default -> Controller.run ();
             }
         }
     }

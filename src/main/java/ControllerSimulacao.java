@@ -45,19 +45,30 @@ public class ControllerSimulacao {
                                if(sd.getOn()) consumoTotal+=sd.consumoEnergia();
                             }
 
-                            Faturas fatura = new Faturas (precoFinal,s1, s2, consumoTotal);
+                            Faturas fatura = new Faturas (precoFinal + c.getCustoInstalacao (),s1, s2, consumoTotal );
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
 
+
                             Fornecedores f = estado.getFornecedores().get(estado.getFornecedores().indexOf(c.getFornecedor()));
+                            //if(c.getCustoInstalacao () != 0) System.out.println (c.getCustoInstalacao ());
+                            //System.out.println (f.getVolumeFaturacao ());
+                            //System.out.println (precoFinal);
+                            //System.out.println (c.getCustoInstalacao ());
+
                             f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal + c.getCustoInstalacao());
-                            fatura.setFatura(c.getCustoInstalacao());
+                            //System.out.println (f.getVolumeFaturacao ());
+                            //System.out.println (fatura.getFatura ());
+                            //fatura.setFatura(fatura.getFatura () + c.getCustoInstalacao());
+                            //System.out.println (fatura.getFatura ());
                             c.setCustoInstalacao(0);
 
                             estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
                             estado.updateFornecedor(f); //por causa da faturacao
                             estado.updateCasas(f);
+                            //System.out.println (fatura.getFatura ());
+                            //System.out.println ("\n\n");
                             // System.out.println(estado.getFornecedores());
                         }
                         // Estado.ordenaListCasa (estado.getCasas ());

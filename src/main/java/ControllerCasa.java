@@ -14,8 +14,8 @@ public class ControllerCasa {
                 //Thread.sleep(1000);
                 opcao = Menu.MenuCasa();
             }
-
-            Scanner scanner = new Scanner(System.in);
+            Scanner scan = new Scanner(System.in).useDelimiter ("\n");
+            Scanner scanner = new Scanner(System.in).useDelimiter ("\n");
             switch (opcao) {
                 case 1 -> { //se meter letras como opcao dá erro, talvez resulte se tirar o nextInt e meter só next
                     List<Casa> lista = estado.getCasas();
@@ -97,22 +97,26 @@ public class ControllerCasa {
                 }
                 case 4 -> {
                     System.out.println("Insira o NIF: ");
-                    Scanner scan = new Scanner(System.in);
-                    String nif = scan.next();
+                    String nif = scanner.next();
+                    while (!onlyDigits(nif,nif.length())){
+                        //Menu.erros(2);
+                        System.out.println("Insira o NIF: ");
+                        nif = scanner.next();
+                    }
 
                     System.out.println("Insira o nome do proprietário: ");   // SE EU METER +1 NOME DÁ ERRO
                     String proprietario = scan.next();
 
                     System.out.println("Insira o nome do fornecedor: ");
                     Fornecedores fornecedor = null;
-                    String forn = scan.next();
+                    String forn = scanner.next();
                     switch (forn) {
                         case "EDP" -> fornecedor = estado.getFornecedores().get(0);
                         case "Endesa" -> fornecedor = estado.getFornecedores().get(2);
                         case "Jomar" -> fornecedor = estado.getFornecedores().get(1);
                         default -> {
                             System.out.println("Fornecedor inválido! Casa não será criada.");
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         }
                     }
                     if(fornecedor!=null){
@@ -131,14 +135,14 @@ public class ControllerCasa {
                     Casa c = lista.get(i - 1);
 
                     System.out.println("Insira a divisão: ");
-                    String d = scanner.next();
+                    String d = scanner.next ();
                     if(!c.hasRoom(d)) {
                         c.addRoom(d);
                         estado.updateCasa(c, i-1);
                     }
                     else {
                         System.out.println("A divisão já existe! ");
-                        Thread.sleep(1000);
+                        Thread.sleep(3000);
                     }
                 }
                 case 6 -> {
@@ -171,7 +175,7 @@ public class ControllerCasa {
                         turn = est.equals("on");
 
                         System.out.println("Insira o ID: ");
-                        String id = scanner.next();
+                        String id = scanner.nextLine();
                         while (!onlyDigits(id,id.length())){
                             //Menu.erros(2);
                             System.out.println("Insira o ID: ");

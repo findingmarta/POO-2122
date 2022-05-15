@@ -66,7 +66,7 @@ public abstract class Fornecedores implements Serializable {
     public String toString() {
         return  "\nValor Base= " + valorBase +
                 "\nImposto= " + imposto +
-                "\nFaturação= " + volumeFaturacao +
+                "\nFaturação=" + volumeFaturacao +
                 "\nFórmula= " + formula;
     }
 
