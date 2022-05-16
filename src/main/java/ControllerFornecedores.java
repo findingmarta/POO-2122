@@ -55,6 +55,28 @@ public class ControllerFornecedores {
                     estado.updateFornecedor(forn);
                     estado.updateCasas(forn);
                 }
+                case 3 -> {
+                    Menu.clearWindow ();
+
+                    String sb = """
+                            \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                            \u001B[1m FÓRMULA 1 \u001B[0m -> 13 * consumo
+                            \u001B[1m FÓRMULA 2 \u001B[0m -> consumo
+                            \u001B[1m FÓRMULA 3 \u001B[0m -> 0.5 * consumo
+                                            
+                            \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
+
+                             Selecione a opção pretendida:\s""";
+
+                    System.out.println(sb);
+
+                    System.out.println ("\nSelecione 0 para voltar atrás: ");
+                    int i = scanner.nextInt ();
+                    while (i != 0) {
+                        i = scanner.nextInt ();
+                    }
+                }
                 case 0 -> {
                     Menu.clearWindow ();
                     exit=true;

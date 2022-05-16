@@ -96,7 +96,7 @@ public abstract class Fornecedores implements Serializable {
         else Menu.erros(19);
     }
 
-    public String Stringfornecedor (Fornecedores fornecedor){
+    public static String Stringfornecedor(Fornecedores fornecedor){
         String forn= "";
         if (fornecedor instanceof FornecJomar) forn = "Jomar";
         else if (fornecedor instanceof FornecEDP) forn = "EDP";

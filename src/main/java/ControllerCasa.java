@@ -33,8 +33,11 @@ public class ControllerCasa {
                     int i = -1;
                     while (i < 0 || i > l.size ()) {
                         System.out.println ("Insira o índice da casa: ");
-                        i = scanner.nextInt ();
-                        if (i < 0 || i> l.size()) Menu.erros(12);
+                        String s = scanner.next();
+                        if (onlyDigits(s, s.length())) {
+                            i= Integer.parseInt(s);
+                            if (i < 0 || i> l.size()) Menu.erros(12);
+                        }
                     }
                     Casa c = l.get (i - 1);
 
@@ -62,9 +65,11 @@ public class ControllerCasa {
                     int i=-1;
                     while(i < 0 || i> l.size()) {
                         System.out.println("Insira o índice da casa: ");
-                        i = scanner.nextInt();
-                        if (i < 0 || i> l.size()) Menu.erros(12);
-
+                        String s = scanner.next();
+                        if (onlyDigits(s, s.length())) {
+                            i= Integer.parseInt(s);
+                            if (i < 0 || i> l.size()) Menu.erros(12);
+                        }
                     }
                     Casa c = l.get(i - 1);
 
@@ -128,9 +133,13 @@ public class ControllerCasa {
                     int i = -1;
                     List<Casa> lista = estado.getCasas();
                     while (i < 0 || i > lista.size()) {
-                        System.out.println("Insira o índice da casa: ");
-                        i = scanner.nextInt();
-                        if (i < 0 || i> lista.size()) Menu.erros(12);
+                        System.out.println ("Insira o índice da casa: ");
+                        String s = scanner.next();
+                        if (onlyDigits(s, s.length())) {
+                            i= Integer.parseInt(s);
+                            if (i < 0 || i> l.size()) Menu.erros(12);
+                        }
+
                     }
                     Casa c = lista.get(i - 1);
 
@@ -150,8 +159,11 @@ public class ControllerCasa {
                     List<Casa> lista = estado.getCasas();
                     while (i < 0 || i > lista.size()) {
                         System.out.println("Insira o índice da casa: ");
-                        i = scanner.nextInt();
-                        if (i < 0 || i> lista.size()) Menu.erros(12);
+                        String s = scanner.next();
+                        if (onlyDigits(s, s.length())) {
+                            i= Integer.parseInt(s);
+                            if (i < 0 || i> l.size()) Menu.erros(12);
+                        }
                     }
                     Casa c = lista.get(i - 1);
                     if (!c.getDivisoes().isEmpty()) {
@@ -175,7 +187,7 @@ public class ControllerCasa {
                         turn = est.equals("on");
 
                         System.out.println("Insira o ID: ");
-                        String id = scanner.nextLine();
+                        String id = scanner.next();
                         while (!onlyDigits(id,id.length())){
                             //Menu.erros(2);
                             System.out.println("Insira o ID: ");
@@ -186,15 +198,26 @@ public class ControllerCasa {
                         assert s != null;
                         c.addSmartDevice(s);
                         c.addToRoom(d,s.getID());
-                        c.setCustoInstalacao (10);
+
+                        if (Fornecedores.Stringfornecedor(c.getFornecedor()).equals("Jomar"))
+                            c.setCustoInstalacao (30);
+                        if (Fornecedores.Stringfornecedor(c.getFornecedor()).equals("EDP"))
+                            c.setCustoInstalacao (20);
+                        if (Fornecedores.Stringfornecedor(c.getFornecedor()).equals("Endesa"))
+                            c.setCustoInstalacao (10);
                        // System.out.println (c.getCustoInstalacao ());
                         estado.updateCasa(c, i-1);
                     }
                 }
                 case 7 -> {
+                    int i = -1;
                     List<Fornecedores> fornecedores = estado.getFornecedores();
                     System.out.println("Insira o indice da casa: ");
-                    int i = scanner.nextInt();
+                    String s = scanner.next();
+                    if (onlyDigits(s, s.length())) {
+                        i= Integer.parseInt(s);
+                        if (i < 0 || i> l.size()) Menu.erros(12);
+                    }
 
                     System.out.println("Insira o nome do fornecedor: ");
                     Fornecedores forn = null;

@@ -134,6 +134,7 @@ public class Menu {
 
                  \u001B[1m 1) \u001B[0m Info fornecedores.
                  \u001B[1m 2) \u001B[0m Modificar fórmula.
+                 \u001B[1m 3) \u001B[0m Fórmulas.
                  \u001B[1m 0) \u001B[0m Voltar atrás.
                 \u001B[1m \u001B[36m____________________________________\u001B[0m\s
 
