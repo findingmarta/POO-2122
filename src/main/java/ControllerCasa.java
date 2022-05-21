@@ -217,7 +217,7 @@ public class ControllerCasa {
     }
     public static SmartDevice EscolhaDispositivos (String id,boolean turn){
         int disp = -1, i=-1;
-        Scanner scanner = new Scanner(System.in).useDelimiter ("\n");
+        Scanner scan = new Scanner(System.in);
         while (disp < 0 || disp > 3) {
             disp = Menu.EscolhaDispotivios();
             if (disp < 0 || disp > 3) Menu.erros(1);
@@ -225,22 +225,23 @@ public class ControllerCasa {
         }
         switch (disp) {
             case 1-> {
-                while (i<0 || i> 3) {
+                Scanner scanner = new Scanner(System.in).useDelimiter ("\n");
+                while (i < 1 || i > 3) {
                     System.out.println ("Insira o tone (1,2 ou 3): ");
-                    String s = scanner.next ();
+                    String s = scan.next ();
                     if (onlyDigits (s, s.length ())) {
                         i = Integer.parseInt (s);
                     }
                 }
-                System.out.println("Insira a dimensão: ");
-                Scanner dimensao = new Scanner(System.in);
-                double di = dimensao.nextDouble();
-                return new SmartBulb(id,turn,i,di);
+
+                    System.out.println ("Insira a dimensão: ");
+                    double di = scan.nextDouble ();
+
+                    return new SmartBulb (id, turn, i, di);
             }
             case 2-> {
                 System.out.println("Insira a resolução: ");
-                Scanner resolucao = new Scanner(System.in);
-                double r = resolucao.nextDouble();
+                double r = scan.nextDouble();
                 System.out.println("Insira o tamanho da imagem: ");
                 Scanner size = new Scanner(System.in);
                 double s = size.nextDouble();
@@ -248,8 +249,7 @@ public class ControllerCasa {
             }
             case 3-> {
                 System.out.println("Insira a marca: ");
-                Scanner marca = new Scanner(System.in);
-                String m = marca.next();
+                String m = scan.next();
                 System.out.println("Insira a rádio : ");
                 Scanner radio = new Scanner(System.in);
                 String r = radio.next();

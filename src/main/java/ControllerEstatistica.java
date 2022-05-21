@@ -97,10 +97,11 @@ public class ControllerEstatistica {
                     LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
                     for ( Casa c : l){
                         List<Faturas> faturas = c.getFatura();
+                        System.out.println ("");
                         for ( Faturas fatura : faturas){
                             LocalDate datai = LocalDate.parse (fatura.getDataInicial (), dateTimeFormatter);
                             LocalDate dataf = LocalDate.parse (fatura.getDataFinal(), dateTimeFormatter);
-                            if (datai.isAfter(dBefore) && dataf.isBefore (dAfter)) {
+                            if ((datai.isAfter(dBefore) || datai.isEqual (dBefore)) && (dataf.isBefore(dAfter) || dataf.isEqual (dAfter)) && dBefore.isBefore (dAfter)) {
                                 if (c.getFornecedor() instanceof FornecJomar) {
                                     jomar+=fatura.getFatura();
                                     if ( jomar > max) {
@@ -123,8 +124,15 @@ public class ControllerEstatistica {
                                     }
                                 }
                             }
+                            else {
+                                Menu.erros (25);
+                                Thread.sleep (3000);
+                                ControllerEstatistica.run (estado);
+                            }
                         }
+
                     }
+
                     //int max = max(max(jomar,edp),endesa);
                     
                     String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +

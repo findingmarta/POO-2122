@@ -77,7 +77,7 @@ public class ControllerSimulacao {
                     else {
                         Menu.erros(24);
                         System.out.println("Data atual: "+estado.getData());
-                        Thread.sleep(2000);
+                        Thread.sleep(3000);
                     }
                 }
                 case 2 -> {

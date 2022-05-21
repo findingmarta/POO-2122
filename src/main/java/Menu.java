@@ -296,7 +296,8 @@ public class Menu {
         else if (i==22) sb.append(CYAN_BRIGHT).append("*****  Não existem faturas emitidas! *****").append(RESET).append("\n");
         else if (i==23) sb.append(CYAN_BRIGHT).append("*****  Não existem casas nem fornecedores! *****").append(RESET).append("\n");
         else if (i==24) sb.append(CYAN_BRIGHT).append("*****  A data não é posterior à data atual! *****").append(RESET).append("\n");
-
+        else if (i==24) sb.append(CYAN_BRIGHT).append("*****  A data não é posterior à data atual! *****").append(RESET).append("\n");
+        else if (i==25) sb.append(CYAN_BRIGHT).append("*****  Dados inseridos inválidos *****").append(RESET).append("\n");
         System.out.print(sb);
     }
 }
