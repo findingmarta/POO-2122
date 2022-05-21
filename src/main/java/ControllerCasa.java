@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class ControllerCasa {
@@ -211,22 +214,46 @@ public class ControllerCasa {
                     }
 
                     Casa c = indiceCasa (l);
-
-                    System.out.println("Insira o nome do fornecedor: ");
                     Fornecedores forn = null;
-                    String f = scanner.next();
-                    switch (f) {
-                        case "EDP" -> forn = new FornecEDP();
-                        case "Endesa" -> forn = new FornecEndesa();
-                        case "Jomar" -> forn = new FornecJomar();
-                        default -> {
-                            Menu.erros(7);
-                            Thread.sleep(3000);
-                        }
-                    }
+
                     forn = fornecedores.get(fornecedores.indexOf(forn));
                     c.setFornecedor(forn);
                     estado.updateCasa(c, l.indexOf(c));
+
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
+                    LocalDate dFornecedor = LocalDate.parse (c.getFornecedor ().getDataInicial (), dateTimeFormatter);
+                    LocalDate dAfter = LocalDate.parse (estado.getData (), dateTimeFormatter);
+
+                    if (dAfter.isAfter (dFornecedor)) {
+                        long diff = ChronoUnit.DAYS.between (dFornecedor, dAfter);
+
+                        if (diff > 30) {
+
+                            System.out.println ("Insira o nome do fornecedor: ");
+
+                            String f = scanner.next ();
+                            switch (f) {
+                                case "EDP" -> forn = new FornecEDP ();
+                                case "Endesa" -> forn = new FornecEndesa ();
+                                case "Jomar" -> forn = new FornecJomar ();
+                                default -> {
+                                    Menu.erros(7);
+                                    Thread.sleep(3000);
+                                }
+                            }
+
+                            forn = fornecedores.get (fornecedores.indexOf (forn));
+                            forn.setDataInicial (estado.getData ());
+                            c.setFornecedor (forn);
+                            estado.updateCasa (c, l.indexOf (c));
+                            estado.updateFornecedor (forn);
+                        }
+                        else {
+                            System.out.println ("Nao alterou fornecedor");
+                            Thread.sleep (3000);
+                        }
+                    }
+
                 }
                 case 0 -> {
                     exit = true;

@@ -118,6 +118,7 @@ public class Estado implements Serializable {
         Fornecedores forn = this.fornecedores.get(index);
         forn.setVolumeFaturacao(f.getVolumeFaturacao());
         forn.setFormula(f.getFormula());
+        forn.setDataInicial (f.getDataInicial ());
     }
 
     public void loadEstado(String file) {
@@ -199,6 +200,7 @@ public class Estado implements Serializable {
         }
         if (fornec != null){
             fornec.setFormula(dados[1]);
+            fornec.setDataInicial ("01/01/2018");
             return fornec;
         }
         return null;

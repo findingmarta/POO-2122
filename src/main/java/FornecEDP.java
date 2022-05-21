@@ -20,6 +20,7 @@ public class FornecEDP extends Fornecedores{
         super(umFornecedor);
     }
 
+
     @Override
     public Fornecedores clone() {
         return new FornecEDP(this);

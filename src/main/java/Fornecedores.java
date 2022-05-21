@@ -7,13 +7,14 @@ public abstract class Fornecedores implements Serializable {
     private double imposto = 0.60;
     private double volumeFaturacao = 0.0;
     private String formula;
-
+    private String dataInicial;
 
     /**
      * Construtores
      */
     public Fornecedores() {
         this.formula = "";
+        this.dataInicial = "01/01/2018";
     }
 
     public Fornecedores (double volumeFaturacao){
@@ -30,6 +31,7 @@ public abstract class Fornecedores implements Serializable {
         this.valorBase = umFornecedor.getValorBase();
         this.imposto = umFornecedor.getImposto();
         this.formula = umFornecedor.getFormula();
+        this.dataInicial = umFornecedor.getDataInicial ();
     }
 
     /**
@@ -60,6 +62,14 @@ public abstract class Fornecedores implements Serializable {
     public void setVolumeFaturacao(double volumeFaturacao) {
         if(volumeFaturacao>=0) this.volumeFaturacao = volumeFaturacao;
         else Menu.erros(19);
+    }
+
+    public String getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(String dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
     /**
