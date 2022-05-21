@@ -216,9 +216,6 @@ public class ControllerCasa {
                     Casa c = indiceCasa (l);
                     Fornecedores forn = null;
 
-                    forn = fornecedores.get(fornecedores.indexOf(forn));
-                    c.setFornecedor(forn);
-                    estado.updateCasa(c, l.indexOf(c));
 
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
                     LocalDate dFornecedor = LocalDate.parse (c.getFornecedor ().getDataInicial (), dateTimeFormatter);
@@ -249,9 +246,13 @@ public class ControllerCasa {
                             estado.updateFornecedor (forn);
                         }
                         else {
-                            System.out.println ("Nao alterou fornecedor");
+                            Menu.erros (39);
                             Thread.sleep (3000);
                         }
+                    }
+                    else {
+                        Menu.erros (39);
+                        Thread.sleep (3000);
                     }
 
                 }

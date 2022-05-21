@@ -295,6 +295,8 @@ public class Menu {
         else if (i==36) sb.append(CYAN_BRIGHT).append("***** Tamanho de imagem inválido! *****").append(RESET).append("\n");
         else if (i==37) sb.append(CYAN_BRIGHT).append("***** Resolução inválida! *****").append(RESET).append("\n");
         else if (i==38) sb.append(CYAN_BRIGHT).append("***** Divisao sem dispositivos! *****").append(RESET).append("\n");
+            else if (i==39) sb.append(CYAN_BRIGHT).append("***** Fornecedor não alterado *****").append(RESET).append("\n");
+
         System.out.print(sb);
     }
 }
