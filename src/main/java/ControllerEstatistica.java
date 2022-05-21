@@ -124,11 +124,6 @@ public class ControllerEstatistica {
                                     }
                                 }
                             }
-                            else {
-                                Menu.erros (25);
-                                Thread.sleep (3000);
-                                ControllerEstatistica.run (estado);
-                            }
                         }
 
                     }

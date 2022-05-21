@@ -7,6 +7,7 @@ public abstract class Fornecedores implements Serializable {
     private double volumeFaturacao = 0.0;
     private String formula;
 
+
     /**
      * Construtores
      */
