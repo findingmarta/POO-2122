@@ -42,7 +42,7 @@ public class Automatizacao {
                 Menu.erros(15);
                 Menu.erros(24);
                 System.out.println("Data atual: "+estado.getData());
-                Thread.sleep(100);
+                Thread.sleep(3000);
             }
         }
     }

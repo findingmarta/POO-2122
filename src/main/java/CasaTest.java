@@ -3,10 +3,28 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 public class CasaTest {
+    private final List<Faturas> faturas = makeFaturas();
+    private final List<Faturas> faturas2 = makeFaturas2();
     private final Map<String, SmartDevice> devices = makeDevices();
     private final Map<String, SmartDevice> devices2 = makeDevices2();
     private final Map<String, HashSet<String>> divisoes = makeDivisoes();
     private final Map<String, HashSet<String>> divisoes2 = makeDivisoes2();
+
+    static List<Faturas> makeFaturas() {
+        List<Faturas> faturas = new ArrayList<>();
+        faturas.add (new Faturas(30.45, "01-01-2017","27-01-2017", 60.0));
+        faturas.add(new Faturas());
+        faturas.add(new Faturas(46516, "01-01-2018","25-12-2019", 126));
+        return faturas;
+    }
+
+    static List<Faturas> makeFaturas2() {
+        List<Faturas> faturas = new ArrayList<>();
+        faturas.add (new Faturas(70.70, "01-01-2017","27-01-2017", 25.3));
+        faturas.add(new Faturas());
+        faturas.add(new Faturas(37.56, "01-01-2020","25-12-2021", 200.2));
+        return faturas;
+    }
 
     static Map<String, HashSet<String>> makeDivisoes() {
         Map<String, HashSet<String>> divisoes = new HashMap<>();
@@ -56,11 +74,6 @@ public class CasaTest {
         return devices;
     }
 
-    private boolean mapEquals (Map<String, HashSet<String>> first, Map<String, HashSet<String>> second) {
-        if (first.size() != second.size()) return false;
-        return first.entrySet().stream().allMatch(e -> e.getValue().equals(second.get(e.getKey())));
-    }
-
     /**
      * Construtores
      */
@@ -71,8 +84,10 @@ public class CasaTest {
         Casa casa = new Casa();
         assertEquals("",casa.getProprietario());
         assertEquals("",casa.getNIF());
+        assertEquals(0.0,casa.getCustoInstalacao());
         assertTrue(casa.getDevices().isEmpty());
         assertTrue(casa.getDivisoes().isEmpty());
+        assertTrue(casa.getFatura().isEmpty());
         assertNull(casa.getFornecedor());
 
         casa = new Casa(devices, divisoes, "Jose Antonio", "241019876", fornecedor);
@@ -81,19 +96,29 @@ public class CasaTest {
         assertEquals(devices, casa.getDevices());
         assertEquals(divisoes,casa.getDivisoes());
         assertEquals(fornecedor, casa.getFornecedor());
+        assertTrue(casa.getFatura().isEmpty());
+        assertEquals(0.0,casa.getCustoInstalacao());
 
         fornecedor = new FornecEDP();
         casa = new Casa("Marco", "11111", fornecedor);
         assertEquals("Marco",casa.getProprietario());
         assertEquals("11111",casa.getNIF());
         assertEquals(fornecedor, casa.getFornecedor());
+        assertTrue(casa.getFatura().isEmpty());
+        assertTrue(casa.getDevices().isEmpty());
+        assertTrue(casa.getDivisoes().isEmpty());
+        assertEquals(0.0,casa.getCustoInstalacao());
 
+        umaCasa.setCustoInstalacao(10.2);
+        umaCasa.setFatura(faturas);
         casa = new Casa(umaCasa);
+        assertEquals(umaCasa.getFornecedor(), casa.getFornecedor());
+        assertEquals(10.2,casa.getCustoInstalacao());
         assertEquals("Manel",casa.getProprietario());
         assertEquals("24131313",casa.getNIF());
         assertEquals(devices, casa.getDevices());
         assertEquals(divisoes,casa.getDivisoes());
-        assertEquals(umaCasa.getFornecedor(), casa.getFornecedor());
+        assertEquals(faturas,casa.getFatura());
     }
 
     /**
@@ -113,10 +138,10 @@ public class CasaTest {
     @Test
     public void testSetProprietario() {
         Casa casa = new Casa();
+        casa.setProprietario(null);
+        assertEquals("", casa.getProprietario());
         casa.setProprietario("Carlos");
         assertEquals("Carlos", casa.getProprietario());
-        casa.setProprietario(null);
-        assertNull(casa.getProprietario());
         casa.setProprietario("Miguel Oliveira");
         assertEquals("Miguel Oliveira", casa.getProprietario());
     }
@@ -138,7 +163,7 @@ public class CasaTest {
         casa.setNIF("44561373");
         assertEquals("44561373", casa.getNIF());
         casa.setNIF(null);
-        assertNull(casa.getNIF());
+        assertEquals("44561373", casa.getNIF());
         casa.setNIF("654922121");
         assertEquals("654922121", casa.getNIF());
     }
@@ -151,22 +176,36 @@ public class CasaTest {
         Fornecedores forn = new FornecEDP();
         casa = new Casa("Raquel Oliveira", "64485889", forn);
         assertEquals(forn, casa.getFornecedor());
+
+        forn = new FornecEndesa("formula2");
+        casa = new Casa("Raquel Oliveira", "64485889", forn);
+        assertEquals(forn, casa.getFornecedor());
+        assertEquals(0.0, casa.getFornecedor().getVolumeFaturacao());
+
+        forn = new FornecJomar(12345.3);
+        casa = new Casa("Raquel Oliveira", "64485889", forn);
+        assertTrue(casa.getFornecedor() instanceof FornecJomar);
+        assertEquals(12345.3, casa.getFornecedor().getVolumeFaturacao());
+        assertEquals("", casa.getFornecedor().getFormula());
     }
 
     @Test
     public void testSetFornecedor() {
         Casa casa = new Casa();
         Fornecedores forn = new FornecEDP();
-        assertNull(casa.getFornecedor()); //espero o fornecedor a null
+        assertNull(casa.getFornecedor());
         casa.setFornecedor(forn);
         assertEquals(forn, casa.getFornecedor());
+
         casa.setFornecedor(null);
-        assertNotNull(casa.getFornecedor()); //espero o fornecedor que tinha antes
+        assertEquals(forn, casa.getFornecedor());
+
         Fornecedores newForn = new FornecJomar();
         casa.setFornecedor(newForn);
-        //assertEquals("Jomar", casa.getFornecedor().getNome());
         assertEquals(0.60, casa.getFornecedor().getImposto());
         assertEquals(0.148, casa.getFornecedor().getValorBase());
+        assertEquals(0.0, casa.getFornecedor().getVolumeFaturacao());
+        assertEquals("", casa.getFornecedor().getFormula());
         assertEquals(newForn,casa.getFornecedor());
     }
 
@@ -175,8 +214,9 @@ public class CasaTest {
         Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         assertTrue(casa.getDivisoes().isEmpty());
+
         casa = new Casa(devices,divisoes, "Maria", "871564897",fornecedor);
-        assertTrue(mapEquals(divisoes,casa.getDivisoes()));
+        assertEquals(divisoes,casa.getDivisoes());
     }
 
     @Test
@@ -184,12 +224,14 @@ public class CasaTest {
         Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa();
         casa.setDivisoes(divisoes);
-        assertTrue(mapEquals(divisoes, casa.getDivisoes()));
+        assertEquals(divisoes, casa.getDivisoes());
 
         casa = new Casa(devices, divisoes2, "Ana", "22222222", fornecedor);
-        assertTrue(mapEquals(divisoes2,casa.getDivisoes()));
+        assertEquals(divisoes2,casa.getDivisoes());
         casa.setDivisoes(divisoes);
-        assertTrue(mapEquals (divisoes,casa.getDivisoes()));
+        assertEquals(divisoes,casa.getDivisoes());
+        casa.setDivisoes(null);
+        assertEquals(divisoes,casa.getDivisoes());
     }
 
     @Test
@@ -213,6 +255,75 @@ public class CasaTest {
         assertEquals(devices2,casa.getDevices());
         casa.setDevices(devices);
         assertEquals(devices,casa.getDevices());
+        casa.setDevices(null);
+        assertEquals(devices,casa.getDevices());
+    }
+
+    @Test
+    public void testGetFatura() {
+        Fornecedores fornecedor = new FornecEndesa();
+        Casa umaCasa = new Casa("Carla", "124543", fornecedor);
+        umaCasa.setFatura(faturas);
+
+        Casa casa = new Casa();
+        assertTrue(casa.getFatura().isEmpty());
+
+        casa = new Casa(devices2,divisoes2, "Maria", "871564897",fornecedor);
+        assertTrue(casa.getFatura().isEmpty());
+
+        casa = new Casa("Maria", "871564897",fornecedor);
+        assertTrue(casa.getFatura().isEmpty());
+
+        casa = new Casa(umaCasa);
+        assertEquals(faturas,casa.getFatura());
+    }
+
+    @Test
+    public void testSetFatura() {
+        Fornecedores fornecedor = new FornecEndesa();
+        Casa casa = new Casa();
+        casa.setFatura(faturas);
+        assertEquals(faturas, casa.getFatura());
+
+        casa = new Casa("Ana", "22222222",fornecedor);
+        casa.setFatura(faturas2);
+        assertEquals(faturas2,casa.getFatura());
+        casa.setFatura(faturas);
+        assertEquals(faturas,casa.getFatura());
+        casa.setFatura(null);
+        assertEquals(faturas,casa.getFatura());
+    }
+
+    @Test
+    public void testGetCustoInstalacao() {
+        Fornecedores fornecedor = new FornecEndesa();
+        Casa umaCasa = new Casa("Carla", "124543", fornecedor);
+        umaCasa.setCustoInstalacao(32.3);
+
+        Casa casa = new Casa();
+        assertEquals(0.0, casa.getCustoInstalacao());
+
+        casa = new Casa(devices, divisoes, "Maria", "21645889", fornecedor);
+        assertEquals(0.0, casa.getCustoInstalacao());
+
+        casa = new Casa("Raquel Oliveira", "64485889", new FornecEDP());
+        assertEquals(0.0, casa.getCustoInstalacao());
+
+        casa = new Casa(umaCasa);
+        assertEquals(32.3, casa.getCustoInstalacao());
+    }
+
+    @Test
+    public void testSetCustoInstalacao() {
+        Casa casa = new Casa();
+        casa.setCustoInstalacao(-23.1);
+        assertEquals(0.0, casa.getCustoInstalacao());
+        casa.setCustoInstalacao(2.35);
+        assertEquals(2.35, casa.getCustoInstalacao());
+
+        casa = new Casa("Raquel Oliveira", "64485889", new FornecEDP());
+        casa.setCustoInstalacao(3.5);
+        assertEquals(3.5, casa.getCustoInstalacao());
     }
 
     /**
@@ -263,7 +374,6 @@ public class CasaTest {
         emptyDivisions.put(divisao, new HashSet<>());
         casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         casa.setDivisonOn("Quarto");
-        casa.setDivisonOn(divisao);
 
         casa = new Casa(devices, divisoes, "Carlota", "9879798",fornecedor);
         HashSet<String> ids = casa.getDivisoes().get(divisao);
@@ -285,7 +395,6 @@ public class CasaTest {
         emptyDivisions.put(divisao, new HashSet<>());
         casa = new Casa(devices, emptyDivisions, "Carlota", "9879798",fornecedor);
         casa.setDivisonOff("Quarto");
-        casa.setDivisonOff(divisao);
 
         casa = new Casa(devices, divisoes, "Carlota", "9879798",fornecedor);
         HashSet<String> ids = casa.getDivisoes().get(divisao);
@@ -372,6 +481,8 @@ public class CasaTest {
         casa.addSmartDevice(sd);
         casa.addToRoom(divisao,sd.getID());
         assertTrue(casa.roomHasDevice(divisao, "9998"));
+
+        casa.addToRoom(divisao,"12342");
     }
 
     @Test
@@ -409,7 +520,7 @@ public class CasaTest {
         Fornecedores fornecedor = new FornecEndesa();
         Casa casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
 
-        SmartDevice sd1 = new SmartBulb(SmartBulb.NEUTRAL, 2.0);
+        SmartDevice sd1 = new SmartBulb("",true,SmartBulb.NEUTRAL, 2.0);
         casa.addSmartDevice(sd1);
         assertEquals(devices, casa.getDevices());
         assertEquals(3, casa.getDevices().size());
@@ -447,5 +558,70 @@ public class CasaTest {
         casa.addSmartDevice(sd4);
         assertEquals(sd4, casa.getDevice("321"));
         assertEquals(5, casa.getDevices().size());
+    }
+
+    @Test
+    public void testConsumoTotal2 () {
+        Fornecedores fornecedor = new FornecEDP();
+        Casa casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
+        assertEquals(21.0,casa.consumoTotal2());
+        casa.setDeviceOn("123456789");
+        casa.setDeviceOn("12342");
+        assertEquals(172.49,casa.consumoTotal2());
+    }
+
+    @Test
+    public void testConsumoTotal () {
+        Fornecedores fornecedor = new FornecEDP("formula2");
+        Casa casa = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
+        assertEquals(120.83904,casa.consumoTotal(fornecedor.getFormula()));
+        casa.setDeviceOn("123456789");
+        casa.setDeviceOn("12342");
+        assertEquals(992.5488576,casa.consumoTotal(fornecedor.getFormula()));
+        fornecedor.setFormula("formula3");
+        assertEquals(882.2656512000001,casa.consumoTotal(fornecedor.getFormula()));
+    }
+
+    @Test
+    public void testComparatorConsumo () {
+        Fornecedores fornecedor = new FornecEDP();
+        Casa casa1 = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
+        casa1.setFatura(faturas);
+
+        Casa casa2 = new Casa(devices2, divisoes2, "Marco", "65468321",fornecedor);
+        casa2.setFatura(faturas2);
+
+        List<Casa> casas = new ArrayList<>();
+        casas.add(casa1.clone());
+        casas.add(casa2.clone());
+
+        casas.sort(new Casa.ComparatorConsumo());
+        assertEquals(casa2, casas.get(0));
+        assertEquals(casa1, casas.get(1));
+    }
+
+    @Test
+    public void testComparatorGasto () {
+        Fornecedores fornecedor = new FornecEndesa();
+        Casa casa1 = new Casa(devices, divisoes, "Maria", "11111111",fornecedor);
+        casa1.setFatura(faturas);
+
+        Casa casa2 = new Casa(devices2, divisoes2, "Marco", "65468321",fornecedor);
+        casa2.setFatura(faturas2);
+
+        List<Casa> casas = new ArrayList<>();
+        casas.add(casa1.clone());
+        casas.add(casa2.clone());
+
+        casas.sort(new Casa.ComparatorGasto());
+        assertEquals(casa1, casas.get(0));
+        assertEquals(casa2, casas.get(1));
+    }
+
+    @Test
+    public void testOnlyDigits(){
+        assertFalse(Casa.onlyDigits("1234a234", 8));
+        assertFalse(Casa.onlyDigits("1234 234", 8));
+        assertTrue(Casa.onlyDigits("12341234", 8));
     }
 }

@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ControllerFornecedores {
-    public static void run(Estado estado) {
+    public static void run(Estado estado) throws InterruptedException {
         boolean exit = false;
         while (!exit) {
             Menu.clearWindow ();
@@ -42,18 +42,25 @@ public class ControllerFornecedores {
 
                     if(formula.equals("formula1") || formula.equals("formula2") || formula.equals("formula3")){
                         switch (nomeF) {
-                            //case "EDP" -> fornecedor = new FornecEDP(formula);
                             case "EDP" -> forn = new FornecEDP();
                             case "Endesa" -> forn = new FornecEndesa();
                             case "Jomar" -> forn = new FornecJomar();
-                            default -> Menu.erros(7);
+                            default -> {
+                                Menu.erros(7);
+                                Thread.sleep(3000);
+                            }
                         }
                     }
-                    else Menu.erros(21);
+                    else {
+                        Menu.erros(21);
+                        Thread.sleep(3000);
+                    }
+                    if(forn!=null){
                     forn = fornecedores.get(fornecedores.indexOf(forn));
                     forn.setFormula(formula);
                     estado.updateFornecedor(forn);
                     estado.updateCasas(forn);
+                    }
                 }
                 case 3 -> {
                     Menu.clearWindow ();
@@ -67,7 +74,7 @@ public class ControllerFornecedores {
                                             
                             \u001B[1m \u001B[36m_________________________________________________________\u001B[0m\s
 
-                             Selecione a opção pretendida:\s""";
+                             \s""";
 
                     System.out.println(sb);
 

@@ -10,7 +10,11 @@ public class smartBulbTest {
     public void testContructor() {
         SmartBulb smartBulb = new SmartBulb();
         assertEquals("", smartBulb.getID());
+        smartBulb.setID("1");
+        assertEquals("1", smartBulb.getID());
         assertFalse(smartBulb.getOn());
+        smartBulb.setOn(true);
+        assertTrue(smartBulb.getOn());
         assertEquals(1, smartBulb.getTone());
         assertEquals(0.0, smartBulb.getDimensao());
 
@@ -19,24 +23,6 @@ public class smartBulbTest {
         assertTrue(smartBulb.getOn());
         assertEquals(SmartBulb.WARM, smartBulb.getTone());
         assertEquals(32.3, smartBulb.getDimensao());
-
-        /*smartBulb = new SmartBulb( true, 0, 16.3);
-        assertEquals("", smartBulb.getID());
-        assertTrue(smartBulb.getOn());
-        assertEquals(SmartBulb.COLD, smartBulb.getTone());
-        assertEquals(16.3, smartBulb.getDimensao());*/
-
-        smartBulb = new SmartBulb(SmartBulb.NEUTRAL, 16.3);
-        assertEquals("", smartBulb.getID());
-        assertFalse(smartBulb.getOn());
-        assertEquals(SmartBulb.NEUTRAL, smartBulb.getTone());
-        assertEquals(16.3, smartBulb.getDimensao());
-
-        /*smartBulb = new SmartBulb("12345");
-        assertEquals("12345", smartBulb.getID());
-        assertFalse(smartBulb.getOn());
-        assertEquals(1, smartBulb.getTone());
-        assertEquals(0.0, smartBulb.getDimensao());*/
 
         SmartBulb umaSB = new SmartBulb("5435", false, 1, 15.0);
         smartBulb = new SmartBulb(umaSB);
@@ -57,14 +43,8 @@ public class smartBulbTest {
         smartBulb = new SmartBulb("6879", true,SmartBulb.WARM, 32.0);
         assertEquals(2, smartBulb.getTone());
 
-        smartBulb = new SmartBulb(2,21.1);
-        assertEquals(SmartBulb.WARM, smartBulb.getTone());
-
         smartBulb = new SmartBulb();
         assertEquals(SmartBulb.NEUTRAL, smartBulb.getTone());
-
-        smartBulb = new SmartBulb(SmartBulb.WARM, 32.0);
-        assertEquals(2, smartBulb.getTone());
     }
 
     @Test
@@ -95,14 +75,8 @@ public class smartBulbTest {
         smartBulb = new SmartBulb("6879", true,SmartBulb.COLD, 5.0);
         assertEquals(5.0, smartBulb.getDimensao());
 
-        smartBulb = new SmartBulb(1,3.3);
-        assertEquals(3.3, smartBulb.getDimensao());
-
         smartBulb = new SmartBulb();
         assertEquals(0.0, smartBulb.getDimensao());
-
-        smartBulb = new SmartBulb(SmartBulb.WARM, 12.24);
-        assertEquals(12.24, smartBulb.getDimensao());
     }
 
     @Test
@@ -117,7 +91,7 @@ public class smartBulbTest {
         smartBul1.setDimensao(-12.9);
         assertEquals(0.0, smartBul1.getDimensao());
 
-        smartBul1 = new SmartBulb(2,32.0);
+        smartBul1 = new SmartBulb("1",true,2,32.0);
         smartBul1.setDimensao(15.2);
         assertEquals(15.2, smartBul1.getDimensao());
     }
@@ -135,7 +109,6 @@ public class smartBulbTest {
 
         smartBulb = new SmartBulb("1325", true,SmartBulb.WARM, 78.1);
         assertEquals(81.1, smartBulb.consumoEnergia());
-        //assertEquals(81.1, smartBulb.consumoEnergiaPorDispositivo());
     }
 
 }

@@ -7,7 +7,11 @@ public class smartSpeakerTest {
     public void testConstructor() {
         SmartSpeaker smartSpeaker = new SmartSpeaker();
         assertEquals("", smartSpeaker.getID());
+        smartSpeaker.setID("3");
+        assertEquals("3", smartSpeaker.getID());
         assertFalse(smartSpeaker.getOn());
+        smartSpeaker.setOn(true);
+        assertTrue(smartSpeaker.getOn());
         assertEquals(0, smartSpeaker.getVolume());
         assertEquals("", smartSpeaker.getChannel());
         assertEquals("", smartSpeaker.getMarca());
@@ -18,13 +22,6 @@ public class smartSpeakerTest {
         assertEquals(5, smartSpeaker.getVolume());
         assertEquals("RUM", smartSpeaker.getChannel());
         assertEquals("JBL", smartSpeaker.getMarca());
-
-        smartSpeaker = new SmartSpeaker(32,"Comercial", "Sony");
-        assertEquals("", smartSpeaker.getID());
-        assertFalse(smartSpeaker.getOn());
-        assertEquals(32, smartSpeaker.getVolume());
-        assertEquals("Comercial", smartSpeaker.getChannel());
-        assertEquals("Sony", smartSpeaker.getMarca());
 
         SmartSpeaker umSS = new SmartSpeaker("12345", false,15,"RFM", "Marshall");
         smartSpeaker = new SmartSpeaker(umSS);
@@ -45,9 +42,6 @@ public class smartSpeakerTest {
 
         smartSpeaker = new SmartSpeaker("6666", false, -10,"RUM", "JBL");
         assertEquals(0, smartSpeaker.getVolume());
-
-        smartSpeaker = new SmartSpeaker( 105,"RUM", "JBL");
-        assertEquals(100, smartSpeaker.getVolume());
 
         smartSpeaker = new SmartSpeaker();
         assertEquals(0, smartSpeaker.getVolume());
@@ -82,9 +76,6 @@ public class smartSpeakerTest {
 
         smartSpeaker = new SmartSpeaker("98700",false,5,"s2", "XPTO");
         assertEquals("s2", smartSpeaker.getChannel());
-
-        smartSpeaker = new SmartSpeaker(5,null, "XPTO");
-        assertNull(smartSpeaker.getChannel());
     }
 
     @Test
@@ -104,9 +95,6 @@ public class smartSpeakerTest {
     public void testGetMarca() {
         SmartSpeaker smartSpeaker = new SmartSpeaker("98799", true,5,"RUM", "JBL");
         assertEquals("JBL", smartSpeaker.getMarca());
-
-        smartSpeaker = new SmartSpeaker(5,"s2", "Branca");
-        assertEquals("Branca", smartSpeaker.getMarca());
 
         smartSpeaker = new SmartSpeaker();
         assertEquals("", smartSpeaker.getMarca());
@@ -140,6 +128,5 @@ public class smartSpeakerTest {
 
         smartSpeaker = new SmartSpeaker();
         assertEquals(0, smartSpeaker.consumoEnergia());
-        //assertEquals(0, smartSpeaker.consumoEnergiaPorDispositivo());
     }
 }

@@ -1,5 +1,4 @@
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalDate;
 import java.util.*;
@@ -23,8 +22,7 @@ public class ControllerSimulacao {
                     String s2 = scanner.next();
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
 
-                    while (!(ControllerSimulacao.isDateValid (s2))) {
-                        Menu.erros(11);
+                    while (!(Estado.isDateValid (s2))) {
                         System.out.println ("Insira a data no formato dd/MM/yyyy:");
                         s2 = scanner.next ();
                     }
@@ -35,43 +33,24 @@ public class ControllerSimulacao {
 
                     if (dAfter.isAfter(dBefore)) {
                         diff = ChronoUnit.DAYS.between (dBefore, dAfter);
-
                         for (Casa c : estado.getCasas()) {
                             String formula = c.getFornecedor().getFormula();
                             double precoFinal = c.consumoTotal(formula) * diff;
-
-                            double consumoTotal=0;
-                            for(SmartDevice sd : c.getDevices().values()){
-                               if(sd.getOn()) consumoTotal+=sd.consumoEnergia();
-                            }
+                            double consumoTotal = c.consumoTotal2();
 
                             Faturas fatura = new Faturas (precoFinal + c.getCustoInstalacao (),s1, s2, consumoTotal );
                             List<Faturas> faturasL = c.getFatura();
                             faturasL.add(fatura.clone());
                             c.setFatura(faturasL);
 
-
                             Fornecedores f = estado.getFornecedores().get(estado.getFornecedores().indexOf(c.getFornecedor()));
-                            //if(c.getCustoInstalacao () != 0) System.out.println (c.getCustoInstalacao ());
-                            //System.out.println (f.getVolumeFaturacao ());
-                            //System.out.println (precoFinal);
-                            //System.out.println (c.getCustoInstalacao ());
-
                             f.setVolumeFaturacao(f.getVolumeFaturacao() + precoFinal + c.getCustoInstalacao());
-                            //System.out.println (f.getVolumeFaturacao ());
-                            //System.out.println (fatura.getFatura ());
-                            //fatura.setFatura(fatura.getFatura () + c.getCustoInstalacao());
-                            //System.out.println (fatura.getFatura ());
                             c.setCustoInstalacao(0);
 
-                            estado.updateCasa(c, estado.getCasas().indexOf(c)); //por causa da fatura
-                            estado.updateFornecedor(f); //por causa da faturacao
+                            estado.updateCasa(c, estado.getCasas().indexOf(c));
+                            estado.updateFornecedor(f);
                             estado.updateCasas(f);
-                            //System.out.println (fatura.getFatura ());
-                            //System.out.println ("\n\n");
-                            // System.out.println(estado.getFornecedores());
                         }
-                        // Estado.ordenaListCasa (estado.getCasas ());
                         estado.setData(s2);
                     }
                     else {
@@ -105,17 +84,6 @@ public class ControllerSimulacao {
                     Menu.clearWindow();
                 }
             }
-        }
-    }
-
-    public static boolean isDateValid(String strDate) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        try {
-            //LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
-            LocalDate.parse(strDate, dateTimeFormatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
         }
     }
 }

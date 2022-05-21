@@ -8,7 +8,14 @@ public class Controller {
             switch (opcao) {
                 case 1->ControllerEstado.run(estado);
                 case 2-> ControllerCasa.run(estado);
-                case 3-> ControllerFornecedores.run(estado);
+                case 3-> {
+                    if(!estado.getFornecedores().isEmpty())
+                        ControllerFornecedores.run(estado);
+                    else {
+                        Menu.erros(23);
+                        Thread.sleep(3000);
+                    }
+                }
                 case 4-> {
                     if(!estado.getCasas().isEmpty() && !estado.getFornecedores().isEmpty())
                         ControllerSimulacao.run(estado);

@@ -25,23 +25,8 @@ public class SmartCamera extends SmartDevice {
         else this.size = size;
     }
 
-    /*public SmartCamera (boolean turn, double re, double size){
-        super(turn);
-        if(re<0) this.resolution = 0;
-        else this.resolution = re;
-        if(size<0) this.size = 0;
-        else this.size = size;
-    }*/
-
-    public SmartCamera (double re, double size){
-        if(re<0) this.resolution = 0;
-        else this.resolution = re;
-        if(size<0) this.size = 0;
-        else this.size = size;
-    }
-
     public SmartCamera (SmartCamera sc){
-        super (sc);
+        super(sc);
         this.resolution = sc.getResolution();
         this.size = sc.getSize();
     }
@@ -54,7 +39,8 @@ public class SmartCamera extends SmartDevice {
     }
 
     public void setSize(double size) {
-        this.size = size;
+        if(size>=0)this.size = size;
+        else Menu.erros(36);
     }
 
     public double getResolution(){
@@ -62,7 +48,8 @@ public class SmartCamera extends SmartDevice {
     }
 
     public void setResolution(double resolution) {
-        this.resolution = resolution;
+        if(resolution>=0) this.resolution = resolution;
+        else Menu.erros(37);
     }
 
     /**
@@ -106,7 +93,7 @@ public class SmartCamera extends SmartDevice {
      */
     public double consumoEnergia(){
         if(getResolution()==0 || getSize()==0) return 0;
-        //return 3 + (this.resolution * this.size);
-        return 100;
+        return 0.3 * (this.resolution + this.size);
+        //return 100;
     }
 }

@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.Objects;
 
 public abstract class Fornecedores implements Serializable {
     private double valorBase = 0.148;
@@ -12,12 +13,12 @@ public abstract class Fornecedores implements Serializable {
      * Construtores
      */
     public Fornecedores() {
-        //this.volumeFaturacao = 0.0;
         this.formula = "";
     }
 
     public Fornecedores (double volumeFaturacao){
         this.volumeFaturacao = volumeFaturacao;
+        this.formula = "";
     }
 
     public Fornecedores (String formula){
@@ -48,7 +49,8 @@ public abstract class Fornecedores implements Serializable {
     }
 
     public void setFormula(String formula) {
-        this.formula = formula;
+        if(formula!=null && formula.equals("formula1") || Objects.equals(formula, "formula2") || Objects.equals(formula, "formula3"))
+            this.formula = formula;
     }
 
     public double getVolumeFaturacao() {
@@ -80,18 +82,9 @@ public abstract class Fornecedores implements Serializable {
     @Override
     public abstract Fornecedores clone ();
 
-    public static class fornecedoresComparator implements Comparator<Fornecedores> {
-        @Override
-        public int compare(Fornecedores f1, Fornecedores f2) {
-            return Double.compare(f1.getVolumeFaturacao(), f2.getVolumeFaturacao());
-        }
-    }
-
     /**
      * Metodos
      */
-    //public abstract double PrecoDiarioPorDispositivo (SmartDevice sd);
-
     public void aumentaVolumeFaturacao(double volumeFaturacao) {
         if(volumeFaturacao >= 0) setVolumeFaturacao(this.volumeFaturacao += volumeFaturacao);
         else Menu.erros(19);
@@ -105,13 +98,10 @@ public abstract class Fornecedores implements Serializable {
         return forn;
     }
 
-    /*public double PrecoDiarioPorDispositivo (SmartDevice sd){
-        double consumo = 0.0;
-        switch (sd){
-            case sd instanceof SmartBulb -> consumo = ;
-            case sd instanceof SmartSpeaker -> consumo = SmartSpeaker.consumoEnergia();
-            case sd instanceof SmartCamera -> consumo = SmartCamera.consumoEnergia();
+    public static class fornecedoresComparator implements Comparator<Fornecedores> {
+        @Override
+        public int compare(Fornecedores f1, Fornecedores f2) {
+            return Double.compare(f1.getVolumeFaturacao(), f2.getVolumeFaturacao());
         }
-        return this.getValor_base()*consumo*(this.getImposto()+1)*0.9;
-    }*/
+    }
 }

@@ -2,10 +2,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static java.lang.Math.max;
-
 public class ControllerEstatistica {
-    public static void run(Estado estado) throws InterruptedException {
+    public static void run(Estado estado) {
 
         Menu.clearWindow ();
         boolean exit = false;
@@ -34,7 +32,7 @@ public class ControllerEstatistica {
                             "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
                             "Fornecedor= " + forn.Stringfornecedor(forn) + forn +
                             "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
-                            "Selecione a opção pretendida:\s";
+                            "Selecione 0 para voltar atrás.\s";
                     System.out.println(sb);
                     int i = scanner.nextInt ();
                     while (i != 0) {
@@ -49,15 +47,11 @@ public class ControllerEstatistica {
                         if ((d.equals (c.getFornecedor().Stringfornecedor (c.getFornecedor ()).toLowerCase ())))
                             casas.add(c.clone());
                         else Menu.erros(7);
-
                     }
                     int i = -1;
                     while (i < 0 || i > casas.size ()) {
                         i = Menu.MenuListaCasas (casas);
                     }
-                    //if (i == 0) Controller.menuinicial (estado);
-                    // int a = Menu.FaturaInfo(opcao-1, casas);
-                    // if (a==0) Controller.menuEstatistica(estado);
                 }
                 case 4 -> {
                     System.out.println ("Insira o x: ");
@@ -86,25 +80,23 @@ public class ControllerEstatistica {
                     System.out.println ("Insira a data final no formato dd/MM/yyyy:");
                     String s2 = scanner.next();
 
-                    while (!(ControllerSimulacao.isDateValid (s1)) && !(ControllerSimulacao.isDateValid (s2))) {
-                        Menu.erros(11);
+                    while (!(Estado.isDateValid (s1)) && !(Estado.isDateValid (s2))) {
                         System.out.println ("Insira a data inicial no formato dd/MM/yyyy:");
                         s1 = scanner.next();
                         System.out.println ("Insira a data final no formato dd/MM/yyyy:");
                         s2 = scanner.next();
                     }
-                    LocalDate dBefore = LocalDate.parse (s1, dateTimeFormatter);
-                    LocalDate dAfter = LocalDate.parse (s2, dateTimeFormatter);
-                    for ( Casa c : l){
+                    LocalDate dBefore = LocalDate.parse(s1, dateTimeFormatter);
+                    LocalDate dAfter = LocalDate.parse(s2, dateTimeFormatter);
+                    for (Casa c : l){
                         List<Faturas> faturas = c.getFatura();
-                        System.out.println ("");
-                        for ( Faturas fatura : faturas){
+                        for (Faturas fatura : faturas){
                             LocalDate datai = LocalDate.parse (fatura.getDataInicial (), dateTimeFormatter);
                             LocalDate dataf = LocalDate.parse (fatura.getDataFinal(), dateTimeFormatter);
                             if ((datai.isAfter(dBefore) || datai.isEqual (dBefore)) && (dataf.isBefore(dAfter) || dataf.isEqual (dAfter)) && dBefore.isBefore (dAfter)) {
                                 if (c.getFornecedor() instanceof FornecJomar) {
                                     jomar+=fatura.getFatura();
-                                    if ( jomar > max) {
+                                    if (jomar > max) {
                                         max= jomar;
                                         forn = "Jomar";
                                     }
@@ -125,24 +117,18 @@ public class ControllerEstatistica {
                                 }
                             }
                         }
-
                     }
-
-                    //int max = max(max(jomar,edp),endesa);
-                    
                     String sb = "\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n" +
                             "\u001B[1m   FORNECEDOR COM MAIOR VOLUME DE FATURAÇÃO \u001B[0m\n\n" +
                             "Fornecedor= " + forn +
                             "\nFaturação= " + max  +
                             "\n\u001B[1m\u001B[36m_________________________________________\u001B[0m\s\n\n"+
-                            "Selecione a opção pretendida:\s";
+                            "Selecione 0 para voltar atrás.\s";
                     System.out.println(sb);
                     int i = scanner.nextInt ();
                     while (i != 0) {
                         i = scanner.nextInt ();
                     }
-                    
-                    
                 }
                 case 0 -> {
                     exit = true;

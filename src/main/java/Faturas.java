@@ -32,35 +32,19 @@ public class Faturas implements Serializable {
         return fatura;
     }
 
-    public void setFatura(double fatura) {
-        this.fatura = fatura;
-    }
-
     public String getDataInicial() {
         return dataInicial;
-    }
-
-    public void setDataInicial(String dataInicial) {
-        this.dataInicial = dataInicial;
     }
 
     public String getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(String dataFinal) {
-        this.dataFinal = dataFinal;
-    }
-
     public double getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(double consumo) {
-        this.consumo = consumo;
-    }
-
-    public String StringFaturas() {
+    public String toString() {
         final StringBuilder sb = new StringBuilder("\n\u001B[36m   FATURA { \u001B[0m \n\n");
         sb.append("\u001B[1m Data inicial: \u001B[0m").append(dataInicial).append('\n');
         sb.append("\u001B[1m Data Final: \u001B[0m").append(dataFinal).append("\n\n");

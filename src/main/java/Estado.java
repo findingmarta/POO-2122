@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.io.*;
 
@@ -8,11 +11,9 @@ public class Estado implements Serializable {
     private List<Fornecedores> fornecedores;
     private String data;
 
-    //private TreeMap<Double, Integer> faturas;
-
     public Estado() {
         this.casas = new ArrayList<>();
-        this.fornecedores = new ArrayList<>(3);
+        this.fornecedores = new ArrayList<>();
         this.data= "01/01/2018";
     }
 
@@ -21,7 +22,7 @@ public class Estado implements Serializable {
         for (Casa c : nCasas){
             this.casas.add(c.clone());
         }
-        this.fornecedores = new ArrayList<>(3);
+        this.fornecedores = new ArrayList<>();
         for (Fornecedores f : nFornecedores){
             this.fornecedores.add(f.clone());
         }
@@ -42,14 +43,6 @@ public class Estado implements Serializable {
         return nCasas;
     }
 
-    public void setCasas(List<Casa> nCasas){
-        this.casas = new ArrayList<>();
-        if(nCasas!=null){
-            for (Casa c : nCasas) casas.add(c.clone());
-        }
-        //assert nCasas != null;
-    }
-
     public List<Fornecedores> getFornecedores(){
         List<Fornecedores> nFornecedores = new ArrayList<>();
         for(Fornecedores f : this.fornecedores){
@@ -58,21 +51,13 @@ public class Estado implements Serializable {
         return nFornecedores;
     }
 
-    public void setFornecedores(List<Fornecedores> nFornecedores){
-        this.fornecedores = new ArrayList<>();
-        if(nFornecedores!=null) {
-            for (Fornecedores f : nFornecedores) {
-                fornecedores.add(f.clone());
-            }
-        }
-    }
-
     public String getData() {
         return data;
     }
 
     public void setData(String data) {
-        this.data = data;
+        if(isDateValid(data)) this.data = data;
+        else Menu.erros(11);
     }
 
     /**
@@ -83,15 +68,17 @@ public class Estado implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Estado estado = (Estado) o;
-        return  Objects.equals(this.casas, estado.casas) &&
-                Objects.equals(this.fornecedores, estado.fornecedores);
+        return  Objects.equals(this.casas, estado.getCasas()) &&
+                Objects.equals(this.fornecedores, estado.getFornecedores()) &&
+                Objects.equals(this.data, estado.getData());
     }
 
     @Override
     public String toString() {
         return "Estado " +
                 casas +
-                fornecedores;
+                fornecedores +
+                data;
     }
 
     @Override
@@ -99,25 +86,20 @@ public class Estado implements Serializable {
         return new Estado(this);
     }
 
-    /*
-
-    public List<Faturas> getFaturas(){
-        List<Faturas> faturas = new ArrayList<>();
-        for ( Casa c : this.casas){
-            faturas.add(c.getFatura());
-        }
-        return faturas;
-    }*/
-
     /**
      * Metodos
      */
+    public void addForn (Fornecedores f){
+        this.fornecedores.add(f.clone());
+    }
+
     public void addCasa (Casa c){
         this.casas.add(c.clone());
     }
 
     public void updateCasas (Fornecedores f){
-        this.casas.stream().filter(casa -> casa.getFornecedor().equals(f)).forEach(casa -> casa.setFornecedor(f));
+        if (f != null) this.casas.stream().filter(casa -> casa.getFornecedor().equals(f)).forEach(casa -> casa.setFornecedor(f));
+        else Menu.erros(28);
     }
 
     public void updateCasa (Casa c, int index){
@@ -138,7 +120,6 @@ public class Estado implements Serializable {
         forn.setFormula(f.getFormula());
     }
 
-
     public void loadEstado(String file) {
         this.casas.clear();
         this.fornecedores.clear();
@@ -146,6 +127,7 @@ public class Estado implements Serializable {
         Fornecedores f;
         Casa c = null;
         String divisao = null;
+
         for (String linha : linhas) {
             String[] linhaPartida = linha.split(":");
             switch (linhaPartida[0]) {
@@ -155,7 +137,7 @@ public class Estado implements Serializable {
                 }
                 case "Fornecedor" -> {
                     f = parseF(linhaPartida[1]);
-                    this.fornecedores.add(f);
+                    if(f!=null)this.fornecedores.add(f.clone());
                 }
                 case "Divisao" -> {
                     divisao = linhaPartida[1];
@@ -164,27 +146,21 @@ public class Estado implements Serializable {
                 }
                 case "SmartBulb" -> {
                     SmartBulb sb = parseSB(linhaPartida[1]);
-                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
-                    assert divisao != null;
-                    sb.setOn(false);
+                    sb.setOn(true);
                     c.addSmartDevice(sb);
                     c.addToRoom(divisao,sb.getID());
                 }
                 case "SmartSpeaker" -> {
                     SmartSpeaker ss = parseSS(linhaPartida[1]);
-                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
-                    assert divisao != null;
                     ss.setOn(false);
                     c.addSmartDevice(ss);
                     c.addToRoom(divisao,ss.getID());
                 }
                 case "SmartCamera" -> {
                     SmartCamera sc = parseSC(linhaPartida[1]);
-                    //if (divisao == null) Menu.erros(15);
                     assert c != null;
-                    assert divisao != null;
                     sc.setOn(false);
                     c.addSmartDevice(sc);
                     c.addToRoom(divisao,sc.getID());
@@ -196,9 +172,11 @@ public class Estado implements Serializable {
 
     private Casa parseC(String linhaPartida){
         String[] dados = linhaPartida.split(",");
-        String proprietario = dados[0];
-        String NIF = dados[1];
         Fornecedores fornecedor = null;
+        Casa casa = new Casa();
+
+        casa.setProprietario(dados[0]);
+        casa.setNIF(dados[1]);
         switch (dados[2]) {
             case "EDP" -> fornecedor = new FornecEDP();
             case "Endesa" -> fornecedor = new FornecEndesa();
@@ -206,10 +184,11 @@ public class Estado implements Serializable {
             default -> Menu.erros(15);
         }
         fornecedor = this.getFornecedores().get(this.getFornecedores().indexOf(fornecedor));
-        return new Casa(proprietario,NIF,fornecedor);
+        casa.setFornecedor(fornecedor);
+        return casa.clone();
     }
 
-    private static Fornecedores parseF(String linhaPartida){
+    private static Fornecedores parseF(String linhaPartida) {
         String[] dados = linhaPartida.split(",");
         Fornecedores fornec = null;
         switch (dados[0]) {
@@ -218,9 +197,11 @@ public class Estado implements Serializable {
             case "Jomar" -> fornec = new FornecJomar();
             default -> Menu.erros(15);
         }
-        assert fornec != null;
-        fornec.setFormula(dados[1]);
-        return fornec;
+        if (fornec != null){
+            fornec.setFormula(dados[1]);
+            return fornec;
+        }
+        return null;
     }
 
     private static SmartBulb parseSB(String linhaPartida){
@@ -274,7 +255,7 @@ public class Estado implements Serializable {
         oos.close();
     }
 
-    public Estado loadEstadoObj(String file) throws IOException, ClassNotFoundException {
+    public void loadEstadoObj(String file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         Estado e = (Estado) ois.readObject();
@@ -282,7 +263,18 @@ public class Estado implements Serializable {
         this.casas = e.casas;
         this.fornecedores = e.fornecedores;
         this.data = e.data;
-        return e;
+        //return e;
+    }
+
+    public static boolean isDateValid(String strDate) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate.parse(strDate, dateTimeFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            Menu.erros(11);
+            return false;
+        }
     }
 
     public static void ordenaListConsumo(List<Casa> casas){
@@ -291,7 +283,6 @@ public class Estado implements Serializable {
 
     public Casa ordenaListGasto(List<Casa> casas){
         casas.sort(new Casa.ComparatorGasto());
-        //casas.sort(new Casa.ComparatorConsumo());
         return casas.get(0).clone();
     }
 

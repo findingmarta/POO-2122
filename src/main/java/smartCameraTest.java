@@ -6,7 +6,11 @@ public class smartCameraTest {
     public void testConstructor(){
         SmartCamera smartCamera = new SmartCamera();
         assertEquals("",smartCamera.getID());
+        smartCamera.setID("2");
+        assertEquals("2",smartCamera.getID());
         assertFalse(smartCamera.getOn());
+        smartCamera.setOn(true);
+        assertTrue(smartCamera.getOn());
         assertEquals(0.0, smartCamera.getResolution());
         assertEquals(0.0, smartCamera.getSize());
 
@@ -15,18 +19,6 @@ public class smartCameraTest {
         assertTrue(smartCamera.getOn());
         assertEquals(1080.0, smartCamera.getResolution());
         assertEquals(200.30, smartCamera.getSize());
-
-        /*smartCamera = new SmartCamera(false, 720.0,480.0);
-        assertEquals("",smartCamera.getID());
-        assertFalse(smartCamera.getOn());
-        assertEquals(720.0, smartCamera.getResolution());
-        assertEquals(480.0, smartCamera.getSize());*/
-
-        smartCamera = new SmartCamera(7020.0,4800.0);
-        assertEquals("",smartCamera.getID());
-        assertFalse(smartCamera.getOn());
-        assertEquals(7020.0, smartCamera.getResolution());
-        assertEquals(4800.0, smartCamera.getSize());
 
         SmartCamera umaSC = new SmartCamera("666", true, 1900.0, 2080.0);
         smartCamera = new SmartCamera(umaSC);
@@ -41,14 +33,8 @@ public class smartCameraTest {
         SmartCamera smartCamera = new SmartCamera("3542",true,1034.0,150.1);
         assertEquals(150.1, smartCamera.getSize());
 
-        smartCamera = new SmartCamera("3542",true,230.98,190.0);
-        assertEquals(190.0, smartCamera.getSize());
-
         smartCamera = new SmartCamera();
         assertEquals(0.0, smartCamera.getSize());
-
-        smartCamera = new SmartCamera( 456.98,100.0);
-        assertEquals(100.0, smartCamera.getSize());
     }
 
     @Test
@@ -66,17 +52,11 @@ public class smartCameraTest {
 
     @Test
     public void testGetResolution (){
-        SmartCamera smartCamera = new SmartCamera(1080.0,720.0);
-        assertEquals(1080.0, smartCamera.getResolution());
-
-        smartCamera = new SmartCamera("3542",true,230.98,190.0);
+        SmartCamera smartCamera = new SmartCamera("3542",true,230.98,190.0);
         assertEquals(230.98, smartCamera.getResolution());
 
         smartCamera = new SmartCamera();
         assertEquals(0.0, smartCamera.getResolution());
-
-        smartCamera = new SmartCamera( 456.98,100.0);
-        assertEquals(456.98, smartCamera.getResolution());
     }
 
     @Test
@@ -95,7 +75,7 @@ public class smartCameraTest {
     @Test
     public void testConsumoEnergia (){
         SmartCamera smartCamera = new SmartCamera("56498",true,200.0,35.1);
-        assertEquals(7023, smartCamera.consumoEnergia());
+        assertEquals(70.53, smartCamera.consumoEnergia());
 
         smartCamera = new SmartCamera("56498",true,-14,60.0);
         assertEquals(0, smartCamera.consumoEnergia());
@@ -107,8 +87,7 @@ public class smartCameraTest {
         assertEquals(0, smartCamera.consumoEnergia());
 
         smartCamera = new SmartCamera("56498",true,140.2,60.0);
-        assertEquals(8415, smartCamera.consumoEnergia());
-        //assertEquals(8415, smartCamera.consumoEnergiaPorDispositivo());
+        assertEquals(60.059999999999995, smartCamera.consumoEnergia());
     }
 
 }

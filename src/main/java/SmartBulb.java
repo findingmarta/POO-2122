@@ -27,25 +27,6 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = dimensao;
     }
 
-    /*public SmartBulb(boolean turn, int tone, double dimensao) {
-        super(turn);
-        this.tone = tone;
-        this.dimensao = dimensao;
-    }*/
-
-    public SmartBulb(int tone, double dimensao) {
-        //this.tone = tone;
-        if (tone>WARM) this.tone = WARM;
-        else this.tone = Math.max(tone, COLD);
-        this.dimensao = dimensao;
-    }
-
-    /*public SmartBulb(String id) {
-        super(id);
-        this.tone = NEUTRAL;
-        this.dimensao = 0.0;
-    }*/
-
     public SmartBulb (SmartBulb sb)  {
         super(sb);
         this.tone = sb.getTone();
@@ -117,7 +98,7 @@ public class SmartBulb extends SmartDevice {
      */
     public double consumoEnergia(){
         if(getDimensao()<=0) return 0;
-        //return 1 + this.tone + this.dimensao;
-        return 1;
+        return 1 + this.tone + this.dimensao;
+        //return 1;
     }
 }

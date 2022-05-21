@@ -17,20 +17,10 @@ public abstract class SmartDevice implements Serializable {
         this.on = false;
     }
 
-    /*public SmartDevice(String id) {
-        this.id = id;
-        this.on = false;
-    }*/
-
     public SmartDevice(String id, boolean b) {
         this.id = id;
         this.on = b;
     }
-
-    /*public SmartDevice(boolean b) {
-        this.id = "";
-        this.on = b;
-    }*/
 
     public SmartDevice(SmartDevice umDevice) {
         this.id = umDevice.getID();
