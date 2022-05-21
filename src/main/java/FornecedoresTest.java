@@ -13,18 +13,21 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecEDP.getImposto());
         assertEquals(0.0, fornecEDP.getVolumeFaturacao());
         assertEquals("", fornecEDP.getFormula());
+        assertEquals("01/01/2018", fornecEDP.getDataInicial());
 
         fornecEDP = new FornecEDP(12.0);
         assertEquals(0.148, fornecEDP.getValorBase());
         assertEquals(0.60, fornecEDP.getImposto());
         assertEquals(12.0, fornecEDP.getVolumeFaturacao());
         assertEquals("", fornecEDP.getFormula());
+        assertEquals("01/01/2018", fornecEDP.getDataInicial());
 
         fornecEDP = new FornecEDP("formula2");
         assertEquals(0.148, fornecEDP.getValorBase());
         assertEquals(0.60, fornecEDP.getImposto());
         assertEquals(0.0, fornecEDP.getVolumeFaturacao());
         assertEquals("formula2", fornecEDP.getFormula());
+        assertEquals("01/01/2018", fornecEDP.getDataInicial());
 
         FornecEDP umFornecEDP = new FornecEDP(23.2);
         fornecEDP = new FornecEDP(umFornecEDP);
@@ -32,6 +35,7 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecEDP.getImposto());
         assertEquals(23.2, fornecEDP.getVolumeFaturacao());
         assertEquals("", fornecEDP.getFormula());
+        assertEquals("01/01/2018", fornecEDP.getDataInicial());
 
 
 
@@ -40,18 +44,21 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecEndesa.getImposto());
         assertEquals(0.0, fornecEndesa.getVolumeFaturacao());
         assertEquals("", fornecEndesa.getFormula());
+        assertEquals("01/01/2018", fornecEndesa.getDataInicial());
 
         fornecEndesa = new FornecEndesa(2.0);
         assertEquals(0.148, fornecEndesa.getValorBase());
         assertEquals(0.60, fornecEndesa.getImposto());
         assertEquals(2.0, fornecEndesa.getVolumeFaturacao());
         assertEquals("", fornecEndesa.getFormula());
+        assertEquals("01/01/2018", fornecEndesa.getDataInicial());
 
         fornecEndesa = new FornecEndesa("formula1");
         assertEquals(0.148, fornecEndesa.getValorBase());
         assertEquals(0.60, fornecEndesa.getImposto());
         assertEquals(0.0, fornecEndesa.getVolumeFaturacao());
         assertEquals("formula1", fornecEndesa.getFormula());
+        assertEquals("01/01/2018", fornecEndesa.getDataInicial());
 
         FornecEndesa umFornecEndesa = new FornecEndesa(5);
         fornecEndesa = new FornecEndesa(umFornecEndesa);
@@ -59,6 +66,7 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecEndesa.getImposto());
         assertEquals(5.0, fornecEndesa.getVolumeFaturacao());
         assertEquals("", fornecEndesa.getFormula());
+        assertEquals("01/01/2018", fornecEndesa.getDataInicial());
 
 
 
@@ -67,18 +75,21 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecJomar.getImposto());
         assertEquals(0.0, fornecJomar.getVolumeFaturacao());
         assertEquals("", fornecJomar.getFormula());
+        assertEquals("01/01/2018", fornecJomar.getDataInicial());
 
         fornecJomar = new FornecJomar(22.20);
         assertEquals(0.148, fornecJomar.getValorBase());
         assertEquals(0.60, fornecJomar.getImposto());
         assertEquals(22.20, fornecJomar.getVolumeFaturacao());
         assertEquals("", fornecJomar.getFormula());
+        assertEquals("01/01/2018", fornecJomar.getDataInicial());
 
         fornecJomar = new FornecJomar("formula1");
         assertEquals(0.148, fornecJomar.getValorBase());
         assertEquals(0.60, fornecJomar.getImposto());
         assertEquals(0.0, fornecJomar.getVolumeFaturacao());
         assertEquals("formula1", fornecJomar.getFormula());
+        assertEquals("01/01/2018", fornecJomar.getDataInicial());
 
 
         FornecJomar umFornecJomar = new FornecJomar(1.0);
@@ -87,6 +98,7 @@ public class FornecedoresTest {
         assertEquals(0.60, fornecJomar.getImposto());
         assertEquals(1.0, fornecJomar.getVolumeFaturacao());
         assertEquals("", fornecJomar.getFormula());
+        assertEquals("01/01/2018", fornecJomar.getDataInicial());
     }
 
     @Test
@@ -161,6 +173,17 @@ public class FornecedoresTest {
         assertEquals(5.0, fornecJomar.getVolumeFaturacao());
         for(int i=0; i<3; i++) fornecJomar.aumentaVolumeFaturacao(-2);
         assertEquals(5.0, fornecJomar.getVolumeFaturacao());
+    }
+
+    @Test
+    public void testDataInicial (){
+        Fornecedores forn = new FornecEndesa();
+        forn.setDataInicial("01/02/2019");
+        assertEquals("01/02/2019", forn.getDataInicial());
+        forn.setDataInicial("02/02/2019");
+        assertEquals("02/02/2019", forn.getDataInicial());
+        forn.setDataInicial(null);
+        assertEquals("02/02/2019", forn.getDataInicial());
     }
 
     @Test
