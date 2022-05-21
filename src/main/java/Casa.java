@@ -244,7 +244,7 @@ public class Casa implements Serializable {
 
     public void addSmartDevice (SmartDevice sd){
         if(!sd.getID().equals("") && this.devices.keySet().stream().noneMatch(id -> id.equals(sd.getID()))) this.devices.put(sd.getID(), sd.clone());
-        else System.out.println("ID repetido ou inválido!");
+        else Menu.erros(5);
     }
 
     public double consumoTotal(String formula) {

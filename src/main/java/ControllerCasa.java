@@ -42,7 +42,7 @@ public class ControllerCasa {
                     String m = scanner.next ().toLowerCase ();
                     while (!m.equals ("ligar") && !m.equals ("desligar")) {
                         Menu.erros(2);
-                        System.out.println ("Escolha inválida, tente novamente: ");
+                        System.out.println ("Ligar ou Desligar?: ");
                         m = scanner.next ();
                     }
 
@@ -77,7 +77,7 @@ public class ControllerCasa {
                     }
                     else {
                         Menu.erros(20);
-                        System.out.println("Erro! A casa não tem divisões.");
+                        System.out.println("A casa não tem divisões.");
                         Thread.sleep(2000);
                     }
                 }
@@ -85,7 +85,7 @@ public class ControllerCasa {
                     System.out.println("Insira o NIF: ");
                     String nif = scanner.next();
                     while (!onlyDigits(nif,nif.length())){
-                        //Menu.erros(2);
+                        Menu.erros(2);
                         System.out.println("Insira o NIF: ");
                         nif = scanner.next();
                     }
@@ -101,7 +101,7 @@ public class ControllerCasa {
                         case "Endesa" -> fornecedor = estado.getFornecedores().get(2);
                         case "Jomar" -> fornecedor = estado.getFornecedores().get(1);
                         default -> {
-                            System.out.println("Fornecedor inválido! Casa não será criada.");
+                            Menu.erros(7);
                             Thread.sleep(3000);
                         }
                     }
@@ -121,7 +121,7 @@ public class ControllerCasa {
                         estado.updateCasa(c, l.indexOf (c));
                     }
                     else {
-                        System.out.println("A divisão já existe! ");
+                        Menu.erros(4);
                         Thread.sleep(3000);
                     }
                 }
@@ -152,7 +152,7 @@ public class ControllerCasa {
                         System.out.println("Insira o ID: ");
                         String id = scanner.next();
                         while (!onlyDigits(id,id.length())){
-                            //Menu.erros(2);
+                            Menu.erros(2);
                             System.out.println("Insira o ID: ");
                             id = scanner.next();
                         }
@@ -225,12 +225,12 @@ public class ControllerCasa {
         }
         switch (disp) {
             case 1-> {
-                while (i<0 || i> 3) {
+                while (i< 1 || i> 3) {
                     System.out.println ("Insira o tone (1,2 ou 3): ");
                     String s = scanner.next ();
                     if (onlyDigits (s, s.length ())) {
                         i = Integer.parseInt (s);
-                    }
+                    } else Menu.erros(8);
                 }
                 System.out.println("Insira a dimensão: ");
                 Scanner dimensao = new Scanner(System.in);
