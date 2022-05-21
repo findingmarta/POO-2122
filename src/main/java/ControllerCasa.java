@@ -42,7 +42,7 @@ public class ControllerCasa {
                     String m = scanner.next ().toLowerCase ();
                     while (!m.equals ("ligar") && !m.equals ("desligar")) {
                         Menu.erros(2);
-                        System.out.println ("Escolha inválida, tente novamente: ");
+                        System.out.println ("Ligar ou Desligar?: ");
                         m = scanner.next ();
                     }
 
@@ -77,7 +77,7 @@ public class ControllerCasa {
                     }
                     else {
                         Menu.erros(20);
-                        System.out.println("Erro! A casa não tem divisões.");
+                        System.out.println("A casa não tem divisões.");
                         Thread.sleep(2000);
                     }
                 }
@@ -85,7 +85,7 @@ public class ControllerCasa {
                     System.out.println("Insira o NIF: ");
                     String nif = scanner.next();
                     while (!onlyDigits(nif,nif.length())){
-                        //Menu.erros(2);
+                        Menu.erros(2);
                         System.out.println("Insira o NIF: ");
                         nif = scanner.next();
                     }
@@ -101,7 +101,7 @@ public class ControllerCasa {
                         case "Endesa" -> fornecedor = estado.getFornecedores().get(2);
                         case "Jomar" -> fornecedor = estado.getFornecedores().get(1);
                         default -> {
-                            System.out.println("Fornecedor inválido! Casa não será criada.");
+                            Menu.erros(7);
                             Thread.sleep(3000);
                         }
                     }
@@ -121,7 +121,7 @@ public class ControllerCasa {
                         estado.updateCasa(c, l.indexOf (c));
                     }
                     else {
-                        System.out.println("A divisão já existe! ");
+                        Menu.erros(4);
                         Thread.sleep(3000);
                     }
                 }
@@ -152,7 +152,7 @@ public class ControllerCasa {
                         System.out.println("Insira o ID: ");
                         String id = scanner.next();
                         while (!onlyDigits(id,id.length())){
-                            //Menu.erros(2);
+                            Menu.erros(2);
                             System.out.println("Insira o ID: ");
                             id = scanner.next();
                         }
@@ -217,7 +217,7 @@ public class ControllerCasa {
     }
     public static SmartDevice EscolhaDispositivos (String id,boolean turn){
         int disp = -1, i=-1;
-        Scanner scan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in).useDelimiter ("\n");
         while (disp < 0 || disp > 3) {
             disp = Menu.EscolhaDispotivios();
             if (disp < 0 || disp > 3) Menu.erros(1);
@@ -225,23 +225,22 @@ public class ControllerCasa {
         }
         switch (disp) {
             case 1-> {
-                Scanner scanner = new Scanner(System.in).useDelimiter ("\n");
-                while (i < 1 || i > 3) {
+                while (i<0 || i> 3) {
                     System.out.println ("Insira o tone (1,2 ou 3): ");
-                    String s = scan.next ();
+                    String s = scanner.next ();
                     if (onlyDigits (s, s.length ())) {
                         i = Integer.parseInt (s);
                     }
                 }
-
-                    System.out.println ("Insira a dimensão: ");
-                    double di = scan.nextDouble ();
-
-                    return new SmartBulb (id, turn, i, di);
+                System.out.println("Insira a dimensão: ");
+                Scanner dimensao = new Scanner(System.in);
+                double di = dimensao.nextDouble();
+                return new SmartBulb(id,turn,i,di);
             }
             case 2-> {
                 System.out.println("Insira a resolução: ");
-                double r = scan.nextDouble();
+                Scanner resolucao = new Scanner(System.in);
+                double r = resolucao.nextDouble();
                 System.out.println("Insira o tamanho da imagem: ");
                 Scanner size = new Scanner(System.in);
                 double s = size.nextDouble();
@@ -249,7 +248,8 @@ public class ControllerCasa {
             }
             case 3-> {
                 System.out.println("Insira a marca: ");
-                String m = scan.next();
+                Scanner marca = new Scanner(System.in);
+                String m = marca.next();
                 System.out.println("Insira a rádio : ");
                 Scanner radio = new Scanner(System.in);
                 String r = radio.next();
